@@ -1,13 +1,35 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@layer base{
+  html{
+    font-family: 'Abhaya Libre', serif;
+    
+  }
+  *{
+    margin: 0;
+    box-sizing: border-box;
+    padding: 0;
+  }
+  body{
+    background: #000;
+  }
+  body::-webkit-scrollbar{
+    display: none;
+  }
+  h1{
+    @apply font-bold md:text-6xl text-4xl text-white
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+}
+.toast-message {
+  background-color: darkblue;
+  color: red;
+  font-size: 20px;
+  /* width: 34vw; */
+  z-index: 4;
+  padding: 30px 20px;
 }
