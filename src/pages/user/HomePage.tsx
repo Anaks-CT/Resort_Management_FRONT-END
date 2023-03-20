@@ -7,14 +7,21 @@ import Contact from "../../components/User/Contact";
 import FAQ from "../../components/User/FAQ";
 import Footer from "../../components/User/Footer";
 import { Header2 } from "../../components/User/Header/Header";
-import { axiosCompany, axiosResort } from "../../config/api";
+import { axiosCompany, axiosGallary, axiosResort } from "../../config/api";
 import { ICompany } from "../../interface/company.interface";
+import { IGallary } from "../../interface/gallary.interface";
 import { IResort } from "../../interface/resort.interface";
 
 function HomePage() {
   const [width, setWidth] = useState<number>(window.innerWidth);
   const [companyDetails, setcompanyDetails] = useState<ICompany>();
-  const [resortDetails, setresortDetails] = useState<IResort>();
+  const [resortDetails, setresortDetails] = useState<IResort[]>();
+  const [gallaryDetails, setgallaryDetails] = useState<IGallary[]>();
+
+  //////////////////////////////////// setting up a random number to generate random background or different resorts/////////////
+
+  const gallaryLength = gallaryDetails?.length || 0
+  const randomNumberForGallary = Math.floor(Math.random() * gallaryLength)
 
   ///////////////////////////////////////////////// window.innerwidth event listener for cards in homepage/////////////////////////
 
@@ -44,26 +51,33 @@ function HomePage() {
   /////////////////////////////////////////////////// fetching resorts details/////////////////////////////////
 
   useEffect(() => {
-    axiosResort.get("/allresortDetails").then((res) => {
-      console.log(res);
-      
-    })
-    .catch((err)=>{
-      console.log(err);
-      
-    })
-    
-  });
+    axiosResort
+      .get("/getAllResortDetails")
+      .then((res) => {
+        setresortDetails(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  ////////////////////////////////////////////// fetching gallary details //////////////////////////////
+
+  useEffect(() => {
+    axiosGallary
+      .get("/getAllGallaryDetails")
+      .then((res) => {
+        setgallaryDetails(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const style = {
     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3),rgba(0, 0, 0, 0.3)), url(${companyDetails?.bannerDetails.image})`,
   };
 
-  const features = [
-    "Upto 25% of your stay 1",
-    "Upto 25% of your stay 2",
-    "Upto 25% of your stay 3",
-  ];
   return (
     <>
       <Header2 />
@@ -86,10 +100,12 @@ function HomePage() {
       <div className="flex justify-center items-center gap-10 p-7">
         {width > 1046 && (
           <Cards
-            image="https://res.cloudinary.com/dhcvbjebj/image/upload/v1679034527/elizeu-dias-RN6ts8IZ4_0-unsplash_o6jwte.jpg"
-            heading="Exceptional Island Escapes"
-            description="Treat yourself to the ultimate get away"
-            features={features}
+            image={resortDetails && resortDetails[0].resortDetails.image}
+            heading={resortDetails && resortDetails[0].resortDetails.heading}
+            description={
+              resortDetails && resortDetails[0].resortDetails.description
+            }
+            features={resortDetails && resortDetails[0].resortDetails.features}
           />
         )}
         <div className="pt-36">
@@ -100,32 +116,33 @@ function HomePage() {
             </h4>
           </div>
           <Cards
-            image="https://res.cloudinary.com/dhcvbjebj/image/upload/v1679034527/elizeu-dias-RN6ts8IZ4_0-unsplash_o6jwte.jpg"
-            heading="Exceptional Island Escapes"
-            description="Treat yourself to the ultimate get away"
-            features={features}
+            image={resortDetails && resortDetails[1].resortDetails.image}
+            heading={resortDetails && resortDetails[1].resortDetails.heading}
+            description={
+              resortDetails && resortDetails[1].resortDetails.description
+            }
+            features={resortDetails && resortDetails[1].resortDetails.features}
           />
         </div>
         {width > 1046 && (
           <Cards
-            image="https://res.cloudinary.com/dhcvbjebj/image/upload/v1679034527/elizeu-dias-RN6ts8IZ4_0-unsplash_o6jwte.jpg"
-            heading="Exceptional Island Escapes"
-            description="Treat yourself to the ultimate get away"
-            features={features}
+            image={resortDetails && resortDetails[2].resortDetails.image}
+            heading={resortDetails && resortDetails[2].resortDetails.heading}
+            description={
+              resortDetails && resortDetails[2].resortDetails.description
+            }
+            features={resortDetails && resortDetails[2].resortDetails.features}
           />
         )}
       </div>
       <BackgroundBanner
         button1="BOOK NOW"
-        des={`Unwind in sublime surroundings in this
-            all-villa resort, where luxury living,
-            signature dining and effortless wellbeing
-            await you.`}
-        heading="An idyllic Island Escape at Jumeirah Maldives"
-        url="https://res.cloudinary.com/dhcvbjebj/image/upload/v1678890220/usp-5--jumeirah-maldives--talise-spa--aerial-2-crop__square_l0qu8v.jpg"
+        des={gallaryDetails && gallaryDetails[randomNumberForGallary]?.largeBanner[0].description2}
+        heading={gallaryDetails && gallaryDetails[randomNumberForGallary]?.largeBanner[0].description1}
+        url={gallaryDetails && gallaryDetails[randomNumberForGallary]?.largeBanner[0].image}
       />
-      <CircleBanner />
-      <CommunityBanner />
+      <CircleBanner data={companyDetails?.circleBanners} />
+      <CommunityBanner gallaryDetails={gallaryDetails}/>
       <BackgroundBanner
         button1="JOIN NOW"
         button2="LOGIN"
@@ -139,10 +156,7 @@ function HomePage() {
       </div>
       <div className="w-full">
         <FAQ
-          faqs={[
-            { id: "1", Q: "nee aaara?", A: "Joe mama" },
-            { id: "2", Q: "nee edha?", A: "Joe dada" },
-          ]}
+          faqs={companyDetails?.faqs && companyDetails?.faqs}
         />
       </div>
       <Footer />

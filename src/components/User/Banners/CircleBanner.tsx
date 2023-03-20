@@ -1,24 +1,75 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { HiChevronRight, HiChevronLeft } from "react-icons/hi";
 
-function CircleBanner() {
+function CircleBanner({ data }: any) {
+  // doubt how to give types or interface to the array im passing which has an interface of circlebanner
+  const [carouselNumber, setcarouselNumber] = useState(0);
+
+  const style = {
+    backgroundImage: `url(${
+      data &&
+      data[
+        carouselNumber < data.length && carouselNumber > 0 ? carouselNumber : 0
+      ].image
+    })`,
+  };
+
+  //////////////////////////////// setting the carousel back to initail after reaching maximum and vice versa ///////////////////
+
+  carouselNumber === data?.length && setcarouselNumber(0);
+  carouselNumber === -1 && setcarouselNumber(data.length - 1);
+
+  //////////////////////////////// next and previous carousel set up ////////////////////////
+
+  const previousCarousel = () => {
+    setcarouselNumber((prevdata) => prevdata - 1);
+  };
+  const nextCarousel = () => {
+    setcarouselNumber((prevdata) => prevdata + 1);
+  };
+
   return (
     <div className=" py-44 px-5 md:px-24">
       <div className="flex lg:flex-row flex-col justify-around items-center gap-7">
         <div className=" flex flex-col justify-center">
           <h2 className="text-white font-sans tracking-wide mb-5">
-            WELCOME TO ISLAND RESORT
+            {data &&
+              data[
+                carouselNumber < data.length && carouselNumber > 0
+                  ? carouselNumber
+                  : 0
+              ].miniHeading.toUpperCase()}
           </h2>
-          <h1 className="text-white mb-10">Redefining luxury</h1>
+          <h1 className="text-white mb-10">
+            {data &&
+              data[
+                carouselNumber < data.length && carouselNumber > 0
+                  ? carouselNumber
+                  : 0
+              ].heading}
+          </h1>
           <h5 className="md:text-2xl text-lg text-white">
-            We are leading luxury travel to something more 
-            emotional and inspiring. With our World-Class 
-            hospitality and bold creative flair, we create 
-            moments that stay with our guests to years to 
-            come.
+            {data &&
+              data[
+                carouselNumber < data.length && carouselNumber > 0
+                  ? carouselNumber
+                  : 0
+              ].description}
           </h5>
         </div>
-        <div className="flex justify-center">
-            <div className="rounded-full bg-red-200 lg:w-[500px] lg:h-[500px] mt-10 md:mt-0 w-[350px] h-[350px] ">sdf</div>
+        <div className="flex justify-between items-center">
+          <HiChevronLeft
+            className="text-white text-[27px]"
+            onClick={previousCarousel}
+          />
+          <div
+            className="rounded-full bg-red-200 lg:w-[470px] lg:h-[470px] mt-10 md:mt-0 w-[350px] h-[350px] bg-cover"
+            style={style}
+          ></div>
+          <HiChevronRight
+            className="text-white text-[27px]"
+            onClick={nextCarousel}
+          />
         </div>
       </div>
     </div>

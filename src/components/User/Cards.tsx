@@ -3,14 +3,14 @@ import { TbDiamondFilled } from "react-icons/tb";
 import Button from '../UI/Button';
 
 type props = {
-    image: string,
-    heading: string,
-    description: string,
-    features: string[]
+    image?: string,
+    heading?: string,
+    description?: string,
+    features?: string[]
 }
 
 function Cards({image, heading, description, features}: props) {
-    const featuresListing = features.map(item => (
+    const featuresListing = features?.map(item => (
         <div key={item} className=' flex gap-3'>
             <TbDiamondFilled className='text-white my-auto' />
             <p className='mb-3 text-white'>{item}</p>
@@ -19,7 +19,7 @@ function Cards({image, heading, description, features}: props) {
   return (
     <div className='bg-[#222020] w-[308px]'>
         <div className='bg-red-100 h-[190px]'>
-            <img src={image} alt="" />
+            <img className='object-cover w-[308px] h-[190px]' src={image} alt="" />
         </div>
         <div className='p-8'>
             <h1 className='text-white text-[30px] md:text-2xl tracking-wide'>{heading}</h1>

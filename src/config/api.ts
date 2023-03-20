@@ -3,6 +3,7 @@ import axios from "axios";
 const USER_BASE_URL = `http://localhost:${process.env.REACT_APP_BACKENDPORT}/user`;
 const COMPANY_BASE_URL = `http://localhost:${process.env.REACT_APP_BACKENDPORT}/company`;
 const RESORT_BASE_URL = `http://localhost:${process.env.REACT_APP_BACKENDPORT}/resort`;
+const GALLARY_BASE_URL = `http://localhost:${process.env.REACT_APP_BACKENDPORT}/gallary`;
 
 const axiosUser = axios.create({
   baseURL: USER_BASE_URL,
@@ -14,6 +15,10 @@ export const axiosCompany = axios.create({
 
 export const axiosResort = axios.create({
   baseURL: RESORT_BASE_URL,
+});
+
+export const axiosGallary = axios.create({
+  baseURL: GALLARY_BASE_URL,
 });
 
 

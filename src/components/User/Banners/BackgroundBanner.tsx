@@ -2,9 +2,9 @@ import React from "react";
 import Button from "../../UI/Button";
 
 type props ={
-    url: string
-    heading: string
-    des: string
+    url?: string
+    heading?: string
+    des?: string
     button1?: string
     button2?: string
 }
