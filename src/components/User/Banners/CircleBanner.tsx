@@ -1,7 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { HiChevronRight, HiChevronLeft } from "react-icons/hi";
 
-function CircleBanner({ data }: any) {
+type props = {
+  data : any,
+  invert?: boolean
+}
+
+function CircleBanner({ data, invert }: props) {
   // doubt how to give types or interface to the array im passing which has an interface of circlebanner
   const [carouselNumber, setcarouselNumber] = useState(0);
 
@@ -13,6 +18,7 @@ function CircleBanner({ data }: any) {
       ].image
     })`,
   };
+
 
   //////////////////////////////// setting the carousel back to initail after reaching maximum and vice versa ///////////////////
 
@@ -28,9 +34,31 @@ function CircleBanner({ data }: any) {
     setcarouselNumber((prevdata) => prevdata + 1);
   };
 
+  //////////////////////////////// setting up the carousel to show if when inverted or not /////////////////////
+  
+  const carousel = (
+    <div className="flex justify-between items-center">
+          <HiChevronLeft
+            className="text-white text-[27px]"
+            onClick={previousCarousel}
+          />
+          <div
+            className="rounded-full bg-red-200 lg:w-[470px] lg:h-[470px] mt-10 md:mt-0 w-[350px] h-[350px] bg-cover"
+            style={style}
+          ></div>
+          <HiChevronRight
+            className="text-white text-[27px]"
+            onClick={nextCarousel}
+          />
+        </div>
+  )
+
   return (
     <div className=" py-44 px-5 md:px-24">
       <div className="flex lg:flex-row flex-col justify-around items-center gap-7">
+
+        {invert && carousel}
+        
         <div className=" flex flex-col justify-center">
           <h2 className="text-white font-sans tracking-wide mb-5">
             {data &&
@@ -57,20 +85,9 @@ function CircleBanner({ data }: any) {
               ].description}
           </h5>
         </div>
-        <div className="flex justify-between items-center">
-          <HiChevronLeft
-            className="text-white text-[27px]"
-            onClick={previousCarousel}
-          />
-          <div
-            className="rounded-full bg-red-200 lg:w-[470px] lg:h-[470px] mt-10 md:mt-0 w-[350px] h-[350px] bg-cover"
-            style={style}
-          ></div>
-          <HiChevronRight
-            className="text-white text-[27px]"
-            onClick={nextCarousel}
-          />
-        </div>
+
+        {invert || carousel}
+
       </div>
     </div>
   );

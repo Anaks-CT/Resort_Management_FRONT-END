@@ -7,7 +7,7 @@ function Contact() {
             <h2 className="text-white font-sans tracking-wide mb-2">CONTACT</h2>
             <h1>Get in touch</h1>
         </div>
-        <div className='lg:grid grid-cols-3'>
+        <div className='lg:grid grid-cols-3 mb-32'>
             <div className='p-6 flex flex-col items-center'>
                 <h2 className="text-white font-sans tracking-wide mb-6">ADDRESS</h2>
                 <p className="text-slate-600 text-[10px] lg:text-sm text-center">Trinity St - somewhere PO Box 575211 somewhere , India</p>

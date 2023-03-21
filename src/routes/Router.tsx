@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router";
-import { HomePage, LoginPage, SignupPage } from "../pages/pages";
+import { DIningPage, HomePage, LoginPage, SignupPage, WellnessPage } from "../pages/pages";
 
 type routers = {
     path: string;
@@ -21,6 +21,14 @@ function Router() {
       path: "/signup",
       component: <SignupPage />,
     },
+    {
+      path: '/wellness',
+      component: <WellnessPage />
+    },
+    {
+      path: '/dining',
+      component: <DIningPage />
+    }
   ];
   return (
     <Routes>

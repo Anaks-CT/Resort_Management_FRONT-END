@@ -10,9 +10,9 @@ export function Header2() {
     setToggle(!menuToggler);
   };
   ////////////////////////////////////// togging the meny toggle according to window size//////////////////////////////////////
-  
+
   useEffect(() => {
-    window.innerWidth > 768 && setToggle(true) 
+    window.innerWidth > 768 && setToggle(true);
     window.addEventListener("resize", () => {
       window.innerWidth < 768 ? setToggle(false) : setToggle(true);
       return () => {
@@ -23,41 +23,32 @@ export function Header2() {
 
   ///////////////////////////////////// desappearing the first header when scrolling down by toggling the scrolldown state/////////
 
-  // useEffect(() => {
-  //   let lastScrollTop = 0;
-  //   window.addEventListener(
-  //     "scroll",
-  //     function () {
-  //       // or window.addEventListener("scroll"....
-  //       let st = window.pageYOffset || document.documentElement.scrollTop;
-  //       st === lastScrollTop ? setscrolldown(false) : setscrolldown(false);
-  //     },
-  //     false
-  //   );
-  // });
-
   var lastScrollTop = 0;
-  useEffect(()=>{
-  window.addEventListener("scroll", function(){
-     var st = window.pageYOffset || document.documentElement.scrollTop;
-     if (st > lastScrollTop) {
-        // downscroll code
-        setscrolldown(true) 
-     } else if (st < lastScrollTop) {
-        // upscroll code
-        setscrolldown(false)
-     } // else was horizontal scroll
-     lastScrollTop = st <= 0 ? 0 : st;
-  }, false);
-  return ()=>{
-    window.addEventListener('scroll',()=>{})
-  }
-}, [])
+  useEffect(() => {
+    window.addEventListener(
+      "scroll",
+      function () {
+        var st = window.pageYOffset || document.documentElement.scrollTop;
+        if (st > lastScrollTop) {
+          // downscroll code
+          setscrolldown(true);
+        } else if (st < lastScrollTop) {
+          // upscroll code
+          setscrolldown(false);
+        } // else was horizontal scroll
+        lastScrollTop = st <= 0 ? 0 : st;
+      },
+      false
+    );
+    return () => {
+      window.addEventListener("scroll", () => {});
+    };
+  }, []);
 
   return (
     <>
       <div
-      id="mini_header"
+        id="mini_header"
         className={`${
           scrolldown && "invisible"
         } flex justify-end items-center py-1 px-12 mx-auto bg-[#2a2a2a] fixed w-screen z-20 top-0`}
@@ -100,12 +91,16 @@ export function Header2() {
               <div
                 className={`md:w-1/5 w-screen pb-5 md:pb-0 items-center flex justify-start md:justify-center text-white text-md md:text-lg tracking-wide`}
               >
-                DINING
+                <Link to={"/dining"}>
+                  <p>DINING</p>
+                </Link>
               </div>
               <div
                 className={`md:w-1/5 w-screen pb-5 md:pb-0 items-center flex justify-start text-white text-md md:text-lg tracking-wide`}
               >
-                WELLNESS
+                <Link to={"/wellness"}>
+                  <p>WELLNESS</p>
+                </Link>
               </div>
             </>
           )}
