@@ -12,3 +12,6 @@ export interface IGallary extends Document {
   communityPics: string[]
 }
 
+export interface Idataa extends IBannerDetails{
+  _id: string
+}

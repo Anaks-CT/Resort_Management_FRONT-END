@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { signupApi } from "../../../helpers/api.helper/auth.api";
+import { signupApi } from "../../../api/user.api";
 import { signupSchema } from "../../../schema/user/auth";
 import Button from "../../UI/Button";
 import Input from "../../UI/Input";

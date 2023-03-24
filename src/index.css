@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+
 @layer base{
   html{
     font-family: 'Abhaya Libre', serif;
@@ -12,9 +15,19 @@
     box-sizing: border-box;
     padding: 0;
   }
+
+  /* :root {
+    --bodyColor: "black";
+  }
+  body {
+    background: var(--bodyColor);
+  } */
+
   body{
     background: #000;
   }
+
+  
   body::-webkit-scrollbar{
     display: none;
   }

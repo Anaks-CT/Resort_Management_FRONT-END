@@ -1,5 +1,5 @@
-import axios from "../../config/api";
-import { Iuser, LoginInterface } from "../../interface/user.interface";
+import axios from "../config/api";
+import { Iuser, LoginInterface } from "../interface/user.interface";
 
 
 

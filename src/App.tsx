@@ -1,7 +1,8 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Route, Routes } from "react-router";
-import Router from "./routes/Router";
+import UserRouter from "./routes/User.Router";
+import ManagerRouter from "./routes/Manager.Router";
 
 
 function App() {
@@ -9,7 +10,8 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/*" element={<Router />} />
+          <Route path="/manager/*" element={<ManagerRouter />} />
+          <Route path="/*" element={<UserRouter />} />
         </Routes>
       </BrowserRouter>
     </div>

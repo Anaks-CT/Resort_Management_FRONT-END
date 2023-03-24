@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { getCompanyDetailsApi } from "../../api/company.api";
+import { getAllGallaryDetailsApi } from "../../api/gallary.api";
+import { getAllResortDetailsApi } from "../../api/resort.api";
 import BackgroundBanner from "../../components/User/Banners/BackgroundBanner";
 import CircleBanner from "../../components/User/Banners/CircleBanner";
 import CommunityBanner from "../../components/User/Banners/CommunityBanner";
@@ -7,7 +10,6 @@ import Contact from "../../components/User/Contact";
 import FAQ from "../../components/User/FAQ";
 import Footer from "../../components/User/Footer";
 import { Header2 } from "../../components/User/Header/Header";
-import { axiosCompany, axiosGallary, axiosResort } from "../../config/api";
 import { ICompany } from "../../interface/company.interface";
 import { IGallary } from "../../interface/gallary.interface";
 import { IResort } from "../../interface/resort.interface";
@@ -38,8 +40,7 @@ function HomePage() {
   ///////////////////////////////////////////////// fetching company details  ////////////////////////////////
 
   useEffect(() => {
-    axiosCompany
-      .get("/companyDetails")
+    getCompanyDetailsApi()
       .then((res) => {
         setcompanyDetails(res.data.data);
       })
@@ -51,8 +52,7 @@ function HomePage() {
   /////////////////////////////////////////////////// fetching resorts details/////////////////////////////////
 
   useEffect(() => {
-    axiosResort
-      .get("/getAllResortDetails")
+    getAllResortDetailsApi()
       .then((res) => {
         setresortDetails(res.data.data);
       })
@@ -64,8 +64,7 @@ function HomePage() {
   ////////////////////////////////////////////// fetching gallary details //////////////////////////////
 
   useEffect(() => {
-    axiosGallary
-      .get("/getAllGallaryDetails")
+    getAllGallaryDetailsApi()
       .then((res) => {
         setgallaryDetails(res.data.data);
       })

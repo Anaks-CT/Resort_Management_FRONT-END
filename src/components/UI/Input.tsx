@@ -5,8 +5,8 @@ type props = {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   required?: boolean;
   placeholder: string;
-  class: string;
-  type: 'number' | 'text' | 'password'
+  class?: string;
+  type: 'number' | 'text' | 'password' | 'file'
   value: string | number | undefined
   name: string
 };
@@ -16,8 +16,8 @@ type props = {
 function Input({ onChange, required, placeholder, type, value, name, ...rest }: props) {
 
   const classes = classNames(
-    rest.class,
-    "border-0 border-b-2 border-white box-border p-[16px] block w-full bg-[#1E1E1E] bg-opacity-70 text-white tracking-wide"
+    "border-0 border-b-2 border-white box-border p-[16px] block w-full bg-[#1E1E1E] bg-opacity-70 text-white tracking-wide",
+    rest.class
   );
   return (
     <input

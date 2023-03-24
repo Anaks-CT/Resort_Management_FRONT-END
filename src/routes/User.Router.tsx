@@ -1,13 +1,13 @@
 import React from "react";
 import { Route, Routes } from "react-router";
-import { DIningPage, HomePage, LoginPage, SignupPage, WellnessPage } from "../pages/pages";
+import { DIningPage, HomePage, LoginPage, NotFoundPage, SignupPage, WellnessPage } from "../pages/pages";
 
 type routers = {
     path: string;
     component: JSX.Element;
 }
 
-function Router() {
+function UserRouter() {
   const publicRoutes:routers[] = [
     {
       path: "/",
@@ -28,6 +28,10 @@ function Router() {
     {
       path: '/dining',
       component: <DIningPage />
+    },
+    {
+      path: '/*',
+      component: <NotFoundPage />
     }
   ];
   return (
@@ -39,4 +43,4 @@ function Router() {
   );
 }
 
-export default Router;
+export default UserRouter;
