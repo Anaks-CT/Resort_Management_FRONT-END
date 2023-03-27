@@ -8,7 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import CustomTableRow from "./CustomTableRow";
 
-export default function BasicTable({ headers, rows }: any) {
+export default function BasicTable({ headers, rows, setgallaryDetails }: any) {
   return (
     <>
       <TableContainer component={Paper} className='h-[600px]'>
