@@ -21,7 +21,7 @@ function CustomTableRow({ row }: any) {
                   <Button
                     color="primary"
                     onClick={() => {
-                      row[key].handleEdit(inputRef.current.value);
+                      row[key].handleEditImage(inputRef.current.value);
                     }}
                     class="px-5 py-2"
                   >

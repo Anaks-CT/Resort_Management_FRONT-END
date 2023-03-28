@@ -9,7 +9,7 @@ export default function largeBannerDataforTable(
   setOpen: any,
   seteditButtonClicked: any,
   setlargeBannerId: any,
-  seteditImageClicked: any
+  // seteditImageClicked: any
 ) {
   const { _id, image, description1, description2 } = item;
 
@@ -52,7 +52,7 @@ export default function largeBannerDataforTable(
   // edit selected largebanner
   const handleEdit = (largeBannerId: string) => {
     setlargeBannerId(largeBannerId)
-    seteditButtonClicked(false);
+    seteditButtonClicked('editDescription');
     // changing the formik initial values
     setformikInitialValues({
       description1: description1,
@@ -66,7 +66,7 @@ export default function largeBannerDataforTable(
       image: ''
     });
     setlargeBannerId(largeBannerId)
-    seteditImageClicked(false)
+    seteditButtonClicked('editImage')
     setOpen(true)
   }
 

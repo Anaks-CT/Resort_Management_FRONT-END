@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import {
   addLargeBannerApi,
   editLargeBannerDetailsApi,
+  editLargeBannerImageApi,
   getGallaryDetailsbyResortIdApi,
 } from "../../../api/gallary.api";
 import { IBannerDetails, IGallary } from "../../../interface/gallary.interface";
@@ -31,10 +32,12 @@ function LargeBanneManagement() {
   const [error, seterror] = useState("");
 
   ////////////////////////////// edit button click toggle for conditional modal control /////////////////////
-  const [editButtonClicked, seteditButtonClicked] = useState(false);
+  type user = "nothingClicked" | "editDescription" | "editImage";
+  const [editButtonClicked, seteditButtonClicked] =
+    useState<user>("nothingClicked");
 
   ////////////////////////////// edit image button click toggle for conditional modal control /////////////////////
-  const [editImageClicked, seteditImageClicked] = useState(false);
+  // const [editImageClicked, seteditImageClicked] = useState(false);
 
   //////////////////////////// storing the largebanner id when edit button clicked to pass the largebanner id to front end ///////////
   const [largeBannerId, setlargeBannerId] = useState("");
@@ -58,14 +61,16 @@ function LargeBanneManagement() {
     setOpen(true);
     // seteditButtonClicked(true);
   };
+
   const closeModal = () => {
-    seteditButtonClicked(true);
+    setOpen(false);
+    seteditButtonClicked("nothingClicked");
+    // seteditImageClicked(true)
     setformikInitialValues({
       image: "",
       description1: "",
       description2: "",
     });
-    setOpen(false);
   };
 
   ///////////////////////////////////// fetching gallary details by corrresponding resortId ///////////////////
@@ -86,7 +91,7 @@ function LargeBanneManagement() {
   ////////////////////////////////////////// formik onsubmit function ////////////////////////////
   // formik onsubmit based on edit or add
   function formikAddImage(
-    type: "add" | "edit",
+    type: "add" | "editDes" | "editImage",
     values: IBannerDetails,
     resetForm: () => void
   ) {
@@ -142,7 +147,7 @@ function LargeBanneManagement() {
         .finally(() => {
           setloading(false);
         });
-    } else {
+    } else if (type === "editDes") {
       editLargeBannerDetailsApi(
         resortId,
         largeBannerId,
@@ -176,10 +181,77 @@ function LargeBanneManagement() {
         .finally(() => {
           setloading(false);
         });
+    } else if (type === "editImage") {
+      // putting the loading button
+      setloading(true);
+      // setting up to upload to cloudinary
+      const data = new FormData();
+      data.append("file", values.image);
+      data.append("upload_preset", "resortManagemen");
+      data.append("cloud_name", "dhcvbjebj");
+      // uploading to cloudinary and taking the url
+      fetch("https://api.cloudinary.com/v1_1/dhcvbjebj/image/upload", {
+        method: "post",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          // sending the data to the bacckend to save by calling the api
+          editLargeBannerImageApi(resortId, largeBannerId, data.url)
+            .then((res) => {
+              // setting the newly fetched data from database ******* might change it to redux *******
+              setgallaryDetails(res.data.data);
+              // toast message saying its suceess
+              toast.success("Banner image edited successfully", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
+              // closing the modal
+              setOpen(false);
+              // reseting the form details in the modal to ''
+              resetForm();
+              seterror("");
+            })
+            .catch((err) => {
+              seterror("Image not stored in the database");
+            });
+        })
+        .catch((err) => {
+          seterror("Image not uploaded to cloudinary");
+        })
+        .finally(() => {
+          setloading(false);
+        });
     }
   }
   ///////////////////////////////////////////// formik for addimage form validation //////////////////////////
 
+  // changing the schema if add image or edit banner is clicked
+  function validationSchemaFormik() {
+    if (editButtonClicked === "nothingClicked") {
+      return addBanner;
+    } else if (editButtonClicked === "editDescription") {
+      return editBanner;
+    } else if (editButtonClicked === "editImage") {
+      return editImage;
+    }
+  }
+
+  function formikOnsubmitType() {
+    if (editButtonClicked === "nothingClicked") {
+      return "add";
+    } else if (editButtonClicked === "editDescription") {
+      return "editDes";
+    } else {
+      return "editImage";
+    }
+  }
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -187,15 +259,10 @@ function LargeBanneManagement() {
       description1: formikInitialValues.description1,
       description2: formikInitialValues.description2,
     },
-    // changing the schema if add image or edit banner is clicked
-    validationSchema: !editButtonClicked
-      ? editBanner
-      : !editImageClicked
-      ? editImage
-      : addBanner,
+    validationSchema: validationSchemaFormik(),
     //  calling the onsubmit according to which button is called
     onSubmit: (values, { resetForm }) => {
-      formikAddImage(values.image ? "add" : "edit", values, resetForm);
+      formikAddImage(formikOnsubmitType(), values, resetForm);
     },
   });
 
@@ -209,12 +276,12 @@ function LargeBanneManagement() {
         setformikInitialValues,
         setOpen,
         seteditButtonClicked,
-        setlargeBannerId,
-        seteditImageClicked
+        setlargeBannerId
+        // seteditImageClicked
       )
     );
   }
-
+  console.log(editButtonClicked);
   const modalForm = () => {
     return (
       <div className="flex flex-col justify-center items-center p-10">
@@ -228,50 +295,61 @@ function LargeBanneManagement() {
         )}
         <form className="w-full bg-black bg-opacity-70">
           <h1 className="text-center mb-10">ADD BANNER</h1>
-          {editButtonClicked && formik.values.image && (
-            <PreviewImage file={formik.values.image} />
+
+          {(editButtonClicked === "nothingClicked" || "editImage") &&
+            editButtonClicked !== "editDescription" &&
+            formik.values.image && <PreviewImage file={formik.values.image} />}
+          {(editButtonClicked === "nothingClicked" || "editImage") &&
+            editButtonClicked !== "editDescription" && (
+              <Input
+                type="file"
+                class="bg-black "
+                onChange={(event) => {
+                  event.target.files &&
+                    formik.setFieldValue("image", event.target.files[0]);
+                }}
+                placeholder="Choose File"
+                required
+                name="image"
+                value={undefined}
+              />
+            )}
+          {(editButtonClicked === "nothingClicked" || "editImage") &&
+            editButtonClicked !== "editDescription" &&
+            formik.touched.image &&
+            formik.errors.image && (
+              <div className="text-red-500">{formik.errors.image}</div>
+            )}
+
+          {editButtonClicked === "editImage" || (
+            <>
+              <Input
+                type="text"
+                class="bg-black "
+                onChange={formik.handleChange}
+                placeholder="Description1"
+                required
+                name="description1"
+                value={formik.values.description1}
+              />
+              {formik.touched.description1 && formik.errors.description1 && (
+                <div className="text-red-500">{formik.errors.description1}</div>
+              )}
+              <Input
+                type="text"
+                class="bg-black "
+                onChange={formik.handleChange}
+                placeholder="Description2"
+                required
+                name="description2"
+                value={formik.values.description2}
+              />
+              {formik.touched.description2 && formik.errors.description2 && (
+                <div className="text-red-500">{formik.errors.description2}</div>
+              )}
+            </>
           )}
-          {editButtonClicked && (
-            <Input
-              type="file"
-              class="bg-black "
-              onChange={(event) => {
-                event.target.files &&
-                  formik.setFieldValue("image", event.target.files[0]);
-              }}
-              placeholder="Choose File"
-              required
-              name="image"
-              value={undefined}
-            />
-          )}
-          {editButtonClicked && formik.touched.image && formik.errors.image && (
-            <div className="text-red-500">{formik.errors.image}</div>
-          )}
-          <Input
-            type="text"
-            class="bg-black "
-            onChange={formik.handleChange}
-            placeholder="Description1"
-            required
-            name="description1"
-            value={formik.values.description1}
-          />
-          {formik.touched.description1 && formik.errors.description1 && (
-            <div className="text-red-500">{formik.errors.description1}</div>
-          )}
-          <Input
-            type="text"
-            class="bg-black "
-            onChange={formik.handleChange}
-            placeholder="Description2"
-            required
-            name="description2"
-            value={formik.values.description2}
-          />
-          {formik.touched.description2 && formik.errors.description2 && (
-            <div className="text-red-500">{formik.errors.description2}</div>
-          )}
+
           <div className="flex w-full justify-around mt-10">
             <Button
               color="success"
@@ -285,6 +363,7 @@ function LargeBanneManagement() {
               class="px-10 py-3"
               onClick={() => {
                 setOpen(false);
+                seteditButtonClicked("nothingClicked");
                 setformikInitialValues({
                   image: "",
                   description1: "",

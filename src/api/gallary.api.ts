@@ -14,3 +14,6 @@ export const deleteLargeBannerApi = (resortId: string,largeBannerId: string) =>
 
 export const editLargeBannerDetailsApi = (resortId: string,largeBannerId: string, description1: string, description2: string) => 
   axiosGallary.patch(`/largeBanner/${resortId}/${largeBannerId}`,{description1, description2})
+
+export const editLargeBannerImageApi = (resortId: string, largeBannerId: string, image: string) =>
+  axiosGallary.put(`/largeBanner/${resortId}/${largeBannerId}`, {image})
