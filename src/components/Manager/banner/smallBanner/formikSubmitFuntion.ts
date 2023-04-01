@@ -1,7 +1,7 @@
  ////////////////////////////////////////// formik onsubmit function ////////////////////////////
 
  import { toast } from "react-toastify";
- import { addLargeBannerApi, addSmallBannerApi, editLargeBannerDetailsApi, editLargeBannerImageApi } from "../../../../api/gallary.api";
+ import { addSmallBannerApi, editSmallBannerDetailsApi, editSmallBannerImageApi } from "../../../../api/gallary.api";
  import { IBannerDetails } from "../../../../interface/gallary.interface";
  const resortId = "64158c7a80aa0bca76b639b5";
  
@@ -14,7 +14,7 @@
      setgallaryDetails: any,
      setOpen: any,
      seterror: any,
-     largeBannerId: string
+     smallBannerId: string
    ) {
      if (type === "add") {
        // putting the loading button
@@ -69,9 +69,9 @@
            setloading(false);
          });
      } else if (type === "editDes") {
-       editLargeBannerDetailsApi(
+       editSmallBannerDetailsApi(
          resortId,
-         largeBannerId,
+         smallBannerId,
          values.description1,
          values.description2
        )
@@ -118,7 +118,7 @@
          .then((res) => res.json())
          .then((data) => {
            // sending the data to the bacckend to save by calling the api
-           editLargeBannerImageApi(resortId, largeBannerId, data.url)
+           editSmallBannerImageApi(resortId, smallBannerId, data.url)
              .then((res) => {
                // setting the newly fetched data from database ******* might change it to redux *******
                setgallaryDetails(res.data.data);

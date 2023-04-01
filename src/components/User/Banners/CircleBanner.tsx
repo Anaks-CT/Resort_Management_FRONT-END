@@ -37,9 +37,9 @@ function CircleBanner({ data, invert }: props) {
   //////////////////////////////// setting up the carousel to show if when inverted or not /////////////////////
   
   const carousel = (
-    <div className="flex justify-between items-center">
+    <div className="flex items-center">
           <HiChevronLeft
-            className="text-white text-[27px]"
+            className="text-white text-[17px] md:text-[27px]"
             onClick={previousCarousel}
           />
           <div
@@ -47,7 +47,7 @@ function CircleBanner({ data, invert }: props) {
             style={style}
           ></div>
           <HiChevronRight
-            className="text-white text-[27px]"
+            className="text-white text-[17px] md:text-[27px]"
             onClick={nextCarousel}
           />
         </div>

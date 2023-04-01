@@ -14,13 +14,13 @@ import TransitionsModal from "../../../UI/Modal";
 import { Header } from "../../Header";
 import Sidebar from "../../Sidebar";
 import DataTable from "../../../UI/table/DataTable";
-import largeBannerDataforTable from "../../../UI/table/dataFunctions/largeBannerDataforTable";
 import TableService from "../../../UI/table/TableService";
 import { TbArrowsDownUp } from "react-icons/tb";
 import { CgArrowLongDown, CgArrowLongUp } from "react-icons/cg";
 import Button from "../../../UI/Button";
 import { formikSubmit } from "./formikSubmitFuntion";
 import { modalForm } from "./modalForm.smallBanner";
+import smallBannerDataforTable from "../../../UI/table/dataFunctions/smallBannerDataforTable";
 
 function SmallBannerManagement() {
   const [gallaryDetails, setgallaryDetails] = useState<IGallary>();
@@ -93,7 +93,7 @@ function SmallBannerManagement() {
   const [renderingData, setRenderingData] = useState<unknown>();
   useEffect(() => {
     // searched data is stored in filtered data
-    const filteredData = gallaryDetails?.largeBanner.filter((item) =>
+    const filteredData = gallaryDetails?.smallBanner.filter((item) =>
       item.description1.toLowerCase().includes(searchInput.toLowerCase())
     );
     function getSortValue(largeBannerElement: IBannerDetails) {
@@ -120,7 +120,7 @@ function SmallBannerManagement() {
     //// calling the function and passing the data as arguments in a loop
     if (sortedData) {
       arr = sortedData.map((item: any) =>
-        largeBannerDataforTable(
+        smallBannerDataforTable(
           item,
           setgallaryDetails,
           setformikInitialValues,
@@ -270,7 +270,7 @@ function SmallBannerManagement() {
       <Header />
       <Sidebar sideBarElems={[]} />
       <div className="mt-20 p-10 text-center">
-        <h1 className="text-center mb-10">LARGE BANNER</h1>
+        <h1 className="text-center mb-10">SMALL BANNER</h1>
         <TransitionsModal
           buttonMessage="ADD BANNER"
           modalForm={() =>

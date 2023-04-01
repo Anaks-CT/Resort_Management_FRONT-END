@@ -1,5 +1,6 @@
 // import '../../admin.css'
 import LargeBanneManagement from '../../components/Manager/banner/largeBanner/LargeBannerManagement';
+import SmallBannerManagement from '../../components/Manager/banner/smallBanner/SmallBannerManagement';
 // import SmallBanneManagement from '../../components/Manager/banner/smallBannerManagement';
 
 //doubt for the body background color
@@ -17,6 +18,7 @@ function GallaryManagement() {
   return (
     <div className='bg-slate-400'>
       <LargeBanneManagement />
+      <SmallBannerManagement />
       {/* <SmallBanneManagement /> */}
     </div>
   )
