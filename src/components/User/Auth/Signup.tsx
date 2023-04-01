@@ -40,9 +40,6 @@ function SignUp() {
         .catch((err)=>{
           setError(err?.response?.data?.message)
         })
-        .finally(()=>{
-          showToastMessage()
-        })
       }
     })
     return (

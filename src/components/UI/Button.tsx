@@ -6,8 +6,9 @@ type props = {
   outline?: boolean;
   rounded?: boolean;
   disable?: boolean;
-  onClick?: () => void;
+  onClick?: any;
   class: string;
+  OnClickItem?: any
 };
 
 function Button({
@@ -17,6 +18,7 @@ function Button({
   rounded,
   disable,
   onClick,
+  OnClickItem,
   ...rest
 }: props) {
   ////////////////// doubt how to give type to the return
@@ -52,7 +54,7 @@ function Button({
   );
 
   return (
-    <button {...rest} type="button" onClick={onClick} className={classes}>
+    <button {...rest} type="button" onClick={() => onClick && onClick(OnClickItem && OnClickItem)} className={classes}>
       {children}
     </button>
   );

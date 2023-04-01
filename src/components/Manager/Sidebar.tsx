@@ -13,8 +13,10 @@ import MailIcon from "@mui/icons-material/Mail";
 import { AiOutlineMenu } from "react-icons/ai";
 
 type Anchor = "top" | "left" | "bottom" | "right";
-
-export default function Sidebar() {
+type props = {
+  sideBarElems: {_id: string, name: string, onClick: (resortId: string) => void }[],
+}
+export default function Sidebar({sideBarElems}: props) {
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -44,30 +46,19 @@ export default function Sidebar() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
+        {sideBarElems.map((text, index) => (
+          <ListItem key={text._id} disablePadding>
+            <ListItemButton onClick={()=>text.onClick(text._id)}>
               <ListItemIcon>
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText  primary={text.name} />
             </ListItemButton>
           </ListItem>
         ))}
       </List>
       <Divider />
-      {/* <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List> */}
+
     </Box>
   );
 

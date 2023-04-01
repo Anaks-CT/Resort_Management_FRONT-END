@@ -1,5 +1,5 @@
 // import '../../admin.css'
-import LargeBanneManagement from '../../components/Manager/banner/LargeBanneManagement';
+import LargeBanneManagement from '../../components/Manager/banner/largeBanner/LargeBannerManagement';
 // import SmallBanneManagement from '../../components/Manager/banner/smallBannerManagement';
 
 //doubt for the body background color

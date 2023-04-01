@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router";
 import UserRouter from "./routes/User.Router";
 import ManagerRouter from "./routes/Manager.Router";
 import { ToastContainer } from "react-toastify";
+import AdminRouter from "./routes/admin.Router";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/manager/*" element={<ManagerRouter />} />
+          <Route path="/admin/*" element={<AdminRouter />} />
           <Route path="/*" element={<UserRouter />} />
         </Routes>
       </BrowserRouter>

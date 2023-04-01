@@ -14,10 +14,11 @@ import ManagerPageNotFound from "./manager/404Page.Manager";
 import GallaryManagement from "./manager/GallaryManagement.Manager";
 
 
+///////////////////////////////// admin /////////////////////////////////
 
-
-
-
+import AdminLoginPage from "./admin/LoginPage.Admin";
+import PageNotFoundAdmin from "./admin/404Page.Admin";
+import AdminDashboard from "./admin/Dashboard.Admin";
 
 ///////////////////////////////// user export ///////////////////////////
 
@@ -27,3 +28,7 @@ export { LoginPage, SignupPage, HomePage, WellnessPage, DIningPage, NotFoundPage
 ///////////////////////////////////manager export /////////////////////////////////
 
 export { ManagerLoginPage, ManagerPageNotFound, GallaryManagement }
+
+/////////////////////////////////// admin export /////////////////////////////////
+
+export {AdminLoginPage, PageNotFoundAdmin, AdminDashboard}

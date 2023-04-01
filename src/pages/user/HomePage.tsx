@@ -22,8 +22,8 @@ function HomePage() {
 
   //////////////////////////////////// setting up a random number to generate random background or different resorts/////////////
 
-  const gallaryLength = gallaryDetails?.length || 0
-  const randomNumberForGallary = Math.floor(Math.random() * gallaryLength)
+  // const gallaryLength = gallaryDetails?.length || 0
+  const randomNumberForGallary = Math.floor(Math.random() * 3)
 
   ///////////////////////////////////////////////// window.innerwidth event listener for cards in homepage/////////////////////////
 
@@ -136,8 +136,8 @@ function HomePage() {
       </div>
       <BackgroundBanner
         button1="BOOK NOW"
-        des={gallaryDetails && gallaryDetails[randomNumberForGallary]?.largeBanner[0].description2}
         heading={gallaryDetails && gallaryDetails[randomNumberForGallary]?.largeBanner[0].description1}
+        des={gallaryDetails && gallaryDetails[randomNumberForGallary]?.largeBanner[0].description2}
         url={gallaryDetails && gallaryDetails[randomNumberForGallary]?.largeBanner[0].image}
       />
       <CircleBanner data={companyDetails?.circleBanners} />

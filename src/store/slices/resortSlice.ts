@@ -6,7 +6,7 @@ const currentResortSlice = createSlice({
     initialState : {},
     reducers : {
         addResort(){
-
+            
         }
     }
 })

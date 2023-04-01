@@ -18,19 +18,20 @@ const style = {
 };
 
 type props = {
+    buttonMessage: string
     modalForm: () => JSX.Element
     openModal: () => void
     closeModal: ()=> void
     open: boolean
 }
 
-export default function TransitionsModal({modalForm, openModal, closeModal, open}: props) {
+export default function TransitionsModal({buttonMessage, modalForm, openModal, closeModal, open}: props) {
   const handleOpen = () => {openModal()};
   const handleClose = () => {closeModal()};
 
   return (
     <div>
-      <Button onClick={handleOpen} rounded color='black' class='px-5 py-3 mb-10'>ADD IMAGE</Button>
+      <Button onClick={handleOpen} rounded color='black' class='px-5 py-3 mb-10'>{buttonMessage}</Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"

@@ -7,6 +7,7 @@ export interface IResortDetail {
   };
   
   export interface IResort{
+    _id: string
     resortDetails: IResortDetail;
     manager?: string;
     location: string;

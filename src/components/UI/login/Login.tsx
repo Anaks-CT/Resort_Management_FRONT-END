@@ -1,16 +1,18 @@
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import Button from "./Button";
-import Input from "./Input";
+import { useNavigate } from "react-router-dom";
+import Button from "../Button";
+import Input from "../Input";
 import { useFormik } from "formik";
-import { loginSchema } from "../../schema/user/auth";
-import { loginApi } from "../../api/user.api";
+import { loginSchema } from "../../../schema/user/auth";
+import { ILoginInterface } from "../../../interface/user.interface";
 
-function Login() {
-  const { state } = useLocation();
-  console.log(state);
+type props = {
+  message?: string
+  onSubmit: (values: ILoginInterface, setError: any, resetForm: () => void) => void
+}
+
+function Login({onSubmit,message}: props) {
   const [error, setError] = useState("");
-  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -18,27 +20,15 @@ function Login() {
     },
     validationSchema: loginSchema,
     onSubmit: (values, { resetForm }) => {
-      loginApi(values)
-        .then((res) => {
-          console.log(res);
-          setError("");
-          resetForm();
-          navigate("/");
-        })
-        .catch((err) => {
-          setError(err?.response?.data?.message);
-          console.log(err);
-        });
+      onSubmit(values, setError, resetForm)
     },
   });
   return (
     <div className="bg-[#1E1E1E] p-16 self-center z-10 w-[300px] md:w-[350px] flex flex-col justify-center rounded-lg items-center opacity-70">
+      <div className="text-green-500">{message}</div>
       <h1 className="text-white z-10 md:text-5xl text-3xl tracking-wide pb-8">
         LOG IN
       </h1>
-      <div className="text-center text-green-500 tracking-wide font-semibold">
-        {state?.message}
-      </div>
       <Input
         onChange={formik.handleChange}
         required

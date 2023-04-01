@@ -7,7 +7,7 @@ type props = {
   placeholder: string;
   class?: string;
   type: 'number' | 'text' | 'password' | 'file' 
-  value: string | number | undefined
+  value?: string | number | undefined
   name: string
 };
 
@@ -24,7 +24,7 @@ function Input({ onChange, required, placeholder, type, value, name, ...rest }: 
       type={type}
       className={classes}
       required={required}
-      onChange={onChange}
+      onChange={(e)=>onChange(e)}
       placeholder={placeholder}
       value={value}
       name={name}

@@ -6,7 +6,7 @@ export interface Iuser {
   cPassword: string;
 }
 
-export interface LoginInterface{ // not preferable personl  capital I  can be exteneed
+export interface ILoginInterface{ // not preferable personl  capital I  can be exteneed
   email: string,
   password: string
 }
