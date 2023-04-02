@@ -191,7 +191,7 @@ function SmallBannerManagement() {
   // logic for showing the sort buttons for table head if sortable
   const headerDiv = headers.map((item) => {
     if (item === "Image" || item === "Make-Changes") {
-      return <span key={item}>item</span>;
+      return <span key={item}>{item}</span>;
     }
     return (
       <Button
@@ -291,7 +291,7 @@ function SmallBannerManagement() {
         <TableService
           inputOnchange={handleChangeSearch}
           buttonOnclick={handleClickSearch}
-          searchInput={searchInput}
+          // searchInput={searchInput}
           // pages={gallaryDetails?.largeBanner.length!}
         />
         <DataTable rows={renderingData} headers={headerDiv} />

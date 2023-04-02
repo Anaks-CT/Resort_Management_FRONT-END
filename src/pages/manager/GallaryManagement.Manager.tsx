@@ -1,7 +1,7 @@
 // import '../../admin.css'
+import CommunityBannerManagement from '../../components/Manager/banner/communityBanner/communityBannerManagement';
 import LargeBanneManagement from '../../components/Manager/banner/largeBanner/LargeBannerManagement';
 import SmallBannerManagement from '../../components/Manager/banner/smallBanner/SmallBannerManagement';
-// import SmallBanneManagement from '../../components/Manager/banner/smallBannerManagement';
 
 //doubt for the body background color
 // import setBodyColor from '../../setBodyColor';
@@ -19,6 +19,7 @@ function GallaryManagement() {
     <div className='bg-slate-400'>
       <LargeBanneManagement />
       <SmallBannerManagement />
+      <CommunityBannerManagement /> 
       {/* <SmallBanneManagement /> */}
     </div>
   )

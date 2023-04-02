@@ -30,4 +30,13 @@ export const editSmallBannerDetailsApi = (resortId: string,smallBannerId: string
 export const editSmallBannerImageApi = (resortId: string, smallBannerId: string, image: string) =>
   axiosGallary.put(`/smallBanner/${resortId}/${smallBannerId}`, {image, banner: "smallBanner"})
 
+export const addCommunityBannerApi = (resortId: string, image: string) => 
+  axiosGallary.post(`/communityBanner/?resortId=${resortId}`, {image})
+
+export const editCommunityBannerApi = (resortId: string, image: string, prevImageUrl: string) => 
+  axiosGallary.put(`/communityBanner/?resortId=${resortId}&prevImage=${encodeURIComponent(prevImageUrl)}`, {image})
+
+export const deleteCommunityBannerApi = (resortId: string, image: string) =>
+  axiosGallary.delete(`communityBanner/?resortId=${resortId}&image=${encodeURIComponent(image)}`)
+ 
 

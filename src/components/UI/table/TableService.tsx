@@ -5,12 +5,11 @@ import Input from "../Input";
 type props = {
   inputOnchange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   buttonOnclick: () => void;
-  searchInput: string;
   pages?: number
   handlePageClick? : (pageNumber: number) => void
 };
 
-function TableService({ inputOnchange, buttonOnclick, searchInput, pages, handlePageClick }: props) {
+function TableService({ inputOnchange, buttonOnclick, pages, handlePageClick }: props) {
 
   const pagesBox = []
     if(handlePageClick && pages){
