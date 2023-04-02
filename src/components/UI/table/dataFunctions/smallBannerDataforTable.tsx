@@ -1,10 +1,11 @@
 import { toast } from "react-toastify";
 import { deleteLargeBannerApi, deleteSmallBannerApi } from "../../../../api/gallary.api";
 import { Idataa } from "../../../../interface/gallary.interface";
+import { updateGallary } from "../../../../store/slices/gallarySlice";
 
 export default function smallBannerDataforTable(
   item: Idataa,
-  setgallaryDetails: any,
+  dispatch: any,
   setformikInitialValues: any,
   setOpen: any,
   seteditButtonClicked: any,
@@ -22,7 +23,7 @@ export default function smallBannerDataforTable(
   const handleDelete = (largeBannerId: string) => {
     deleteSmallBannerApi(resortId, largeBannerId)
       .then((res) => {
-        setgallaryDetails(res.data.data); //********************cant use this here will change this to redux */
+        dispatch(updateGallary(res.data.data))
         // giving a toast message deleted
         toast.error("Banner deleted !", {
           position: "top-right",

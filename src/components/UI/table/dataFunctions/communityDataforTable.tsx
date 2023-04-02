@@ -1,9 +1,10 @@
 import { toast } from "react-toastify";
 import { deleteCommunityBannerApi } from "../../../../api/gallary.api";
+import { updateGallary } from "../../../../store/slices/gallarySlice";
 
 export default function communityDataforTable(
   item: string,
-  setgallaryDetails: any,
+  dispatch: any,
   setOpen: any,
   setImageUrl: any,
   seteditButtonClicked: any
@@ -18,9 +19,7 @@ export default function communityDataforTable(
   const handleDelete = (imageUrl: string) => {
     deleteCommunityBannerApi(resortId, imageUrl)
       .then((res) => {
-        console.log(res.data.data);
-        
-        setgallaryDetails(res.data.data); //********************cant use this here will change this to redux */
+        dispatch(updateGallary(res.data.data))
         // giving a toast message deleted
         toast.error("Banner deleted !", {
           position: "top-right",

@@ -1,10 +1,12 @@
 import { toast } from "react-toastify";
 import { deleteLargeBannerApi } from "../../../../api/gallary.api";
 import { Idataa } from "../../../../interface/gallary.interface";
+import { useDispatch } from "react-redux";
+import { updateGallary } from "../../../../store/slices/gallarySlice";
 
 export default function largeBannerDataforTable(
   item: Idataa,
-  setgallaryDetails: any,
+  dispatch: any,
   setformikInitialValues: any,
   setOpen: any,
   seteditButtonClicked: any,
@@ -16,13 +18,15 @@ export default function largeBannerDataforTable(
   //************************* will remove  and add it to redux when a persone logged in********************//
   const resortId = "64158c7a80aa0bca76b639b5";
 
+  
   ///////////////////////////// makind a cancel and delete function here and passing to tablecell///////////////////////////
 
   //delete a selected large banner
   const handleDelete = (largeBannerId: string) => {
     deleteLargeBannerApi(resortId, largeBannerId)
       .then((res) => {
-        setgallaryDetails(res.data.data); //********************cant use this here will change this to redux */
+        dispatch(updateGallary(res.data.data)); //********************cant use this here will change this to redux */
+
         // giving a toast message deleted
         toast.error("Banner deleted !", {
           position: "top-right",

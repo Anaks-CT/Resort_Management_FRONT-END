@@ -21,9 +21,20 @@ import Button from "../../../UI/Button";
 import { formikSubmit } from "./formikSubmitFuntion";
 import { modalForm } from "./modalForm.smallBanner";
 import smallBannerDataforTable from "../../../UI/table/dataFunctions/smallBannerDataforTable";
+import { useSelector } from "react-redux";
+import { IResort } from "../../../../interface/resort.interface";
+import { useDispatch } from "react-redux";
+import { updateGallary } from "../../../../store/slices/gallarySlice";
+
+type store = {
+  gallary: IGallary
+  resort: IResort
+}
 
 function SmallBannerManagement() {
-  const [gallaryDetails, setgallaryDetails] = useState<IGallary>();
+  // const [gallaryDetails, setgallaryDetails] = useState<IGallary>();
+  const gallaryDetails = useSelector((state: store) => state.gallary)
+  const dispatch = useDispatch()
 
   ////////////////////////////// state for loading /////////////////////
   const [loading, setloading] = useState(false);
@@ -81,7 +92,7 @@ function SmallBannerManagement() {
   useEffect(() => {
     getGallaryDetailsbyResortIdApi("64158c7a80aa0bca76b639b5")
       .then((res) => {
-        setgallaryDetails(res.data.data);
+        dispatch(updateGallary(res.data.data))
       })
       .catch((err) => {
         console.log(err);
@@ -122,7 +133,7 @@ function SmallBannerManagement() {
       arr = sortedData.map((item: any) =>
         smallBannerDataforTable(
           item,
-          setgallaryDetails,
+          dispatch,
           setformikInitialValues,
           setOpen,
           seteditButtonClicked,
@@ -257,7 +268,7 @@ function SmallBannerManagement() {
         values,
         resetForm,
         setloading,
-        setgallaryDetails,
+        dispatch,
         setOpen,
         seterror,
         smallBannerId

@@ -3,6 +3,7 @@
  import { toast } from "react-toastify";
  import { addSmallBannerApi, editSmallBannerDetailsApi, editSmallBannerImageApi } from "../../../../api/gallary.api";
  import { IBannerDetails } from "../../../../interface/gallary.interface";
+import { updateGallary } from "../../../../store/slices/gallarySlice";
  const resortId = "64158c7a80aa0bca76b639b5";
  
    // formik onsubmit based on edit or add
@@ -11,7 +12,7 @@
      values: IBannerDetails,
      resetForm: () => void,
      setloading: any, // setfunction
-     setgallaryDetails: any,
+     dispatch: any,
      setOpen: any,
      seterror: any,
      smallBannerId: string
@@ -40,7 +41,7 @@
            )
              .then((res) => {
                // setting the newly fetched data from database ******* might change it to redux *******
-               setgallaryDetails(res.data.data);
+               dispatch(updateGallary(res.data.data))
                // toast message saying its suceess
                toast.success("Banner added successfully", {
                  position: "top-right",
@@ -78,7 +79,7 @@
          .then((res) => {
            setloading(true);
            // setting the newly fetched data from database ******* might change it to redux *******
-           setgallaryDetails(res.data.data);
+           dispatch(updateGallary(res.data.data))
            // toast message saying its suceess
            toast.success("Banner edited successfully", {
              position: "top-right",
@@ -121,7 +122,7 @@
            editSmallBannerImageApi(resortId, smallBannerId, data.url)
              .then((res) => {
                // setting the newly fetched data from database ******* might change it to redux *******
-               setgallaryDetails(res.data.data);
+               dispatch(updateGallary(res.data.data))
                // toast message saying its suceess
                toast.success("Banner image edited successfully", {
                  position: "top-right",

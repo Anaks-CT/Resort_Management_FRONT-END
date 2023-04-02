@@ -10,9 +10,19 @@ import DataTable from "../../../UI/table/DataTable";
 import { formikSubmit } from "./formikSubmitFuntion";
 import { modalForm } from "./modalForm";
 import communityDataforTable from "../../../UI/table/dataFunctions/communityDataforTable";
+import { useSelector } from "react-redux";
+import { IResort } from "../../../../interface/resort.interface";
+import { useDispatch } from "react-redux";
+import { updateGallary } from "../../../../store/slices/gallarySlice";
+
+type store = {
+  gallary: IGallary
+  resort: IResort
+}
 
 function CommunityBannerManagement() {
-  const [gallaryDetails, setgallaryDetails] = useState<IGallary>();
+  const gallaryDetails = useSelector((state: store) => state.gallary) 
+  const dispatch = useDispatch()
 
   ////////////////////////////// state for loading /////////////////////
   const [loading, setloading] = useState(false);
@@ -49,7 +59,7 @@ function CommunityBannerManagement() {
   useEffect(() => {
     getGallaryDetailsbyResortIdApi("64158c7a80aa0bca76b639b5")
       .then((res) => {
-        setgallaryDetails(res.data.data);
+        dispatch(updateGallary(res.data.data))
       })
       .catch((err) => {
         console.log(err);
@@ -88,7 +98,7 @@ function CommunityBannerManagement() {
         values,
         resetForm,
         setloading,
-        setgallaryDetails,
+        dispatch,
         setOpen,
         seterror,
         imageUrl
@@ -98,7 +108,7 @@ function CommunityBannerManagement() {
 
   
   let arr = gallaryDetails?.communityPics.map((item: any) =>
-  communityDataforTable(item, setgallaryDetails, setOpen, setImageUrl, seteditButtonClicked)
+  communityDataforTable(item, dispatch, setOpen, setImageUrl, seteditButtonClicked)
   );
 
   

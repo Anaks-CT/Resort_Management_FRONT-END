@@ -21,9 +21,22 @@ import TableService from "../../../UI/table/TableService";
 import { TbArrowsDownUp } from "react-icons/tb";
 import { CgArrowLongDown, CgArrowLongUp } from "react-icons/cg";
 import Button from "../../../UI/Button";
+import { useSelector } from "react-redux";
+import { IResort } from "../../../../interface/resort.interface";
+import { useDispatch } from "react-redux";
+import { updateGallary } from "../../../../store/slices/gallarySlice";
+
+type store = {
+  resort: IResort
+  gallary: IGallary
+}
 
 function LargeBannerManagement() {
-  const [gallaryDetails, setgallaryDetails] = useState<IGallary>();
+  // const [gallaryDetails, setgallaryDetails] = useState<IGallary>();
+  const gallaryDetails = useSelector((state: store) => state.gallary)
+  const dispatch = useDispatch()
+  
+  
 
   ////////////////////////////// state for loading /////////////////////
   const [loading, setloading] = useState(false);
@@ -81,7 +94,8 @@ function LargeBannerManagement() {
   useEffect(() => {
     getGallaryDetailsbyResortIdApi("64158c7a80aa0bca76b639b5")
       .then((res) => {
-        setgallaryDetails(res.data.data);
+        // setgallaryDetails(res.data.data);
+        dispatch(updateGallary(res.data.data))
       })
       .catch((err) => {
         console.log(err);
@@ -122,7 +136,8 @@ function LargeBannerManagement() {
       arr = sortedData.map((item: any) =>
         largeBannerDataforTable(
           item,
-          setgallaryDetails,
+          // setgallaryDetails,
+          dispatch,
           setformikInitialValues,
           setOpen,
           seteditButtonClicked,
@@ -216,8 +231,6 @@ function LargeBannerManagement() {
     if (searchInputValue) setSearchInput(searchInputValue);
     if (searchInputValue === "") setSearchInput("");
   };
-  // const handlePageClick = (pageNumber: number) => {};
-  // console.log(gallaryDetails?.largeBanner.length);
 
   ///////////////////////////////////////////// formik for addimage form validation //////////////////////////
 
@@ -257,7 +270,7 @@ function LargeBannerManagement() {
         values,
         resetForm,
         setloading,
-        setgallaryDetails,
+        dispatch,
         setOpen,
         seterror,
         largeBannerId
