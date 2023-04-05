@@ -8,7 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import CustomTableRow from "./CustomTableRow";
 
-export default function BasicTable({ headers, rows }: any) {
+export default function BasicTable({ headers, rows, editImage, deleteButtonValue }: any) {
   return (
     <>
       <TableContainer component={Paper} className="h-[600px]">
@@ -25,7 +25,7 @@ export default function BasicTable({ headers, rows }: any) {
           <TableBody>
             {rows?.map((row: any) => (
               ///// customTablecell is a component made by me to render each row with unique useref
-              <CustomTableRow row={row} />
+              <CustomTableRow row={row} editImage={editImage} deleteButtonValue={deleteButtonValue} />
             ))}
             
           </TableBody>

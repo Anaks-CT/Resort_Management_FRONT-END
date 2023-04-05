@@ -6,27 +6,11 @@ export const getAllResortDetailsApi = () => axiosResort.get("/resort");
 export const getResortByIdApi = (resortId: string) =>
   axiosResort.post(`/getResortById/${resortId}`);
 
-export const createResortApi = (resortDetails: IAddResort, image: string) => {
-  
-  const {
-    name,
-    heading,
-    description,
-    features,
-    location,
-    email,
-    customerCareNo,
-  } = resortDetails;
-  
+export const createResortApi = (resortDetails: IAddResort, image: string) => 
+  axiosResort.post("/resort", {...resortDetails, image});
 
-  return axiosResort.post("/resort", {
-    image,
-    name,
-    heading,
-    description,
-    features,
-    location,
-    email,
-    customerCareNo,
-  });
-};
+export const editResortApi = (resortDetails: IAddResort, image: string | null, resortId: string | undefined) =>
+  axiosResort.put(`/resort/${resortId}`, {resortDetails, image},)
+
+export const changeResortStatusApi = (resortId: string) =>
+  axiosResort.delete(`/resort/${resortId}`)

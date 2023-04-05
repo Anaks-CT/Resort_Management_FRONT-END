@@ -5,18 +5,11 @@ import { signupApi } from "../../../api/user.api";
 import { signupSchema } from "../../../schema/user/auth";
 import Button from "../../UI/Button";
 import Input from "../../UI/Input";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 function SignUp() {
   const [error, setError] = useState('')
   const navigate = useNavigate()
-  const showToastMessage = () => {
-    toast.success('Register successful', {
-        position: toast.POSITION.TOP_CENTER,
-        className: 'toast-message'
-    });
-};
+
   const formik = useFormik({
     initialValues : {
       name :  '',

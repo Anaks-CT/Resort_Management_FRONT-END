@@ -56,10 +56,10 @@ function Button({
   );
 
   return (
-    <button {...rest} type={type === "button" ? "button" : "submit"} onClick={() => onClick && onClick(OnClickItem && OnClickItem)} className={classes}>
+    <button {...rest} disabled={disable ? true : false} type={type === "submit" ? "submit" : "button"} onClick={() => onClick && onClick(OnClickItem && OnClickItem)} className={classes}>
       {children}
     </button>
   );
 }
-
+ 
 export default Button;

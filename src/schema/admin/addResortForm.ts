@@ -6,7 +6,7 @@ export const addResort = yup.object().shape({
   image: yup
     .mixed()
     .nullable()
-    .required("Image file is required")
+    // .required("Image file is required")
     .test(
       "FILE_FORMAT",
       "Choose a valid file format",
@@ -27,8 +27,8 @@ export const addResort = yup.object().shape({
   customerCareNo: yup
     .string()
     .trim()
-    .matches(/^[0-9]{10}$/, "Customer Care number is not valid"),
-    // .required("Customer Care number is required"),
+    .matches(/^[0-9]{10}$/, "Customer Care number is not valid")
+    .required("Customer Care number is required"),
   features: yup
     .array()
     .of(yup.string().required("Feature is required"))

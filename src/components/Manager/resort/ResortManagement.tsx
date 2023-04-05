@@ -4,23 +4,64 @@ import TableService from "../../UI/table/TableService";
 import DataTable from "../../UI/table/DataTable";
 import { TbArrowsDownUp } from "react-icons/tb";
 import { CgArrowLongDown, CgArrowLongUp } from "react-icons/cg";
-import { getAllResortDetailsApi } from "../../../api/resort.api";
+import { changeResortStatusApi, getAllResortDetailsApi } from "../../../api/resort.api";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { IStore } from "../../../interface/slice.interface";
 import { useDispatch } from "react-redux";
 import { updateAllResortDetails } from "../../../store/slices/allResortSlice";
+import Sidebar from "../Sidebar";
+import { toast } from "react-toastify";
 
 function ResortManagement() {
   const navigate = useNavigate()
+
+
 
   // const [allResortDetails, setAllResortDetails] = useState<IResort[]>();
   const allResortDetails = useSelector((state: IStore) => state.allResort)
   const dispatch = useDispatch()
 
-  const handleDelete = (resortId: string) => {console.log(resortId)}
-  const handleEdit = (resortId: string) => {console.log(resortId)}
-  const handleEditImage = (resortId: string) => {console.log(resortId)}
+  // changing the resort Status
+  const handleDelete = (resortId: string) => {
+    changeResortStatusApi(resortId)
+      .then(res => {
+        dispatch(updateAllResortDetails(res.data.data))
+        toast.success("Status Changed successfully", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      })
+      .catch(err => {
+        toast.error(err.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      })
+  }
+
+  // editing the resortDetails
+  const handleEdit = (resortId: string) => {
+    console.log(resortId)
+    const currentResort = allResortDetails?.filter(item => item._id === resortId)
+    navigate('/admin/addResort', {
+      state: {
+        data: currentResort
+      }
+    })
+  }
 
 
 ///////////////////////////////////////////////// row data for table /////////////////////////////
@@ -40,7 +81,8 @@ function ResortManagement() {
         heading: item.resortDetails.heading,
         description: item.resortDetails.description,
         features: item.resortDetails.features.map((item, i) => <div><h2 className="float-left">{i+1}- {item}</h2></div>),
-        makeChanges: { _id: item._id, handleDelete, handleEdit, handleEditImage, extraEditButton: true },
+        makeChanges: { _id: item._id, active: item.active, handleDelete, handleEdit, extraEditButton: true },
+        // active: item.active
       };
       renderData.push(singleResort);
     });
@@ -163,7 +205,7 @@ function ResortManagement() {
         buttonOnclick={handleClickSearch}
         // pages={gallaryDetails?.largeBanner.length!}
       />
-      <DataTable rows={renderData} headers={headerDiv} />
+      <DataTable rows={renderData} editImage={true} deleteButtonValue={true} headers={headerDiv} />
     </div>
     </>
   );

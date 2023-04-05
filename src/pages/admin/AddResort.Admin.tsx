@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Header } from "../../components/Manager/Header";
 import Input from "../../components/UI/Input";
 import { addResort } from "../../schema/admin/addResortForm";
@@ -6,25 +6,22 @@ import { ErrorMessage, Field, FieldArray, Form, Formik } from "formik";
 import Button from "../../components/UI/Button";
 import PreviewImage from "../../components/UI/PreviewImage";
 import { IAddResort } from "../../interface/resort.interface";
-import { createResortApi } from "../../api/resort.api";
+import { createResortApi, editResortApi } from "../../api/resort.api";
 import { useDispatch } from "react-redux";
 import { updateAllResortDetails } from "../../store/slices/allResortSlice";
-import { useSelector } from "react-redux";
-import { IStore } from "../../interface/slice.interface";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function AddResort() {
+  //////////////////////////// message passed from other pages //////////////////////////////
+  // current resortDetails of the editClicked resort in resort management table
+  const location = useLocation();
+
   //////////////////////////// choosing submit function according to add button or edit button click //////////
   const [submitType, setSubmitType] = useState<"add" | "edit">("add");
   //   const formikOnsubmitType = () => {};
 
   const navigate = useNavigate();
-  const allResortDetails = useSelector((state: IStore) => state.allResort);
   const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   navigate('/admin/resortmanagement')
-  // }, [allResortDetails])
 
   ////////////////////////////// state for loading /////////////////////
 
@@ -34,8 +31,58 @@ function AddResort() {
 
   const [error, seterror] = useState<string>("");
 
+  //////////////////////////////////////////// setting up initial values for formik //////////////////////////
+  // if(state){}
+  // const {state} = location
+  const state = location?.state;
+  let data:
+    | {
+        _id: string;
+        resortDetails: {
+          name: string;
+          heading: string;
+          description: string;
+          image: string;
+          features: string[];
+        };
+        location: string;
+        email: string;
+        customerCareNo: string;
+      }[]
+    | undefined;
+  if (state) data = state?.data;
+  console.log(data);
+
+  let editInitialValues;
+  if (data) {
+    editInitialValues = {
+      image: "",
+      name: data[0].resortDetails.name as string,
+      heading: data[0].resortDetails.heading as string,
+      description: data[0].resortDetails.description as string,
+      location: data[0].location as string,
+      email: data[0].email as string,
+      customerCareNo: data[0].customerCareNo as string,
+      features: data[0].resortDetails.features as string[],
+    };
+  }
+
+  const initialValues = {
+    image: "",
+    name: "",
+    heading: "",
+    description: "",
+    location: "",
+    email: "",
+    customerCareNo: "",
+    features: [""],
+  };
+
+  ////////////////////////////// formik onsubmit function ////////////////////////
+  // function according to add resort or edit resort
   const formikOnSubmit = (formValues: IAddResort) => {
-    if (submitType === "add") {
+    setloading(true);
+    if (!data) {
       const data = new FormData();
       data.append("file", formValues.image);
       data.append("upload_preset", "resortManagemen");
@@ -49,11 +96,15 @@ function AddResort() {
         .then((data) => {
           createResortApi(formValues, data?.url)
             .then((res) => {
+              // updating the all resort slice in redux
               dispatch(updateAllResortDetails(res.data.data));
               navigate("/admin/resortmanagement");
-              seterror('')
+              seterror("");
             })
-            .catch((err) => seterror(err.response.data.message)) 
+            .catch((err) => {
+              seterror(err.response.data.message)
+              setloading(false)
+            });
         })
         .catch((err) => {
           seterror("Image not uploaded to cloudinary");
@@ -61,25 +112,66 @@ function AddResort() {
         .finally(() => {
           setloading(false);
         });
+    } else {
+      if (formValues.image) {
+        const formData = new FormData();
+        formData.append("file", formValues.image);
+        formData.append("upload_preset", "resortManagemen");
+        formData.append("cloud_name", "dhcvbjebj");
+        // uploading to cloudinary and taking the url
+        fetch("https://api.cloudinary.com/v1_1/dhcvbjebj/image/upload", {
+          method: "post",
+          body: formData,
+        })
+          .then((res) => res.json())
+          .then((responseData) => {
+            editResortApi(formValues, responseData?.url, data && data[0]._id)
+              .then((res) => {
+                console.log(res);
+                // updating the all resort slice in redux
+                dispatch(updateAllResortDetails(res.data.data));
+                navigate("/admin/resortmanagement");
+                seterror("");
+              })
+              .catch((err) => {
+                seterror(err.response.data.message);
+                setloading(false);
+              });
+          })
+          .catch((err) => {
+            seterror("Image not uploaded to cloudinary");
+          })
+          .finally(() => {
+            setloading(false);
+          });
+      } else {
+        editResortApi(formValues, null, data && data[0]._id)
+          .then((res) => {
+            console.log(res);
+            // updating the all resort slice in redux
+            dispatch(updateAllResortDetails(res.data.data));
+            navigate("/admin/resortmanagement");
+            seterror("");
+          })
+          .catch((err) => {
+            seterror(err.response.data.message)
+            setloading(false)
+          });
+      }
     }
-  };
-
-  const initialValues = {
-    image: "",
-    name: "",
-    heading: "",
-    description: "",
-    location: "",
-    email: "",
-    customerCareNo: "",
-    features: [""],
   };
 
   return (
     <div className="bg-slate-400 flex flex-col items-center w-full min-h-screen  p-10">
       <Header />
       <Formik
-        initialValues={initialValues}
+        initialValues={
+          data
+            ? editInitialValues
+              ? editInitialValues
+              : initialValues
+            : initialValues
+        }
         validationSchema={addResort}
         onSubmit={(values, { resetForm }) => {
           formikOnSubmit(values);
@@ -89,19 +181,30 @@ function AddResort() {
         {({ errors, touched, setFieldValue, values }) => (
           <Form>
             <div className="p-12 bg-slate-600 mt-32 w-[780px] text-center">
-              {error && <div className="text-red-500">{error}</div>}
               {loading && (
-                <img
-                  width={50}
-                  src="https://res.cloudinary.com/dhcvbjebj/image/upload/v1679738426/Spinner-1s-200px_1_twv42p.gif"
-                  alt=""
-                />
+                <div className="flex justify-center">
+                  <img
+                    width={50}
+                    src="https://res.cloudinary.com/dhcvbjebj/image/upload/v1680669482/Spinner-1s-200px_4_ontbds.gif"
+                    alt=""
+                  />
+                </div>
               )}
+              {error && <div className="text-red-500">{error}</div>}
               <h1 className="text-center mb-10">ADD RESORT</h1>
+              {!values.image && data && (
+                <div className="flex justify-center">
+                  <img
+                    width={"178px"}
+                    src={data && data[0]?.resortDetails.image}
+                    alt=""
+                  ></img>
+                </div>
+              )}
               {values.image && <PreviewImage file={values.image} />}
               <Input
                 type="file"
-                class="bg-black "
+                class="bg-black mt-10"
                 onChange={(event) => {
                   event.target.files &&
                     setFieldValue("image", event.target.files[0]);
@@ -109,6 +212,7 @@ function AddResort() {
                 placeholder="Choose File"
                 name="image"
                 value={undefined}
+                required={data ? false : true}
               />
               {touched.image && errors.image && (
                 <div className="text-red-500 text-left">{errors.image}</div>
@@ -170,13 +274,12 @@ function AddResort() {
               )}
               <FieldArray name="features">
                 {(fieldArrayProps) => {
-                  console.log(fieldArrayProps);
                   const { push, remove, form } = fieldArrayProps;
                   const { values } = form;
                   const { features } = values;
                   return (
                     <div>
-                      {features.map((item: any, index: number) => (
+                      {features?.map((item: any, index: number) => (
                         <>
                           <div key={index} className="flex">
                             <Field
@@ -222,10 +325,16 @@ function AddResort() {
                 type="submit"
                 class="py-3 px-4 rounded mt-8 mx-10"
                 color="primary"
+                disable={loading ? true : false}
               >
-                ADD RESORT
+                {state ? "EDIT RESORT" : "ADD RESORT"}
               </Button>
-              <Button class="py-3 px-4 rounded mt-8 mx-10" color="danger">
+              <Button
+                class="py-3 px-4 rounded mt-8 mx-10"
+                color="danger"
+                disable={loading ? true : false}
+                onClick={() => navigate("/admin/resortmanagement")}
+              >
                 CANCEL
               </Button>
             </div>

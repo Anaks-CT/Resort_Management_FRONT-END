@@ -14,6 +14,7 @@ export interface IResortDetail {
     email: string;
     customerCareNo: number;
     gallaryId?: string;
+    active?: boolean
   }
 
   export interface IAddResort{
@@ -25,4 +26,5 @@ export interface IResortDetail {
     email: string,
     customerCareNo: string,
     features: string[],
+    
   }
