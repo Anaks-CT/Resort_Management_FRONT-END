@@ -6,7 +6,7 @@ import {
   editCommunityBannerApi,
 } from "../../../../api/gallary.api";
 import { updateGallary } from "../../../../store/slices/gallarySlice";
-const resortId = "64158c7a80aa0bca76b639b5";
+
 
 // formik onsubmit based on edit or add
 export function formikSubmit(
@@ -17,7 +17,8 @@ export function formikSubmit(
   dispatch: any,
   setOpen: any,
   seterror: any,
-  imageUrl: string
+  imageUrl: string,
+  resortId: string
 ) {
   if (type === "add") {
     // putting the loading button

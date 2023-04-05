@@ -11,7 +11,7 @@ function AdminLogin() {
           .then((res) => {
             setError("");
             resetForm();
-            navigate("/admin/dashboard");
+            navigate("/admin/adminDashboard");
           })
           .catch((err) => {
             setError(err?.response?.data?.message);

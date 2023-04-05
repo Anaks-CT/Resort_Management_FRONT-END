@@ -1,7 +1,12 @@
 import {axiosGallary} from "../config/api";
 
-export const getAllGallaryDetailsApi = () => 
-  axiosGallary.get('/getAllGallaryDetails')
+export const getAllGallaryDetailsApi = () => {
+  console.log('sfd');
+  
+  return axiosGallary.get('/getAllGallaryDetails')
+  // return fetch('/getAllGallaryDetails')
+}
+  
 
   
 export const getGallaryDetailsbyResortIdApi = (resortId: string) => 
@@ -47,6 +52,6 @@ export const editCommunityBannerApi = (resortId: string, image: string, prevImag
 
   
 export const deleteCommunityBannerApi = (resortId: string, image: string) =>
-  axiosGallary.delete(`communityBanner/?resortId=${resortId}&image=${encodeURIComponent(image)}`)
+  axiosGallary.delete(`/communityBanner/?resortId=${resortId}&image=${encodeURIComponent(image)}`)
  
 

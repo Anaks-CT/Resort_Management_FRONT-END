@@ -8,7 +8,8 @@ type props = {
   disable?: boolean;
   onClick?: any;
   class: string;
-  OnClickItem?: any
+  OnClickItem?: any,
+  type?: "button" | "submit"
 };
 
 function Button({
@@ -19,6 +20,7 @@ function Button({
   disable,
   onClick,
   OnClickItem,
+  type,
   ...rest
 }: props) {
   ////////////////// doubt how to give type to the return
@@ -54,7 +56,7 @@ function Button({
   );
 
   return (
-    <button {...rest} type="button" onClick={() => onClick && onClick(OnClickItem && OnClickItem)} className={classes}>
+    <button {...rest} type={type === "button" ? "button" : "submit"} onClick={() => onClick && onClick(OnClickItem && OnClickItem)} className={classes}>
       {children}
     </button>
   );

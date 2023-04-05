@@ -4,7 +4,6 @@
  import { addSmallBannerApi, editSmallBannerDetailsApi, editSmallBannerImageApi } from "../../../../api/gallary.api";
  import { IBannerDetails } from "../../../../interface/gallary.interface";
 import { updateGallary } from "../../../../store/slices/gallarySlice";
- const resortId = "64158c7a80aa0bca76b639b5";
  
    // formik onsubmit based on edit or add
    export function formikSubmit(
@@ -15,7 +14,8 @@ import { updateGallary } from "../../../../store/slices/gallarySlice";
      dispatch: any,
      setOpen: any,
      seterror: any,
-     smallBannerId: string
+     smallBannerId: string,
+     resortId: string
    ) {
      if (type === "add") {
        // putting the loading button

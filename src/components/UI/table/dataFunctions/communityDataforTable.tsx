@@ -7,11 +7,12 @@ export default function communityDataforTable(
   dispatch: any,
   setOpen: any,
   setImageUrl: any,
-  seteditButtonClicked: any
+  seteditButtonClicked: any,
+  resortId: string
 ) {
 
-  //************************* will remove  and add it to redux when a persone logged in********************//
-  const resortId = "64158c7a80aa0bca76b639b5";
+
+  
 
   ///////////////////////////// makind a cancel and delete function here and passing to tablecell///////////////////////////
 

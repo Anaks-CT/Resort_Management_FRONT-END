@@ -1,10 +1,6 @@
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
-import { getGallaryDetailsbyResortIdApi } from "../../../../api/gallary.api";
-import {
-  IBannerDetails,
-  IGallary,
-} from "../../../../interface/gallary.interface";
+import { IBannerDetails } from "../../../../interface/gallary.interface";
 import {
   addBanner,
   editBanner,
@@ -22,21 +18,15 @@ import { TbArrowsDownUp } from "react-icons/tb";
 import { CgArrowLongDown, CgArrowLongUp } from "react-icons/cg";
 import Button from "../../../UI/Button";
 import { useSelector } from "react-redux";
-import { IResort } from "../../../../interface/resort.interface";
 import { useDispatch } from "react-redux";
-import { updateGallary } from "../../../../store/slices/gallarySlice";
-
-type store = {
-  resort: IResort
-  gallary: IGallary
-}
+import { IStore } from "../../../../interface/slice.interface";
 
 function LargeBannerManagement() {
   // const [gallaryDetails, setgallaryDetails] = useState<IGallary>();
-  const gallaryDetails = useSelector((state: store) => state.gallary)
-  const dispatch = useDispatch()
-  
-  
+  const gallaryDetails = useSelector((state: IStore) => state.gallary);
+  const dispatch = useDispatch();
+
+  const resortId = useSelector((state: IStore) => state.resort.resortId);
 
   ////////////////////////////// state for loading /////////////////////
   const [loading, setloading] = useState(false);
@@ -89,19 +79,6 @@ function LargeBannerManagement() {
     });
   };
 
-  ///////////////////////////////////// fetching gallary details by corrresponding resortId ///////////////////
-  //******************************** will change this in to redux *************************/
-  useEffect(() => {
-    getGallaryDetailsbyResortIdApi("64158c7a80aa0bca76b639b5")
-      .then((res) => {
-        // setgallaryDetails(res.data.data);
-        dispatch(updateGallary(res.data.data))
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
   ///////////////////////////////////////changing the data according to the search input and sortby  API ///////////////////////////////
   // state which is given to the table after searching and sorting
   const [renderingData, setRenderingData] = useState<unknown>();
@@ -141,7 +118,8 @@ function LargeBannerManagement() {
           setformikInitialValues,
           setOpen,
           seteditButtonClicked,
-          setlargeBannerId
+          setlargeBannerId,
+          resortId
           // seteditImageClicked
         )
       );
@@ -273,7 +251,8 @@ function LargeBannerManagement() {
         dispatch,
         setOpen,
         seterror,
-        largeBannerId
+        largeBannerId,
+        resortId
       );
     },
   });

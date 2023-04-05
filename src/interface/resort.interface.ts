@@ -15,3 +15,14 @@ export interface IResortDetail {
     customerCareNo: number;
     gallaryId?: string;
   }
+
+  export interface IAddResort{
+    image: string,
+    name: string,
+    heading: string,
+    description: string,
+    location: string,
+    email: string,
+    customerCareNo: string,
+    features: string[],
+  }

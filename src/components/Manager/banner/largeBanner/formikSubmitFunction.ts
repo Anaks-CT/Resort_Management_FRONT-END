@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 import { addLargeBannerApi, editLargeBannerDetailsApi, editLargeBannerImageApi } from "../../../../api/gallary.api";
 import { IBannerDetails } from "../../../../interface/gallary.interface";
 import { updateGallary } from "../../../../store/slices/gallarySlice";
-const resortId = "64158c7a80aa0bca76b639b5";
 
   // formik onsubmit based on edit or add
   export function formikSubmit(
@@ -15,7 +14,8 @@ const resortId = "64158c7a80aa0bca76b639b5";
     dispatch: any,
     setOpen: any,
     seterror: any,
-    largeBannerId: string
+    largeBannerId: string,
+    resortId: string
   ) {
     if (type === "add") {
       // putting the loading button

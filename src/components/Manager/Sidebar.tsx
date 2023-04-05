@@ -14,7 +14,7 @@ import { AiOutlineMenu } from "react-icons/ai";
 
 type Anchor = "top" | "left" | "bottom" | "right";
 type props = {
-  sideBarElems: {_id: string, name: string, onClick: (resortId: string) => void }[],
+  sideBarElems: {_id: string, name: string, onClick: (resortId: string, resortName: string) => void }[],
 }
 export default function Sidebar({sideBarElems}: props) {
   const [state, setState] = React.useState({
@@ -48,7 +48,7 @@ export default function Sidebar({sideBarElems}: props) {
       <List>
         {sideBarElems.map((text, index) => (
           <ListItem key={text._id} disablePadding>
-            <ListItemButton onClick={()=>text.onClick(text._id)}>
+            <ListItemButton onClick={()=>text.onClick(text._id, text.name)}>
               <ListItemIcon>
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
               </ListItemIcon>

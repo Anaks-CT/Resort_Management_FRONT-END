@@ -11,12 +11,12 @@ export default function largeBannerDataforTable(
   setOpen: any,
   seteditButtonClicked: any,
   setlargeBannerId: any,
+  resortId: string
   // seteditImageClicked: any
 ) {
   const { _id, image, description1, description2 } = item;
 
-  //************************* will remove  and add it to redux when a persone logged in********************//
-  const resortId = "64158c7a80aa0bca76b639b5";
+
 
   
   ///////////////////////////// makind a cancel and delete function here and passing to tablecell///////////////////////////

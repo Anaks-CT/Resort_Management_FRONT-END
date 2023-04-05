@@ -1,15 +1,19 @@
+import { createSlice } from "@reduxjs/toolkit";
 
-import {createSlice} from '@reduxjs/toolkit'
+const resortSlice = createSlice({
+  name: "resort",
+  initialState: {},
+  reducers: {
+    updateResort(state, action) {
+      return {
+        resortId: action.payload.resortId,
+        resortName: action.payload.resortName,
+      };
+    },
+  },
+});
 
-const currentResortSlice = createSlice({
-    name : 'resort',
-    initialState : {},
-    reducers : {
-        addResort(){
-            
-        }
-    }
-})
 
-export const {addResort} = currentResortSlice.actions
-export default currentResortSlice
+
+export const { updateResort } = resortSlice.actions;
+export default resortSlice;

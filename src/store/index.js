@@ -1,13 +1,15 @@
+import allResortSlice from "./slices/allResortSlice";
 import gallarySlice from "./slices/gallarySlice";
-import currentResortSlice from "./slices/resortSlice";
+import resortSlice from "./slices/resortSlice";
 
 const { configureStore } = require("@reduxjs/toolkit");
 
 
 const store = configureStore({
     reducer : {
-        resort : currentResortSlice.reducer,
-        gallary: gallarySlice.reducer
+        resort : resortSlice.reducer,
+        gallary: gallarySlice.reducer,
+        allResort: allResortSlice.reducer
     }
 })
 

@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { getGallaryDetailsbyResortIdApi } from "../../../../api/gallary.api";
 import {
   IBannerDetails,
-  IGallary,
 } from "../../../../interface/gallary.interface";
 import {
   addBanner,
@@ -22,20 +21,19 @@ import { formikSubmit } from "./formikSubmitFuntion";
 import { modalForm } from "./modalForm.smallBanner";
 import smallBannerDataforTable from "../../../UI/table/dataFunctions/smallBannerDataforTable";
 import { useSelector } from "react-redux";
-import { IResort } from "../../../../interface/resort.interface";
 import { useDispatch } from "react-redux";
-import { updateGallary } from "../../../../store/slices/gallarySlice";
+import { IStore } from "../../../../interface/slice.interface";
 
-type store = {
-  gallary: IGallary
-  resort: IResort
-}
 
 function SmallBannerManagement() {
   // const [gallaryDetails, setgallaryDetails] = useState<IGallary>();
-  const gallaryDetails = useSelector((state: store) => state.gallary)
+  const gallaryDetails = useSelector((state: IStore) => state.gallary)
   const dispatch = useDispatch()
 
+
+  const resortId = useSelector((state: IStore) => state.resort.resortId);
+
+  
   ////////////////////////////// state for loading /////////////////////
   const [loading, setloading] = useState(false);
 
@@ -87,17 +85,6 @@ function SmallBannerManagement() {
     });
   };
 
-  ///////////////////////////////////// fetching gallary details by corrresponding resortId ///////////////////
-  //******************************** will change this in to redux *************************/
-  useEffect(() => {
-    getGallaryDetailsbyResortIdApi("64158c7a80aa0bca76b639b5")
-      .then((res) => {
-        dispatch(updateGallary(res.data.data))
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   ///////////////////////////////////////changing the data according to the search input and sortby  API ///////////////////////////////
   // state which is given to the table after searching and sorting
@@ -137,7 +124,8 @@ function SmallBannerManagement() {
           setformikInitialValues,
           setOpen,
           seteditButtonClicked,
-          setSmallBannerId
+          setSmallBannerId,
+          resortId
           // seteditImageClicked
         )
       );
@@ -271,7 +259,8 @@ function SmallBannerManagement() {
         dispatch,
         setOpen,
         seterror,
-        smallBannerId
+        smallBannerId,
+        resortId
       );
     },
   });

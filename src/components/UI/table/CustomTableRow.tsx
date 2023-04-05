@@ -5,8 +5,14 @@ import Button from "../Button";
 
 function CustomTableRow({ row }: any) {
   const inputRef: any = useRef();
-
+  const noData = () => {
+    if(!row) return (
+      <TableRow><h1 className="text-black">No data to show</h1></TableRow>
+    )
+  }
   return (
+    <>
+    {noData}
     <TableRow
       key={row}
       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -57,6 +63,7 @@ function CustomTableRow({ row }: any) {
         );
       })}
     </TableRow>
+      </>
   );
 }
 
