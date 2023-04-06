@@ -1,24 +1,16 @@
 import React, { useState } from "react";
 import { Header } from "../../components/Manager/Header";
-import Input from "../../components/UI/Input";
-import { addResort } from "../../schema/admin/addResortForm";
-import { ErrorMessage, Field, FieldArray, Form, Formik } from "formik";
-import Button from "../../components/UI/Button";
-import PreviewImage from "../../components/UI/PreviewImage";
 import { IAddResort } from "../../interface/resort.interface";
 import { createResortApi, editResortApi } from "../../api/resort.api";
 import { useDispatch } from "react-redux";
 import { updateAllResortDetails } from "../../store/slices/allResortSlice";
 import { useLocation, useNavigate } from "react-router-dom";
+import FormikDataForResortManagement from "../../components/Manager/resort/FormikDataForAdd&EditResort";
 
 function AddResort() {
   //////////////////////////// message passed from other pages //////////////////////////////
   // current resortDetails of the editClicked resort in resort management table
   const location = useLocation();
-
-  //////////////////////////// choosing submit function according to add button or edit button click //////////
-  const [submitType, setSubmitType] = useState<"add" | "edit">("add");
-  //   const formikOnsubmitType = () => {};
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -32,8 +24,10 @@ function AddResort() {
   const [error, seterror] = useState<string>("");
 
   //////////////////////////////////////////// setting up initial values for formik //////////////////////////
-  // if(state){}
-  // const {state} = location
+ 
+  // when navigating from resortmanagement page to edit resort data of
+  // the edit clicked resort is provided for edit resort page to make 
+  // the initial value of formik to this values 
   const state = location?.state;
   let data:
     | {
@@ -51,7 +45,6 @@ function AddResort() {
       }[]
     | undefined;
   if (state) data = state?.data;
-  console.log(data);
 
   let editInitialValues;
   if (data) {
@@ -98,12 +91,15 @@ function AddResort() {
             .then((res) => {
               // updating the all resort slice in redux
               dispatch(updateAllResortDetails(res.data.data));
-              navigate("/admin/resortmanagement");
+              // sending the message to resort management paage
+              navigate("/admin/resortmanagement", {
+                state: { message: res.data.message },
+              });
               seterror("");
             })
             .catch((err) => {
-              seterror(err.response.data.message)
-              setloading(false)
+              seterror(err.response.data.message);
+              setloading(false);
             });
         })
         .catch((err) => {
@@ -113,6 +109,8 @@ function AddResort() {
           setloading(false);
         });
     } else {
+      //////////////////////////////////////////// edit details when image is added ///////////////////////////////
+
       if (formValues.image) {
         const formData = new FormData();
         formData.append("file", formValues.image);
@@ -127,10 +125,12 @@ function AddResort() {
           .then((responseData) => {
             editResortApi(formValues, responseData?.url, data && data[0]._id)
               .then((res) => {
-                console.log(res);
                 // updating the all resort slice in redux
                 dispatch(updateAllResortDetails(res.data.data));
-                navigate("/admin/resortmanagement");
+                // sending the message to resort management page
+                navigate("/admin/resortmanagement", {
+                  state: { message: res.data.message },
+                });
                 seterror("");
               })
               .catch((err) => {
@@ -145,17 +145,24 @@ function AddResort() {
             setloading(false);
           });
       } else {
+        ////////////////////////////////////// edit details when image is not added ////////////////////////////////
+
         editResortApi(formValues, null, data && data[0]._id)
           .then((res) => {
-            console.log(res);
             // updating the all resort slice in redux
             dispatch(updateAllResortDetails(res.data.data));
-            navigate("/admin/resortmanagement");
+            // seding the messaage to resort management page to display the message sent from backend
+            navigate("/admin/resortmanagement", {
+              state: { message: res.data.message },
+            });
             seterror("");
           })
           .catch((err) => {
-            seterror(err.response.data.message)
-            setloading(false)
+            seterror(err.response.data.message);
+            setloading(false);
+          })
+          .finally(() => {
+            setloading(false);
           });
       }
     }
@@ -164,183 +171,14 @@ function AddResort() {
   return (
     <div className="bg-slate-400 flex flex-col items-center w-full min-h-screen  p-10">
       <Header />
-      <Formik
-        initialValues={
-          data
-            ? editInitialValues
-              ? editInitialValues
-              : initialValues
-            : initialValues
-        }
-        validationSchema={addResort}
-        onSubmit={(values, { resetForm }) => {
-          formikOnSubmit(values);
-          // resetForm();
-        }}
-      >
-        {({ errors, touched, setFieldValue, values }) => (
-          <Form>
-            <div className="p-12 bg-slate-600 mt-32 w-[780px] text-center">
-              {loading && (
-                <div className="flex justify-center">
-                  <img
-                    width={50}
-                    src="https://res.cloudinary.com/dhcvbjebj/image/upload/v1680669482/Spinner-1s-200px_4_ontbds.gif"
-                    alt=""
-                  />
-                </div>
-              )}
-              {error && <div className="text-red-500">{error}</div>}
-              <h1 className="text-center mb-10">ADD RESORT</h1>
-              {!values.image && data && (
-                <div className="flex justify-center">
-                  <img
-                    width={"178px"}
-                    src={data && data[0]?.resortDetails.image}
-                    alt=""
-                  ></img>
-                </div>
-              )}
-              {values.image && <PreviewImage file={values.image} />}
-              <Input
-                type="file"
-                class="bg-black mt-10"
-                onChange={(event) => {
-                  event.target.files &&
-                    setFieldValue("image", event.target.files[0]);
-                }}
-                placeholder="Choose File"
-                name="image"
-                value={undefined}
-                required={data ? false : true}
-              />
-              {touched.image && errors.image && (
-                <div className="text-red-500 text-left">{errors.image}</div>
-              )}
-              <Field
-                name="name"
-                class="border-0 border-b-2 border-white box-border p-[16px] block w-full bg-[#1E1E1E] bg-opacity-70 text-white tracking-wide"
-                placeholder="Resort Name"
-                type="text"
-              />
-              {touched.name && errors.name && (
-                <div className="text-red-500 text-left">{errors.name}</div>
-              )}
-              <Field
-                name="heading"
-                class="border-0 border-b-2 border-white box-border p-[16px] block w-full bg-[#1E1E1E] bg-opacity-70 text-white tracking-wide"
-                placeholder="Heading"
-                type="text"
-              />
-              {touched.heading && errors.heading && (
-                <div className="text-red-500 text-left">{errors.heading}</div>
-              )}
-              <Field
-                name="description"
-                className="border-0 border-b-2 border-white box-border p-[16px] block w-full bg-[#1E1E1E] bg-opacity-70 text-white tracking-wide"
-                placeholder="Description"
-              />
-              {touched.description && errors.description && (
-                <div className="text-red-500 text-left">
-                  {errors.description}
-                </div>
-              )}
-              <Field
-                name="location"
-                className="border-0 border-b-2 border-white box-border p-[16px] block w-full bg-[#1E1E1E] bg-opacity-70 text-white tracking-wide"
-                placeholder="Location"
-              />
-              {touched.location && errors.location && (
-                <div className="text-red-500 text-left">{errors.location}</div>
-              )}
-              <Field
-                name="email"
-                className="border-0 border-b-2 border-white box-border p-[16px] block w-full bg-[#1E1E1E] bg-opacity-70 text-white tracking-wide"
-                placeholder="Email"
-              />
-              {touched.email && errors.email && (
-                <div className="text-red-500 text-left">{errors.email}</div>
-              )}
-              <Field
-                name="customerCareNo"
-                type="text"
-                className="border-0 border-b-2 border-white box-border p-[16px] block w-full bg-[#1E1E1E] bg-opacity-70 text-white tracking-wide"
-                placeholder="CustomerCareNo"
-              />
-              {touched.customerCareNo && errors.customerCareNo && (
-                <div className="text-red-500 text-left">
-                  {errors.customerCareNo}
-                </div>
-              )}
-              <FieldArray name="features">
-                {(fieldArrayProps) => {
-                  const { push, remove, form } = fieldArrayProps;
-                  const { values } = form;
-                  const { features } = values;
-                  return (
-                    <div>
-                      {features?.map((item: any, index: number) => (
-                        <>
-                          <div key={index} className="flex">
-                            <Field
-                              class="order-0 border-b-2 border-white box-border p-[16px] block w-full bg-[#1E1E1E] bg-opacity-70 text-white tracking-wide"
-                              name={`features[${index}]`}
-                              placeholder={`Feature ${index + 1}`}
-                              type="text"
-                            />
-
-                            {index > 0 && (
-                              <Button
-                                class="px-3 border"
-                                color="danger"
-                                onClick={remove}
-                                OnClickItem={index}
-                              >
-                                X
-                              </Button>
-                            )}
-                          </div>
-                          <ErrorMessage name={`features[${index}]`}>
-                            {(msg) => (
-                              <div style={{ color: "red", textAlign: "left" }}>
-                                {msg}
-                              </div>
-                            )}
-                          </ErrorMessage>
-                        </>
-                      ))}
-                      <Button
-                        class="border w-full"
-                        color="premium"
-                        onClick={push}
-                        disable={false}
-                      >
-                        Add New Feature
-                      </Button>
-                    </div>
-                  );
-                }}
-              </FieldArray>
-              <Button
-                type="submit"
-                class="py-3 px-4 rounded mt-8 mx-10"
-                color="primary"
-                disable={loading ? true : false}
-              >
-                {state ? "EDIT RESORT" : "ADD RESORT"}
-              </Button>
-              <Button
-                class="py-3 px-4 rounded mt-8 mx-10"
-                color="danger"
-                disable={loading ? true : false}
-                onClick={() => navigate("/admin/resortmanagement")}
-              >
-                CANCEL
-              </Button>
-            </div>
-          </Form>
-        )}
-      </Formik>
+      <FormikDataForResortManagement
+        data={data}
+        editInitialValues={editInitialValues}
+        error={error}
+        formikOnSubmit={formikOnSubmit}
+        initialValues={initialValues}
+        loading={loading}
+      />
     </div>
   );
 }

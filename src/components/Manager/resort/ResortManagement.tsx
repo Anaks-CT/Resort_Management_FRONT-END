@@ -5,7 +5,7 @@ import DataTable from "../../UI/table/DataTable";
 import { TbArrowsDownUp } from "react-icons/tb";
 import { CgArrowLongDown, CgArrowLongUp } from "react-icons/cg";
 import { changeResortStatusApi, getAllResortDetailsApi } from "../../../api/resort.api";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { IStore } from "../../../interface/slice.interface";
 import { useDispatch } from "react-redux";
@@ -16,6 +16,7 @@ import { toast } from "react-toastify";
 function ResortManagement() {
   const navigate = useNavigate()
 
+  const location = useLocation()
 
 
   // const [allResortDetails, setAllResortDetails] = useState<IResort[]>();
@@ -200,6 +201,7 @@ function ResortManagement() {
     <div className="mt-20 w-full h-full p-10 text-center">
       <h1 className="text-center mb-10">RESORTS</h1>
       <Button class="mb-10" color="black" onClick={handleAddResortClick}>ADD RESORT</Button>
+      <div className="text-green-700 text-lg">{location?.state?.message}</div>
       <TableService
         inputOnchange={handleChangeSearch}
         buttonOnclick={handleClickSearch}
