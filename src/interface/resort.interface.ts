@@ -28,3 +28,5 @@ export interface IResortDetail {
     features: string[],
     
   }
+
+  

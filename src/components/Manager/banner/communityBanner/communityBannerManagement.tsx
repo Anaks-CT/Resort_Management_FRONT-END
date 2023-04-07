@@ -1,6 +1,5 @@
 import { useFormik } from "formik";
-import React, { useEffect, useState } from "react";
-import { getGallaryDetailsbyResortIdApi } from "../../../../api/gallary.api";
+import React, { useState } from "react";
 import { IGallary } from "../../../../interface/gallary.interface";
 import { editImage } from "../../../../schema/admin/AddLargeBannerForm";
 import TransitionsModal from "../../../UI/Modal";
@@ -13,7 +12,6 @@ import communityDataforTable from "../../../UI/table/dataFunctions/communityData
 import { useSelector } from "react-redux";
 import { IResort } from "../../../../interface/resort.interface";
 import { useDispatch } from "react-redux";
-import { updateGallary } from "../../../../store/slices/gallarySlice";
 import { IStore } from "../../../../interface/slice.interface";
 
 type store = {

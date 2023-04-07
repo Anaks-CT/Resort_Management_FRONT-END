@@ -6,6 +6,7 @@ import {
   editCommunityBannerApi,
 } from "../../../../api/gallary.api";
 import { updateGallary } from "../../../../store/slices/gallarySlice";
+import { toastMessage } from "../../../../helpers/toast";
 
 
 // formik onsubmit based on edit or add
@@ -42,16 +43,7 @@ export function formikSubmit(
             dispatch(updateGallary(res.data.data));
 
             // toast message saying its suceess
-            toast.success("Banner added successfully", {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
+            toastMessage("success", res.data.message)
             // closing the modal
             setOpen(false);
             // reseting the form details in the modal to ''
@@ -90,31 +82,16 @@ export function formikSubmit(
             dispatch(updateGallary(res.data.data));
 
             // toast message saying its suceess
-            toast.success("Banner image edited successfully", {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
+            toastMessage("success", res.data.message)
             // closing the modal
             setOpen(false);
             // reseting the form details in the modal to ''
             resetForm();
             seterror("");
           })
-          .catch((err) => {
-            seterror("Image not stored in the database");
-          });
+          .catch((err) => seterror("Image not stored in the database"));
       })
-      .catch((err) => {
-        seterror("Image not uploaded to cloudinary");
-      })
-      .finally(() => {
-        setloading(false);
-      });
+      .catch((err) => seterror("Image not uploaded to cloudinary"))
+      .finally(() => setloading(false));
   }
 }

@@ -4,6 +4,7 @@
  import { addSmallBannerApi, editSmallBannerDetailsApi, editSmallBannerImageApi } from "../../../../api/gallary.api";
  import { IBannerDetails } from "../../../../interface/gallary.interface";
 import { updateGallary } from "../../../../store/slices/gallarySlice";
+import { toastMessage } from "../../../../helpers/toast";
  
    // formik onsubmit based on edit or add
    export function formikSubmit(
@@ -44,16 +45,7 @@ import { updateGallary } from "../../../../store/slices/gallarySlice";
                // setting the newly fetched data from database ******* might change it to redux *******
                dispatch(updateGallary(res.data.data))
                // toast message saying its suceess
-               toast.success("Banner added successfully", {
-                 position: "top-right",
-                 autoClose: 5000,
-                 hideProgressBar: false,
-                 closeOnClick: true,
-                 pauseOnHover: true,
-                 draggable: true,
-                 progress: undefined,
-                 theme: "light",
-               });
+               toastMessage("success", res.data.message)
                // closing the modal
               closeModal()
                // reseting the form details in the modal to ''
@@ -82,16 +74,7 @@ import { updateGallary } from "../../../../store/slices/gallarySlice";
            // setting the newly fetched data from database ******* might change it to redux *******
            dispatch(updateGallary(res.data.data))
            // toast message saying its suceess
-           toast.success("Banner edited successfully", {
-             position: "top-right",
-             autoClose: 5000,
-             hideProgressBar: false,
-             closeOnClick: true,
-             pauseOnHover: true,
-             draggable: true,
-             progress: undefined,
-             theme: "light",
-           });
+           toastMessage("success", res.data.message)
            // closing the modal
           closeModal()
            // reseting the form details in the modal to ''
@@ -125,16 +108,7 @@ import { updateGallary } from "../../../../store/slices/gallarySlice";
                // setting the newly fetched data from database ******* might change it to redux *******
                dispatch(updateGallary(res.data.data))
                // toast message saying its suceess
-               toast.success("Banner image edited successfully", {
-                 position: "top-right",
-                 autoClose: 5000,
-                 hideProgressBar: false,
-                 closeOnClick: true,
-                 pauseOnHover: true,
-                 draggable: true,
-                 progress: undefined,
-                 theme: "light",
-               });
+               toastMessage('success', res.data.message)
                // closing the modal
               closeModal()
                // reseting the form details in the modal to ''

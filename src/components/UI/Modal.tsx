@@ -36,7 +36,7 @@ export default function TransitionsModal({buttonMessage, modalForm, openModal, c
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         open={open}
-        onClose={handleClose}
+        // onClose={handleClose}
         closeAfterTransition
         slots={{ backdrop: Backdrop }}
         slotProps={{

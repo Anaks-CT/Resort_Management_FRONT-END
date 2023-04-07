@@ -18,3 +18,9 @@ export interface ICompany {
     A: string;
   }[];
 }
+
+export interface Ifaq {
+  _id?: string
+  Q: string,
+  A: string
+}
