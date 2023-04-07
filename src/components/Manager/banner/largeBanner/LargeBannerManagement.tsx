@@ -252,7 +252,8 @@ function LargeBannerManagement() {
         setOpen,
         seterror,
         largeBannerId,
-        resortId
+        resortId,
+        closeModal
       );
     },
   });

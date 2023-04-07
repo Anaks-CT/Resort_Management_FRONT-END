@@ -15,7 +15,8 @@ import { updateGallary } from "../../../../store/slices/gallarySlice";
     setOpen: any,
     seterror: any,
     largeBannerId: string,
-    resortId: string
+    resortId: string,
+    closeModal: any
   ) {
     if (type === "add") {
       // putting the loading button
@@ -55,7 +56,7 @@ import { updateGallary } from "../../../../store/slices/gallarySlice";
                 theme: "light",
               });
               // closing the modal
-              setOpen(false);
+              closeModal()
               // reseting the form details in the modal to ''
               resetForm();
               seterror("");
@@ -94,7 +95,8 @@ import { updateGallary } from "../../../../store/slices/gallarySlice";
             theme: "light",
           });
           // closing the modal
-          setOpen(false);
+          // setOpen(false);
+          closeModal()
           // reseting the form details in the modal to ''
           resetForm();
           seterror("");
@@ -138,9 +140,10 @@ import { updateGallary } from "../../../../store/slices/gallarySlice";
                 theme: "light",
               });
               // closing the modal
-              setOpen(false);
+              // setOpen(false);
+              closeModal()
               // reseting the form details in the modal to ''
-              resetForm();
+              // resetForm();
               seterror("");
             })
             .catch((err) => {

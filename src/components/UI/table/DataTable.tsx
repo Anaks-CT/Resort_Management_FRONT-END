@@ -11,6 +11,7 @@ import CustomTableRow from "./CustomTableRow";
 export default function BasicTable({ headers, rows, editImage, deleteButtonValue }: any) {
   return (
     <>
+    
       <TableContainer component={Paper} className="h-[600px]">
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>

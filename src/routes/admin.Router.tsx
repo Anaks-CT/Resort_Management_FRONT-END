@@ -1,7 +1,6 @@
 import { Route, Routes } from "react-router";
-import { ResortManagement, AdminDashboard, AdminLoginPage, GallaryManagementAdmin, PageNotFoundAdmin, ResortDashboard, ResortRoom, AddResort } from "../pages/pages";
+import { ResortManagement, AdminDashboard, AdminLoginPage, GallaryManagementAdmin, PageNotFoundAdmin, ResortDashboard, ResortRoom, AddResort, FaqManagementPage } from "../pages/pages";
 import { useSelector } from "react-redux";
-import { IResort } from "../interface/resort.interface";
 import { IGallary } from "../interface/gallary.interface";
 
 type routers = {
@@ -30,11 +29,15 @@ function AdminRouter() {
       component: <ResortManagement />
     },
     {
+      path: "/faqManagement",
+      component: <FaqManagementPage />
+    },
+    {
       path: "/addResort",
       component: <AddResort />
     },
     {
-      path: `/${currentResort.resortName}/dashboard`,
+      path: `/${currentResort.resortName}/dashboard`,// path parameters(for middle), router state, router object
       component: <ResortDashboard />,
     },
     {

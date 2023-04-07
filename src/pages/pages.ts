@@ -23,6 +23,7 @@ import ResortDashboard from "./admin/ResortDashboard.Admin";
 import ResortRoom from "./admin/ResortRoom.Admin";
 import ResortManagement from "./admin/ResortManagement.Admin";
 import AddResort from "./admin/AddResort.Admin";
+import FaqManagementPage from "./admin/FaqManagement.Admin";
 
 ///////////////////////////////// user export ///////////////////////////
 
@@ -50,4 +51,5 @@ export {
   ResortRoom,
   ResortManagement,
   AddResort,
+  FaqManagementPage
 };

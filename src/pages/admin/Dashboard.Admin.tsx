@@ -38,6 +38,9 @@ function AdminDashboard() {
     navigate('/admin/resortManagement')
   }
 
+  const handleManageFaqs= () => {
+    navigate('/admin/faqManagement')
+  }
   useEffect(() => {
     let arr: resortProp[] = [];
     getAllResortDetailsApi()
@@ -55,6 +58,7 @@ function AdminDashboard() {
         console.log(err);
       });
       arr.push({_id: 'ResortManagement', name: "Manage Resorts", onClick: handleAddResortClick})
+      arr.push({_id: 'FaqManagement', name: "F A Q S", onClick: handleManageFaqs})
   }, []);
 
   return (

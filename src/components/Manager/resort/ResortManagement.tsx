@@ -4,7 +4,7 @@ import TableService from "../../UI/table/TableService";
 import DataTable from "../../UI/table/DataTable";
 import { TbArrowsDownUp } from "react-icons/tb";
 import { CgArrowLongDown, CgArrowLongUp } from "react-icons/cg";
-import { changeResortStatusApi, getAllResortDetailsApi } from "../../../api/resort.api";
+import { changeResortStatusApi, getAllResortDetailsApi, sortSearchResortDetailsApi } from "../../../api/resort.api";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { IStore } from "../../../interface/slice.interface";
@@ -101,12 +101,12 @@ function ResortManagement() {
   ///////////////////////////////////////changing the data according to the search input and sortby  API ///////////////////////////////
   // state which is given to the table after searching and sorting
   useEffect(() => {
-    getAllResortDetailsApi()
+    sortSearchResortDetailsApi(searchInput, sortOrder)
       .then((res) => {
         dispatch(updateAllResortDetails(res.data.data));
       })
       .catch((err) => console.log(err));
-  }, [searchInput, sortBy, sortOrder]);
+  }, [searchInput, sortOrder]);
 
   //////////////////////////////////////// defining the headers for my table data ///////////////////////////
 
@@ -195,6 +195,7 @@ function ResortManagement() {
   const handleAddResortClick = () => {
     navigate('/admin/addResort')
   }
+
 
   return (
     <>

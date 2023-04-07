@@ -260,7 +260,8 @@ function SmallBannerManagement() {
         setOpen,
         seterror,
         smallBannerId,
-        resortId
+        resortId,
+        closeModal
       );
     },
   });
