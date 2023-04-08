@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 
 function PreviewImage({ file }: any) {
 

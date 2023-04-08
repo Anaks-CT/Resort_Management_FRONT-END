@@ -25,6 +25,7 @@ function SingleFaq({ faq }: props) {
     return () => {
       document.removeEventListener("click", handleOuterClick);
     };
+    // eslint-disable-next-line
   }, []);
   return (
     <div className="border-b w-full py-2 mt-5">

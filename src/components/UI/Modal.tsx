@@ -27,7 +27,7 @@ type props = {
 
 export default function TransitionsModal({buttonMessage, modalForm, openModal, closeModal, open}: props) {
   const handleOpen = () => {openModal()};
-  const handleClose = () => {closeModal()};
+  // const handleClose = () => {closeModal()};
 
   return (
     <div>

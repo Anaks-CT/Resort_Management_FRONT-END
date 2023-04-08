@@ -1,7 +1,6 @@
 import Button from "../../UI/Button";
 import Input from "../../UI/Input";
 
-type user = "nothingClicked" | "edit";
 
 export const modalForm = (
   error: string,

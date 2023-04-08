@@ -1,6 +1,5 @@
  ////////////////////////////////////////// formik onsubmit function ////////////////////////////
 
- import { toast } from "react-toastify";
  import { addSmallBannerApi, editSmallBannerDetailsApi, editSmallBannerImageApi } from "../../../../api/gallary.api";
  import { IBannerDetails } from "../../../../interface/gallary.interface";
 import { updateGallary } from "../../../../store/slices/gallarySlice";

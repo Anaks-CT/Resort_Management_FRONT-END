@@ -1,6 +1,5 @@
 ////////////////////////////////////////// formik onsubmit function ////////////////////////////
 
-import { toast } from "react-toastify";
 import {
   addCommunityBannerApi,
   editCommunityBannerApi,

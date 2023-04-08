@@ -1,7 +1,6 @@
 import React from 'react'
 import AdminLogin from '../../components/Manager/Login.Admin'
 import { Header } from '../../components/Manager/Header'
-import Sidebar from '../../components/Manager/Sidebar'
 
 function LoginPage() {
   return (

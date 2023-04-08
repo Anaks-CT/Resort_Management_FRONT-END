@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { deleteLargeBannerApi, deleteSmallBannerApi } from "../../../../api/gallary.api";
+import { deleteSmallBannerApi } from "../../../../api/gallary.api";
 import { Idataa } from "../../../../interface/gallary.interface";
 import { updateGallary } from "../../../../store/slices/gallarySlice";
 

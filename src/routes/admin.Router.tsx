@@ -1,20 +1,13 @@
 import { Route, Routes } from "react-router";
 import { ResortManagement, AdminDashboard, AdminLoginPage, GallaryManagementAdmin, PageNotFoundAdmin, ResortDashboard, ResortRoom, AddResort, FaqManagementPage } from "../pages/pages";
-import { useSelector } from "react-redux";
-import { IGallary } from "../interface/gallary.interface";
 
 type routers = {
   path: string;
   component: JSX.Element;
 };
 
-type store = {
-  resort: {resortId: string, resortName: string}
-  gallary: IGallary
-}
 
 function AdminRouter() {
-  const currentResort = useSelector((state: store) => state.resort)
   const publicRoutes: routers[] = [
     {
       path: "/login",
@@ -37,15 +30,15 @@ function AdminRouter() {
       component: <AddResort />
     },
     {
-      path: `/${currentResort.resortName}/dashboard`,// path parameters(for middle), router state, router object
+      path: `/:resort/dashboard`,// path parameters(for middle), router state, router object
       component: <ResortDashboard />,
     },
     {
-      path: `/${currentResort.resortName}/gallary`,
+      path: `/:resort/gallary`,
       component: <GallaryManagementAdmin />,
     },
     {
-      path: `/${currentResort.resortName}/room`,
+      path: `/:resort/room`,
       component: <ResortRoom  />,
     },
     {

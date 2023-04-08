@@ -1,6 +1,5 @@
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
-import { getGallaryDetailsbyResortIdApi } from "../../../../api/gallary.api";
 import {
   IBannerDetails,
 } from "../../../../interface/gallary.interface";
@@ -10,8 +9,6 @@ import {
   editImage,
 } from "../../../../schema/admin/AddLargeBannerForm";
 import TransitionsModal from "../../../UI/Modal";
-import { Header } from "../../Header";
-import Sidebar from "../../Sidebar";
 import DataTable from "../../../UI/table/DataTable";
 import TableService from "../../../UI/table/TableService";
 import { TbArrowsDownUp } from "react-icons/tb";
@@ -131,6 +128,7 @@ function SmallBannerManagement() {
       );
     }
     setRenderingData(arr);
+    // eslint-disable-next-line
   }, [searchInput, sortBy, sortOrder, gallaryDetails]);
 
   //////////////////////////////////////// defining the headers for my table data ///////////////////////////
@@ -268,8 +266,6 @@ function SmallBannerManagement() {
 
   return (
     <div>
-      <Header />
-      <Sidebar sideBarElems={[]} />
       <div className="mt-20 p-10 text-center">
         <h1 className="text-center mb-10">SMALL BANNER</h1>
         <TransitionsModal

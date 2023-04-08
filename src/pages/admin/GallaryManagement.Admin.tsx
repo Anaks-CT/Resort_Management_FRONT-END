@@ -7,6 +7,8 @@ import SmallBannerManagement from "../../components/Manager/banner/smallBanner/S
 import CommunityBannerManagement from "../../components/Manager/banner/communityBanner/communityBannerManagement";
 import { useSelector } from "react-redux";
 import { IStore } from "../../interface/slice.interface";
+import { Header } from "../../components/Manager/Header";
+import AdminResortSideBar from "../../components/Manager/sidebar/AdminResortSideBar";
 
 function GallaryManagement() {
   const dispatch = useDispatch();
@@ -22,9 +24,12 @@ function GallaryManagement() {
       .catch((err) => {
         console.log(err);
       });
+      // eslint-disable-next-line
   }, []);
   return (
     <div className="bg-slate-400">
+      <Header />
+      <AdminResortSideBar />
       <LargeBannerManagement />
       <SmallBannerManagement />
       <CommunityBannerManagement />

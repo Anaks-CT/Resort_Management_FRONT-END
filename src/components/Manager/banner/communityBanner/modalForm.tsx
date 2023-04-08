@@ -1,7 +1,6 @@
 import Button from "../../../UI/Button";
 import Input from "../../../UI/Input";
 import PreviewImage from "../../../UI/PreviewImage";
-type user = "nothingClicked" | "editDescription" | "editImage";
 
 export const modalForm = (
   error: string,

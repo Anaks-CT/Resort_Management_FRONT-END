@@ -1,7 +1,6 @@
 import { toast } from "react-toastify";
 import { deleteLargeBannerApi } from "../../../../api/gallary.api";
 import { Idataa } from "../../../../interface/gallary.interface";
-import { useDispatch } from "react-redux";
 import { updateGallary } from "../../../../store/slices/gallarySlice";
 
 export default function largeBannerDataforTable(

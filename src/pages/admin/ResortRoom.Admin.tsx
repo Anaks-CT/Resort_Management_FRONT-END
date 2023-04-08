@@ -1,6 +1,6 @@
 import React from 'react'
 import { Header } from '../../components/Manager/Header'
-import ManagerSideBar from '../../components/Manager/ManagerSideBar'
+import ManagerSideBar from '../../components/Manager/sidebar/ManagerSideBar'
 
 function ResortRoom() {
 

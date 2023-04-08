@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { Link } from "react-router-dom";
 // import { motion } from 'framer-motion'
@@ -23,25 +23,23 @@ export function Header2() {
 
   ///////////////////////////////////// desappearing the first header when scrolling down by toggling the scrolldown state/////////
 
-  var lastScrollTop = 0;
+  const lastScrollTop = useRef(0);
+
   useEffect(() => {
-    window.addEventListener(
-      "scroll",
-      function () {
-        var st = window.pageYOffset || document.documentElement.scrollTop;
-        if (st > lastScrollTop) {
-          // downscroll code
-          setscrolldown(true);
-        } else if (st < lastScrollTop) {
-          // upscroll code
-          setscrolldown(false);
-        } // else was horizontal scroll
-        lastScrollTop = st <= 0 ? 0 : st;
-      },
-      false
-    );
+    const onScroll = () => {
+      const st = window.pageYOffset || document.documentElement.scrollTop;
+      if (st > lastScrollTop.current) {
+        setscrolldown(true);
+      } else if (st < lastScrollTop.current) {
+        setscrolldown(false);
+      }
+      lastScrollTop.current = st <= 0 ? 0 : st;
+    };
+
+    window.addEventListener("scroll", onScroll);
+
     return () => {
-      window.addEventListener("scroll", () => {});
+      window.removeEventListener("scroll", onScroll);
     };
   }, []);
 

@@ -1,4 +1,3 @@
-import { toast } from "react-toastify";
 import { deleteFaqApi } from "../../../../api/company.api";
 import { Ifaq } from "../../../../interface/company.interface";
 import { toastMessage } from "../../../../helpers/toast";

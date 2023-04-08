@@ -3,8 +3,6 @@ import React, { useState } from "react";
 import { IGallary } from "../../../../interface/gallary.interface";
 import { editImage } from "../../../../schema/admin/AddLargeBannerForm";
 import TransitionsModal from "../../../UI/Modal";
-import { Header } from "../../Header";
-import Sidebar from "../../Sidebar";
 import DataTable from "../../../UI/table/DataTable";
 import { formikSubmit } from "./formikSubmitFuntion";
 import { modalForm } from "./modalForm";
@@ -108,8 +106,6 @@ console.log(gallaryDetails);
 
   return (
     <div>
-      <Header />
-      <Sidebar sideBarElems={[]} />
       <div className="mt-20 p-10 text-center">
         <h1 className="text-center mb-10">COMMUNITY PICS</h1>
         <TransitionsModal

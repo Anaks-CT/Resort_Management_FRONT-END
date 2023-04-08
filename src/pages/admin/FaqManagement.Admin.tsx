@@ -1,7 +1,6 @@
 import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import { Header } from "../../components/Manager/Header";
-import Sidebar from "../../components/Manager/Sidebar";
 import TransitionsModal from "../../components/UI/Modal";
 import faqsDataforTable from "../../components/UI/table/dataFunctions/faqsDataforTable";
 import { modalForm } from "../../components/Manager/faq/modalForm.Faq";
@@ -14,6 +13,7 @@ import TableService from "../../components/UI/table/TableService";
 import Button from "../../components/UI/Button";
 import { TbArrowsDownUp } from "react-icons/tb";
 import { CgArrowLongDown, CgArrowLongUp } from "react-icons/cg";
+import AdminSideBar from "../../components/Manager/sidebar/AdminSideBar";
 
 
 function FaqManagement() {
@@ -227,12 +227,11 @@ const [formikInitialValue, setformikInitialValues] = useState<{question: string,
     if (searchInputValue === "") setSearchInput("");
   };
 
-  
 
   return (
     <div className="bg-slate-400">
       <Header />
-      <Sidebar sideBarElems={[]} />
+      <AdminSideBar />
       <div className="mt-20 p-10 text-center">
         <h1 className="text-center mb-10">F A Q s</h1>
         <TransitionsModal

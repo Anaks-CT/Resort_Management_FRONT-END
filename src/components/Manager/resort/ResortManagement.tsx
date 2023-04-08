@@ -4,13 +4,12 @@ import TableService from "../../UI/table/TableService";
 import DataTable from "../../UI/table/DataTable";
 import { TbArrowsDownUp } from "react-icons/tb";
 import { CgArrowLongDown, CgArrowLongUp } from "react-icons/cg";
-import { changeResortStatusApi, getAllResortDetailsApi, sortSearchResortDetailsApi } from "../../../api/resort.api";
+import { changeResortStatusApi, sortSearchResortDetailsApi } from "../../../api/resort.api";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { IStore } from "../../../interface/slice.interface";
 import { useDispatch } from "react-redux";
 import { updateAllResortDetails } from "../../../store/slices/allResortSlice";
-import Sidebar from "../Sidebar";
 import { toast } from "react-toastify";
 
 function ResortManagement() {
@@ -106,6 +105,7 @@ function ResortManagement() {
         dispatch(updateAllResortDetails(res.data.data));
       })
       .catch((err) => console.log(err));
+      // eslint-disable-next-line
   }, [searchInput, sortOrder]);
 
   //////////////////////////////////////// defining the headers for my table data ///////////////////////////
