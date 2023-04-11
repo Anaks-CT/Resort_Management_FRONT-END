@@ -15,10 +15,8 @@ export const editResortApi = (resortDetails: IAddResort, image: string | null, r
 export const changeResortStatusApi = (resortId: string) =>
   axiosResort.delete(`/resort/${resortId}`)
 
-export const sortSearchResortDetailsApi = (searchValue: string | null, sortOrder: string | null) => {
-  console.log(searchValue, sortOrder);
-  
-  return axiosResort.get(`/resortDetailService/?searchValue=${searchValue}&sortOrder=${sortOrder}`)
+export const sortSearchResortDetailsApi = (searchValue: string | null, sortOrder: string | null) => 
+  axiosResort.get(`/resortDetailService/?searchValue=${searchValue}&sortOrder=${sortOrder}`)
 
-}
+
   

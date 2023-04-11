@@ -4,6 +4,7 @@ const USER_BASE_URL = `http://localhost:${process.env.REACT_APP_BACKENDPORT}/use
 const COMPANY_BASE_URL = `http://localhost:${process.env.REACT_APP_BACKENDPORT}/company`;
 const RESORT_BASE_URL = `http://localhost:${process.env.REACT_APP_BACKENDPORT}/resort`;
 const GALLARY_BASE_URL = `http://localhost:${process.env.REACT_APP_BACKENDPORT}/gallary`;
+const ROOM_BASE_URL = `http://localhost:${process.env.REACT_APP_BACKENDPORT}/room`;
 
 const axiosUser = axios.create({
   baseURL: USER_BASE_URL,
@@ -19,6 +20,10 @@ export const axiosResort = axios.create({
 
 export const axiosGallary = axios.create({
   baseURL: GALLARY_BASE_URL,
+});
+
+export const axiosRoom = axios.create({
+  baseURL: ROOM_BASE_URL,
 });
 
 

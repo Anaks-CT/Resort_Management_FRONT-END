@@ -1,11 +1,21 @@
 import { Route, Routes } from "react-router";
-import { ResortManagement, AdminDashboard, AdminLoginPage, GallaryManagementAdmin, PageNotFoundAdmin, ResortDashboard, ResortRoom, AddResort, FaqManagementPage } from "../pages/pages";
+import {
+  ResortManagement,
+  AdminDashboard,
+  AdminLoginPage,
+  GallaryManagementAdmin,
+  PageNotFoundAdmin,
+  ResortDashboard,
+  ResortRoom,
+  AddResort,
+  FaqManagementPage,
+  RoomCustomize,
+} from "../pages/pages";
 
 type routers = {
   path: string;
   component: JSX.Element;
 };
-
 
 function AdminRouter() {
   const publicRoutes: routers[] = [
@@ -15,22 +25,22 @@ function AdminRouter() {
     },
     {
       path: "/adminDashboard",
-      component: <AdminDashboard />
+      component: <AdminDashboard />,
     },
     {
       path: "/resortmanagement",
-      component: <ResortManagement />
+      component: <ResortManagement />,
     },
     {
       path: "/faqManagement",
-      component: <FaqManagementPage />
+      component: <FaqManagementPage />,
     },
     {
       path: "/addResort",
-      component: <AddResort />
+      component: <AddResort />,
     },
     {
-      path: `/:resort/dashboard`,// path parameters(for middle), router state, router object
+      path: `/:resort/dashboard`, // path parameters(for middle), router state, router object
       component: <ResortDashboard />,
     },
     {
@@ -39,7 +49,11 @@ function AdminRouter() {
     },
     {
       path: `/:resort/room`,
-      component: <ResortRoom  />,
+      component: <ResortRoom />,
+    },
+    {
+      path: `/:resort/room/customizeRoom`,
+      component: <RoomCustomize />,
     },
     {
       path: "/*",
