@@ -1,5 +1,4 @@
 import React from "react";
-import Input from "../../UI/Input";
 import { useNavigate } from "react-router-dom";
 import {
   ErrorMessage,
@@ -11,11 +10,8 @@ import {
 } from "formik";
 import PreviewImage from "../../UI/PreviewImage";
 import Button from "../../UI/Button";
-import { addResort } from "../../../schema/admin/addResortForm";
-import { IAddResort } from "../../../interface/resort.interface";
 import { IAddRoom, IRoom } from "../../../interface/room.interface";
 import addRoomSchema from "../../../schema/admin/addRoom";
-import { createRoomApi } from "../../../api/room.api";
 import { useSelector } from "react-redux";
 import { IStore } from "../../../interface/slice.interface";
 

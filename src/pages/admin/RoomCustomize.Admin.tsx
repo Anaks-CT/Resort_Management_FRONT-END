@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import AddEditRoomForm from "../../components/Manager/room/AddEditRoomForm";
 import { Header } from "../../components/Manager/Header";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { IAddRoom } from "../../interface/room.interface";
 import AdminResortSideBar from "../../components/Manager/sidebar/AdminResortSideBar";
 import { createRoomApi, updateRoomApi } from "../../api/room.api";
@@ -15,7 +14,6 @@ function RoomCustomize() {
   const location = useLocation();
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const currentResort = useSelector((state: IStore) => state.resort);
 
