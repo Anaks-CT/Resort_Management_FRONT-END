@@ -16,9 +16,9 @@ const addRoomSchema = yup.object().shape({
           !value || (value && SUPPORTED_FORMATS.includes(value?.type))
       )
   ).max(4, "You can add a maximum of 4 images"),
-  name: yup.string().trim().required('Name is required'),
+  name: yup.string().trim().matches(/^(?!\d)[a-zA-Z0-9 ]*$/, 'Invalid input').required('Name is required'),
   description: yup.string().trim().required('Description is required'),
-  area: yup.string().trim().required('Area is required'),
+  area: yup.string().trim().max(3, "Invalid Area").required('Area is required'),
   packages: yup.array()
     .of(
       yup.object().shape({

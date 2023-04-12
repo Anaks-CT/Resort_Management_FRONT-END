@@ -17,8 +17,7 @@ function RoomCustomize() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const currentResort = useSelector((state: IStore) => state.resort)
-
+  const currentResort = useSelector((state: IStore) => state.resort);
 
   ////////////////////////////// state for loading /////////////////////
 
@@ -83,26 +82,31 @@ function RoomCustomize() {
   ////////////////////////////// formik onsubmit function ////////////////////////
   // function according to add room or edit room
   const formikOnSubmit = (formValues: IAddRoom, roomId?: string) => {
-    
-    // setloading(true);
+    setloading(true);
+    // checking if the data has value
+    // if data has value it means it means it is an edit submit
     if (!data) {
+      // making a function for making formData to send to cloudinary so that can be called in a loop 
       const uploadImage = (image: any) => {
         const data = new FormData();
         data.append("file", image);
         data.append("upload_preset", "resortManagemen");
         data.append("cloud_name", "dhcvbjebj");
-      
+
         return fetch("https://api.cloudinary.com/v1_1/dhcvbjebj/image/upload", {
           method: "post",
           body: data,
         }).then((response) => response.json());
       };
-      Promise.all(formValues.images.map(item =>uploadImage(item)))
+      // sending all the images at the same time to cloudinary to reduce time
+      Promise.all(formValues.images.map((item) => uploadImage(item)))
         .then((data) => {
-          console.log(data)
-          let images:any[] = []
-          data.forEach(item => images.push(item.secure_url))
-          createRoomApi(currentResort.resortId,  {...formValues, images: images})
+          let images: any[] = [];
+          data.forEach((item) => images.push(item.secure_url));
+          createRoomApi(currentResort.resortId, {
+            ...formValues,
+            images: images,
+          })
             .then((res) => {
               navigate(`/admin/${currentResort}/room`, {
                 state: { message: res.data.message },
@@ -124,68 +128,53 @@ function RoomCustomize() {
       //////////////////////////////////////////// edit details when image is added ///////////////////////////////
 
       if (formValues.images.length > 0) {
-        console.log('enhfd');
+        console.log("enhfd");
         const uploadImage = (image: any) => {
           const data = new FormData();
           data.append("file", image);
           data.append("upload_preset", "resortManagemen");
           data.append("cloud_name", "dhcvbjebj");
-        
-          return fetch("https://api.cloudinary.com/v1_1/dhcvbjebj/image/upload", {
-            method: "post",
-            body: data,
-          }).then((response) => response.json());
+
+          return fetch(
+            "https://api.cloudinary.com/v1_1/dhcvbjebj/image/upload",
+            {
+              method: "post",
+              body: data,
+            }
+          ).then((response) => response.json());
         };
-        Promise.all(formValues.images.map(item =>uploadImage(item)))
-          .then((responseData) => {
-            updateRoomApi(currentResort.resortId, formValues)
-              .then(res => console.log(res))
-              .catch(err => console.log(err))
-            // editResortApi(formValues, responseData?.url, data && data[0]._id)
-            //   .then((res) => {
-            //     // updating the all resort slice in redux
-            //     dispatch(updateAllResortDetails(res.data.data));
-            //     // sending the message to resort management page
-            //     navigate("/admin/resortmanagement", {
-            //       state: { message: res.data.message },
-            //     });
-            //     seterror("");
-            //   })
-            //   .catch((err) => {
-            //     seterror(err.response.data.message);
-            //     setloading(false);
-            //   });
+        Promise.all(formValues.images.map((item) => uploadImage(item)))
+        .then((data) => {
+          console.log(data);
+          let images: any[] = [];
+          data.forEach((item) => images.push(item.secure_url));
+            updateRoomApi(currentResort.resortId, {...formValues, images}, roomId)
+              .then((res) => {
+                // navigating and passing the message to the table page
+            navigate(`/admin/${currentResort.resortName}/room`, {
+              state: { message: res.data.message },
+            });
+            // setting the previous error if any to empty
+            seterror('')
+              })
+              .catch((err) => seterror(err.response.data.message))
+              .finally(() => setloading(false))  
           })
-          .catch((err) => {
-            seterror("Image not uploaded to cloudinary");
-          })
-          .finally(() => {
-            setloading(false);
-          });
+          .catch((err) => seterror("Image not uploaded to cloudinary"))
+          .finally(() => setloading(false));
       } else {
         ////////////////////////////////////// edit details when image is not added ////////////////////////////////
-        console.log('object');
-          console.log(roomId)
-          updateRoomApi(currentResort.resortId, formValues, roomId)
-              .then(res => {navigate(`/admin/${currentResort.resortName}/room`)})
-              .catch(err => console.log(err))
-        // editResortApi(formValues, null, data && data[0]._id)
-        //   .then((res) => {
-        //     // updating the all resort slice in redux
-        //     dispatch(updateAllResortDetails(res.data.data));
-        //     // seding the messaage to resort management page to display the message sent from backend
-        //     navigate("/admin/resortmanagement", {
-        //       state: { message: res.data.message },
-        //     });
-        //     seterror("");
-        //   })
-        //   .catch((err) => {
-        //     seterror(err.response.data.message);
-        //     setloading(false);
-        //   })
-        //   .finally(() => {
-        //     setloading(false);
-        //   });
+        updateRoomApi(currentResort.resortId, formValues, roomId)
+          .then((res) => {
+            // navigating and passing the message to the table page
+            navigate(`/admin/${currentResort.resortName}/room`, {
+              state: { message: res.data.message },
+            });
+            // setting the previous error if any to empty
+            seterror('')
+          })
+          .catch((err) => seterror(err.response.data.message))
+          .finally(() => setloading(false))
       }
     }
   };

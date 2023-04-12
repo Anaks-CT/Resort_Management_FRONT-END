@@ -36,7 +36,7 @@ function AddEditRoomForm({
   error,
 }: props) {
   const navigate = useNavigate();
-
+  const currentResort = useSelector((state: IStore) => state.resort)
   return (
     <>
       <div className="md:p-20 p-10">
@@ -66,7 +66,7 @@ function AddEditRoomForm({
             return (
               <Form id="forms">
                 <div className="bg-white md:flex md:justify-around  px-10 pt-10">
-                  <div className="md:h-60 md:w-72 w-52 h-32 border object-cover">
+                  <div className=" lg:h-60 md:w-72 w-52 md:h-32 mx-auto h-32 border">
                     {values.images.length < 1 && data && (
                       <img
                         className="h-full w-full"
@@ -79,7 +79,7 @@ function AddEditRoomForm({
                     )}
                   </div>
 
-                  <div className="md:h-60 md:w-72 w-52 h-32 border">
+                  <div className=" lg:h-60 md:w-72 w-52 md:h-32 mx-auto h-32 border">
                   {values.images.length < 1 && data && (
                       <img
                         className="h-full w-full"
@@ -91,7 +91,7 @@ function AddEditRoomForm({
                       <PreviewImage freeStyle={true} file={values.images[1]} />
                     )}
                   </div>
-                  <div className="md:h-60 md:w-72 w-52 h-32 border">
+                  <div className=" lg:h-60 md:w-72 w-52 md:h-32 mx-auto h-32 border">
                   {values.images.length < 1 && data && (
                       <img
                         className="h-full w-full"
@@ -103,7 +103,7 @@ function AddEditRoomForm({
                       <PreviewImage freeStyle={true} file={values.images[2]} />
                     )}
                   </div>
-                  <div className="md:h-60 md:w-72 w-52 h-32 border">
+                  <div className=" lg:h-60 md:w-72 w-52 md:h-32 mx-auto h-32 border">
                   {values.images.length < 1 && data && (
                       <img
                         className="h-full w-full"
@@ -150,7 +150,7 @@ function AddEditRoomForm({
                     <Field
                       name="name"
                       class="mb-5 box-border p-[16px] block w-full tracking-wide"
-                      placeholder="Resort Name"
+                      placeholder="Room Type"
                       type="text"
                     />
 
@@ -226,7 +226,7 @@ function AddEditRoomForm({
                                   />
                                   <Field
                                     name={`packages.${index}.packageName`}
-                                    placeholder="Packages Name"
+                                    placeholder="Package Name"
                                     class="mb-5 box-border p-[16px] block w-full tracking-wide"
                                     type="text"
                                   />
@@ -510,6 +510,15 @@ function AddEditRoomForm({
                       );
                     }}
                   </FieldArray>
+                  {loading && (
+                <div className="flex justify-center">
+                  <img
+                    width={50}
+                    src="https://res.cloudinary.com/dhcvbjebj/image/upload/v1680669482/Spinner-1s-200px_4_ontbds.gif"
+                    alt=""
+                  />
+                </div>
+              )}
                 <div className="text-center mt-10 text-red-500">{error}</div>
                   <div className="text-center ">
                     <Button
@@ -524,7 +533,7 @@ function AddEditRoomForm({
                       class="py-3 px-4 rounded mt-8 mx-10"
                       color="danger"
                       disable={loading ? true : false}
-                      onClick={() => navigate("/admin/resortmanagement")}
+                      onClick={() => navigate(`/admin/${currentResort.resortName}/room`)}
                     >
                       CANCEL
                     </Button>

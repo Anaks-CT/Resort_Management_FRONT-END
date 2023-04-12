@@ -30,14 +30,14 @@ function RoomManagement() {
   const dispatch = useDispatch()
 
   // changing the room Status
-  const handleDelete = (resortId: string) => {
-    //api call to change room status
+  const handleDelete = (roomId: string) => {
+    // api call to change room status
+    console.log(roomId);
   }
 
   // editing the resortDetails
-  const handleEdit = (resortId: string) => {
-    console.log(resortId)
-    const currentRoom = roomDetails?.filter((item: any) => item._id === resortId)
+  const handleEdit = (roomId: string) => {
+    const currentRoom = roomDetails?.filter((item: any) => item._id === roomId)
     navigate(`/admin/${currentResort.resortName}/room/customizeRoom`, {
       state: {
         data: currentRoom
@@ -63,7 +63,7 @@ function RoomManagement() {
         name: item.name,
         description: item.description,
         area: item.area,
-        package: item.packages.map((item: any, i: number) => <div className="flex flex-col"><div>{item.packageName}{item.cost}</div></div>),
+        package: item.packages.map((item: any, i: number) => <div className="flex flex-col "><div className="flex justify-between"><span>Name - {item.packageName}</span>  <span>Cost - ₹{item.cost}</span></div></div>),
         // viewMore: 
         makeChanges: { _id: item._id, active: item.active, handleDelete, handleEdit },
       };
@@ -184,7 +184,7 @@ function RoomManagement() {
     <>
     <div className="mt-20 w-full h-full p-10 text-center">
       <h1 className="text-center mb-10">ROOM</h1>
-      <Button class="mb-10" color="black" onClick={handleAddRoomClick}>ADD RESORT</Button>
+      <Button class="mb-10" color="black" onClick={handleAddRoomClick}>ADD ROOM</Button>
       <div className="text-green-700 text-lg">{location?.state?.message}</div>
       <TableService
         inputOnchange={handleChangeSearch}
