@@ -177,7 +177,6 @@ function RoomManagement() {
           description: item.description,
           area: item.area,
           staringPrice: `₹${startingPrice} /day`,
-          // viewMore:
           makeChanges: {
             _id: item._id,
             active: item.active,

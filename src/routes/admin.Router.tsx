@@ -10,6 +10,7 @@ import {
   AddResort,
   FaqManagementPage,
   RoomCustomize,
+  MangerManagement,
 } from "../pages/pages";
 
 type routers = {
@@ -30,6 +31,10 @@ function AdminRouter() {
     {
       path: "/resortmanagement",
       component: <ResortManagement />,
+    },
+    {
+      path: "/managerManagement",
+      component: <MangerManagement />,
     },
     {
       path: "/faqManagement",

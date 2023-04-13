@@ -26,7 +26,7 @@ function SignUp() {
           resetForm()
           navigate('/login',{
             state: {
-              message: 'Register successful !!'
+              message: res.data.message
             }
           });
         })

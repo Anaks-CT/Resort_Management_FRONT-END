@@ -25,6 +25,7 @@ import ResortManagement from "./admin/ResortManagement.Admin";
 import AddResort from "./admin/AddResort.Admin";
 import FaqManagementPage from "./admin/FaqManagement.Admin";
 import RoomCustomize from "./admin/RoomCustomize.Admin";
+import MangerManagement from "./admin/MangerManagement";
 
 ///////////////////////////////// user export ///////////////////////////
 
@@ -54,4 +55,5 @@ export {
   AddResort,
   FaqManagementPage,
   RoomCustomize,
+  MangerManagement,
 };

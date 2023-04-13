@@ -11,6 +11,7 @@ import { IStore } from "../../../interface/slice.interface";
 import { useDispatch } from "react-redux";
 import { updateAllResortDetails } from "../../../store/slices/allResortSlice";
 import { toastMessage } from "../../../helpers/toast";
+import { IResort } from "../../../interface/resort.interface";
 
 function ResortManagement() {
   const navigate = useNavigate()
@@ -47,12 +48,14 @@ function ResortManagement() {
 
 
 ///////////////////////////////////////////////// row data for table /////////////////////////////
+
   let renderData: any[] = [];
   if (allResortDetails) {
-    allResortDetails.forEach((item) => {
+    allResortDetails.forEach((item: any, i: number) => {
       let singleResort = {
         image: (
           <img
+            key={i}
             src={item.resortDetails.image}
             width="100px"
             height="150px"
@@ -62,7 +65,8 @@ function ResortManagement() {
         name: item.resortDetails.name,
         heading: item.resortDetails.heading,
         description: item.resortDetails.description,
-        features: item.resortDetails.features.map((item, i) => <div><h2 className="float-left">{i+1}- {item}</h2></div>),
+        features: item.resortDetails.features.map((item: any, i: number) => <div key={i}><h2 className="float-left">{i+1}- {item}</h2></div>),
+        manager: item.manager ? <button className="text-blue-600" onClick={()=>navigate('/admin/managerManagement')}>{item.manager.email}</button> : "No Active Manager",
         makeChanges: { _id: item._id, active: item.active, handleDelete, handleEdit, extraEditButton: true },
         // active: item.active
       };
@@ -93,7 +97,7 @@ function ResortManagement() {
   //////////////////////////////////////// defining the headers for my table data ///////////////////////////
 
   // will use this headers and change them into sortable buttons or labels according the to the table data
-  const headers = ["Image", "Name", "Heading", "Description", "Features", "Make-Changes"];
+  const headers = ["Image", "Name", "Heading", "Description", "Features", "Manager", "Make-Changes"];
 
   /////////////////////////////////////////// sorting logic //////////////////////////////////////
 

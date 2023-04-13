@@ -22,13 +22,12 @@ function AdminSideBar() {
     navigate(`/admin/${resortName}/dashboard`);
   };
 
-  const handleAddResortClick = () => {
-    navigate("/admin/resortManagement");
-  };
+  const handleAddResortClick = () => navigate("/admin/resortManagement");
 
-  const handleManageFaqs = () => {
-    navigate("/admin/faqManagement");
-  };
+  const handleManageFaqs = () => navigate("/admin/faqManagement");
+
+  const handleManagerClick = () => navigate("/admin/managerManagement");
+  
   useEffect(() => {
     let arr: resortProp[] = [];
     arr.push({
@@ -40,6 +39,11 @@ function AdminSideBar() {
       _id: "FaqManagement",
       name: "F A Q S",
       onClick: handleManageFaqs,
+    });
+    arr.push({
+      _id: "Manager",
+      name: "Manager",
+      onClick: handleManagerClick,
     });
     getAllResortDetailsApi()
       .then((res) => {
@@ -55,7 +59,7 @@ function AdminSideBar() {
       .catch((err) => {
         console.log(err);
       });
-      // eslint-disable-next-line
+    // eslint-disable-next-line
   }, []);
 
   return <Sidebar sideBarElems={resortNames} />;
