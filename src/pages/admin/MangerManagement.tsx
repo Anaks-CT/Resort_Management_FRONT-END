@@ -1,6 +1,5 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import {useState, useEffect} from 'react'
-import { useSelector } from "react-redux";
 import { TbArrowsDownUp } from "react-icons/tb";
 import { CgArrowLongDown, CgArrowLongUp } from "react-icons/cg";
 import Button from "../../components/UI/Button";
@@ -8,41 +7,23 @@ import TableService from "../../components/UI/table/TableService";
 import DataTable from "../../components/UI/table/DataTable";
 import { getAllManagerDetails } from "../../api/manager.api";
 import { IManager } from "../../interface/manager.interface";
-import { IResort } from "../../interface/resort.interface";
 import { Header } from "../../components/Manager/Header";
 import AdminSideBar from "../../components/Manager/sidebar/AdminSideBar";
+import { useFormik } from "formik";
+import TransitionsModal from "../../components/UI/Modal";
+import { modalForm } from "../../components/Manager/managerManagement/modalForm.manager";
+import { signupSchema } from "../../schema/admin/addManager";
+import { formikSubmit } from "../../components/Manager/managerManagement/formikSubmitFunction";
+import managerDataForTable from "../../components/UI/table/dataFunctions/managerDataForTable";
+import { useSelector } from "react-redux";
+import { IStore } from "../../interface/slice.interface";
 
 
 function ManagerManagement() {
-  const navigate = useNavigate();
 
   const location = useLocation();
   const [managerDetails, setmanagerDetails] = useState<IManager[]>(); //******************will change later to IRoom interface */
-
-
-  // useEffect(() => {
-  //   getAllManagerDetails()
-  //     .then((res: any) => setmanagerDetails(res.data.data))
-  //     .catch((err: any) => console.log(err));
-  //   // eslint-disable-next-line
-  // }, []);
-
-  // changing the room Status
-  const handleDelete = (managerId: string) => {
-    // api call to change room status
-    console.log(managerId);
-  };
-
-  // editing the resortDetails
-  const handleEdit = (managerId: string) => {
-    // const currentRoom = roomDetails?.filter((item: any) => item._id === managerId);
-    // navigate(`/admin/${currentResort.resortName}/room/customizeRoom`, {
-    //   state: {
-    //     data: currentRoom,
-    //   },
-    // });
-    console.log(managerId)
-  };
+  const resortDetails = useSelector((state: IStore) => state.allResort)
 
 
   ////////////////////////////// state for search and sort //////////////////////
@@ -115,86 +96,37 @@ function ManagerManagement() {
     }
   };
 
-  ///////////////////////////////////////changing the data according to the search input and sortby  API ///////////////////////////////
-  // state which is given to the table after searching and sorting
-  let renderData
-      // //// calling the function and passing the data as arguments in a loop
-      if (managerDetails) {
-          renderData=  managerDetails.map((item: any) => {
-          return {
-            image: (
-              item.profile ?(
-                <img
-                  src={item.profile}
-                  className="object-contain"
-                  width="100px"
-                  height="150px"
-                  alt=""
-                ></img>
-              ):"Profile Not Added"
-            ),
-            name: item.name,
-            email: item.email,
-            phone: item.phone,
-            resort: item.resortId.resortDetails.name,
-            makeChanges: {
-              _id: item._id,
-              active: item.active,
-              handleDelete,
-              handleEdit,
-            },
-          };
-        });
-      }
-      // eslint-disable-next-line
+
+    ////////////////////////////// state for loading /////////////////////
+    const [loading, setloading] = useState(false);
+
+    ////////////////////////////// state for error management //////////////////////
+    const [error, seterror] = useState("");
+  
+    ////////////////////////////// edit button click toggle for conditional modal control /////////////////////
+
+
+///////////////////////////////////////// for opening the modal and closing the modal ////////////////
+
+  // we pass this funtions and state to the modal component and make use of it
+  const [open, setOpen] = useState(false);
+  const openModal = () => {
+    setOpen(true);
+  };
+// close modal function
+  const closeModal = () => {
+    // formik.resetForm()
+    setOpen(false);
+    setloading(false)
+    seterror('')
+  };
+
+
+
   useEffect(() => {
-    
-    // const managerDetailsForTable = managerDetails?.map((item: any) => {
-    // const packagePrice = item.packages;
-    // // sorting the package cost
-    // const sortedPackagePrice = packagePrice.sort(
-    //   (a: any, b: any) => a.cost - b.cost
-    // );
-    // // adding an extra field to the table for starting price to sort
-    // const startingPrice = sortedPackagePrice[0].cost;
-    //   return {...item, startingPrice}
-    // })
-    // // searched data is stored in filtered data
-
-    // const filteredData = managerDetails?.filter((item: IManager) =>
-    //   item.email.toLowerCase().includes(searchInput.toLowerCase())
-    // );
-    // function getSortValue(managerDetail: any) {
-    //   if (sortBy === "Name") {
-    //     return managerDetail.name;
-    //   } else if (sortBy === "Email") {
-    //     return managerDetail.email;
-    //   } else if(sortBy === "Phone Number") {
-    //     return (managerDetail.phone);
-    //   }else if(sortBy === "Resort"){
-    //     return (managerDetail.resortId)
-    //   }
-    // }
-    // const sortedData = filteredData?.sort((a: any, b: any) => {
-    //   const valueA = getSortValue(a);
-    //   const valueB: any = getSortValue(b);
-
-    //   const reverseOrder = sortOrder === "asc" ? 1 : -1;
-
-    //   if (typeof valueA === "string") {
-    //     return valueA.localeCompare(valueB) * reverseOrder;
-    //   } else {
-    //     return (valueA - valueB) * reverseOrder;
-    //   }
-    // });
-    // let arr;
-
     getAllManagerDetails(searchInput, sortOrder, sortBy)
     .then((res: any) => setmanagerDetails(res.data.data))
     .catch((err: any) => console.log(err));
-
-
-
   }, [searchInput, sortBy, sortOrder]);
 
 
@@ -216,6 +148,45 @@ function ManagerManagement() {
     return <span key={item}>{item}</span>;
   });
 
+
+
+////////////////////////////////////// data for table /////////////////////////////
+  let renderData
+  // //// calling the function and passing the data as arguments in a loop
+  if (managerDetails) {
+      renderData=  managerDetails.map((item: any) => {
+        return managerDataForTable(item, setmanagerDetails)
+      })
+  }
+
+
+  
+  
+    const formik = useFormik({
+      enableReinitialize: true,
+      initialValues: {
+        name: '',
+        email: '',
+        phone: '',
+        cPassword: '',
+        password: '',
+        resortId: ''
+      },
+      validationSchema: signupSchema,
+      //  calling the onsubmit according to which button is called
+      onSubmit: (values, { resetForm }) => {
+        // calling the onsubmit function
+        formikSubmit(
+          values,
+          resetForm,
+          setloading,
+          seterror,
+          closeModal,
+          setmanagerDetails,
+        );
+      },
+    });
+
   //////////////////////////////////////////// search////////////////////////////////////
 
   let searchInputValue: string;
@@ -227,13 +198,6 @@ function ManagerManagement() {
     if (searchInputValue === "") setSearchInput("");
   };
 
-  //////////////////////////////////////// add resort ///////////////////////////////
-  const handleAddRoomClick = () => {
-    // navigate(`/admin/${currentResort.resortName}/room/customizeRoom`, {
-    //   state: { roomDetails: setRoomDetails },
-    // });
-    console.log('to add room page');
-  };
 
   return (
     <div className="bg-slate-400 flex flex-col items-center w-full">
@@ -241,9 +205,13 @@ function ManagerManagement() {
       <AdminSideBar />
       <div className="mt-20 w-full h-full p-10 text-center">
         <h1 className="text-center mb-10">MANAGER</h1>
-        <Button class="mb-10" color="black" onClick={handleAddRoomClick}>
-          ADD MANAGER
-        </Button>
+        <TransitionsModal
+          buttonMessage="ADD  MANAGER"
+          modalForm={() => modalForm(error, loading, formik, closeModal, resortDetails)}
+          open={open}
+          openModal={openModal}
+          closeModal={closeModal}
+        />
         <div className="text-green-700 text-lg">{location?.state?.message}</div>
         <TableService
           inputOnchange={handleChangeSearch}
@@ -263,12 +231,3 @@ function ManagerManagement() {
 
 export default ManagerManagement;
 
-// import React from 'react'
-
-// function MangerManagement() {
-//   return (
-//     <div className='text-white'>MangerManagement</div>
-//   )
-// }
-
-// export default MangerManagement

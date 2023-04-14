@@ -1,6 +1,6 @@
 export interface IManager {
     name: string
-    phone: number
+    phone: number | string
     email: string
     profile?: string
     password: string

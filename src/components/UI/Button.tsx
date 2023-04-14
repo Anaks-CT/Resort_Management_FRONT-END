@@ -6,6 +6,7 @@ type props = {
   outline?: boolean;
   rounded?: boolean;
   disable?: boolean;
+  hidden?: boolean;
   onClick?: any;
   class: string;
   OnClickItem?: any,
@@ -16,6 +17,7 @@ function Button({
   children,
   color,
   outline,
+  hidden,
   rounded,
   disable,
   onClick,
@@ -56,7 +58,7 @@ function Button({
   );
 
   return (
-    <button {...rest} disabled={disable ? true : false} type={type === "submit" ? "submit" : "button"} onClick={() => onClick && onClick(OnClickItem && OnClickItem)} className={classes}>
+    <button {...rest} hidden={hidden} disabled={disable ? true : false} type={type === "submit" ? "submit" : "button"} onClick={() => onClick && onClick(OnClickItem && OnClickItem)} className={classes}>
       {children}
     </button>
   );

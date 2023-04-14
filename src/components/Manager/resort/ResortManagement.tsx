@@ -11,7 +11,6 @@ import { IStore } from "../../../interface/slice.interface";
 import { useDispatch } from "react-redux";
 import { updateAllResortDetails } from "../../../store/slices/allResortSlice";
 import { toastMessage } from "../../../helpers/toast";
-import { IResort } from "../../../interface/resort.interface";
 
 function ResortManagement() {
   const navigate = useNavigate()

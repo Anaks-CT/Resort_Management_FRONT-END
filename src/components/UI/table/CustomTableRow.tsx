@@ -44,7 +44,7 @@ function CustomTableRow({ row, editImage, deleteButtonValue }: any) {
                       Edit Image
                     </Button>
                   )}
-                  <Button
+                  { row[key].handleEdit && <Button
                     color="primary"
                     onClick={() => {
                       row[key].handleEdit(inputRef.current.value);
@@ -52,7 +52,7 @@ function CustomTableRow({ row, editImage, deleteButtonValue }: any) {
                     class="px-5 py-2"
                   >
                     Edit
-                  </Button>
+                  </Button>}
                   <Button
                     color="danger"
                     onClick={() => {

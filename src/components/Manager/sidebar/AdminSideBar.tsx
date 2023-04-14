@@ -5,6 +5,7 @@ import { updateResort } from "../../../store/slices/resortSlice";
 import { getAllResortDetailsApi } from "../../../api/resort.api";
 import { IResort } from "../../../interface/resort.interface";
 import Sidebar from "./Sidebar";
+import { updateAllResortDetails } from "../../../store/slices/allResortSlice";
 type resortProp = {
   _id: string;
   name: string;
@@ -47,6 +48,7 @@ function AdminSideBar() {
     });
     getAllResortDetailsApi()
       .then((res) => {
+        dispatch(updateAllResortDetails(res.data.data))
         res.data.data.forEach((item: IResort) => {
           arr.push({
             _id: item._id,
