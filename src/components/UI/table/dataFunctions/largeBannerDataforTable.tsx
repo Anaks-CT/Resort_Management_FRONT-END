@@ -10,8 +10,8 @@ export default function largeBannerDataforTable(
   setOpen: any,
   seteditButtonClicked: any,
   setlargeBannerId: any,
-  resortId: string
-  // seteditImageClicked: any
+  resortId: string,
+  adminToken: string
 ) {
   const { _id, image, description1, description2 } = item;
 
@@ -22,7 +22,7 @@ export default function largeBannerDataforTable(
 
   //delete a selected large banner
   const handleDelete = (largeBannerId: string) => {
-    deleteLargeBannerApi(resortId, largeBannerId)
+    deleteLargeBannerApi(resortId, largeBannerId, adminToken)
       .then((res) => {
         dispatch(updateGallary(res.data.data)); //********************cant use this here will change this to redux */
 

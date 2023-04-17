@@ -1,6 +1,7 @@
 import { deleteFaqApi } from "../../../../api/company.api";
 import { Ifaq } from "../../../../interface/company.interface";
 import { toastMessage } from "../../../../helpers/toast";
+// import UnauthorizedRoute from "../../../../helpers/unauthorizedRoute";
 
 type user = "nothingClicked" | "editClicked";
 export default function faqsDataforTable(
@@ -12,10 +13,11 @@ export default function faqsDataforTable(
     question: string;
     answer: string;
 }>>,
-setCurrentFaqId: React.Dispatch<React.SetStateAction<string>>
+setCurrentFaqId: React.Dispatch<React.SetStateAction<string>>,
+adminToken: string,
+logout: any
 ) {
   const { _id, Q, A } = item;
-
 
 
   
@@ -23,12 +25,15 @@ setCurrentFaqId: React.Dispatch<React.SetStateAction<string>>
 
   //delete a selected faq
   const handleDelete = (id: string) => {
-    deleteFaqApi(id)
+    deleteFaqApi(id, adminToken)
         .then(res => {
             setFaqDetail(res.data.data)
             toastMessage("success",res.data.message)
         })
-        .catch(err => toastMessage("error", err.response.data.message))
+        .catch(err => {
+          if(err.response.status === 401) logout()
+          toastMessage("error", err.response.data.message)
+        })
         
   };
 

@@ -16,6 +16,8 @@ function RoomCustomize() {
   const navigate = useNavigate();
 
   const currentResort = useSelector((state: IStore) => state.resort);
+  const adminToken = useSelector((state: IStore) => state.adminAuth.token);
+
 
   ////////////////////////////// state for loading /////////////////////
 
@@ -104,7 +106,7 @@ function RoomCustomize() {
           createRoomApi(currentResort.resortId, {
             ...formValues,
             images: images,
-          })
+          }, adminToken)
             .then((res) => {
               navigate(`/admin/${currentResort}/room`, {
                 state: { message: res.data.message },
@@ -146,7 +148,7 @@ function RoomCustomize() {
           console.log(data);
           let images: any[] = [];
           data.forEach((item) => images.push(item.secure_url));
-            updateRoomApi(currentResort.resortId, {...formValues, images}, roomId)
+            updateRoomApi(currentResort.resortId, {...formValues, images}, adminToken, roomId,)
               .then((res) => {
                 // navigating and passing the message to the table page
             navigate(`/admin/${currentResort.resortName}/room`, {
@@ -162,7 +164,7 @@ function RoomCustomize() {
           .finally(() => setloading(false));
       } else {
         ////////////////////////////////////// edit details when image is not added ////////////////////////////////
-        updateRoomApi(currentResort.resortId, formValues, roomId)
+        updateRoomApi(currentResort.resortId, formValues, adminToken, roomId)
           .then((res) => {
             // navigating and passing the message to the table page
             navigate(`/admin/${currentResort.resortName}/room`, {

@@ -1,4 +1,5 @@
 import { axiosCompany } from "../config/api";
+import { setApiHeader } from "../helpers/apiHeader";
 import { ILoginInterface } from "../interface/user.interface";
 
 
@@ -11,11 +12,11 @@ export const adminLoginApi = ({email, password}: ILoginInterface) =>
 export const getFaqApi = () => 
   axiosCompany.get('/faq')
 
-export const addFaqApi = (question: string, answer: string) =>
-  axiosCompany.post('/faq',{question, answer})
+export const addFaqApi = (question: string, answer: string, token: string) =>
+  axiosCompany.post('/faq',{question, answer},setApiHeader(token))
 
-export const deleteFaqApi = (id: string) =>
-  axiosCompany.delete(`/faq/${id}`)
+export const deleteFaqApi = (id: string, token: string) =>
+  axiosCompany.delete(`/faq/${id}`, setApiHeader(token))
 
-export const editApi = (id: string, question: string, answer: string) => 
-  axiosCompany.put(`/faq/${id}`,{question, answer})
+export const editApi = (id: string, question: string, answer: string, token: string) => 
+  axiosCompany.put(`/faq/${id}`,{question, answer}, setApiHeader(token))

@@ -8,7 +8,8 @@ export default function communityDataforTable(
   setOpen: any,
   setImageUrl: any,
   seteditButtonClicked: any,
-  resortId: string
+  resortId: string,
+  adminToken: string
 ) {
 
 
@@ -18,7 +19,7 @@ export default function communityDataforTable(
 
   //delete a selected large banner
   const handleDelete = (imageUrl: string) => {
-    deleteCommunityBannerApi(resortId, imageUrl)
+    deleteCommunityBannerApi(resortId, imageUrl, adminToken)
       .then((res) => {
         dispatch(updateGallary(res.data.data))
         // giving a toast message deleted

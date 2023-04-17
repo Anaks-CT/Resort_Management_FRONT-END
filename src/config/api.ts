@@ -6,6 +6,7 @@ const RESORT_BASE_URL = `http://localhost:${process.env.REACT_APP_BACKENDPORT}/r
 const GALLARY_BASE_URL = `http://localhost:${process.env.REACT_APP_BACKENDPORT}/gallary`;
 const ROOM_BASE_URL = `http://localhost:${process.env.REACT_APP_BACKENDPORT}/room`;
 const MANAGER_BASE_URL = `http://localhost:${process.env.REACT_APP_BACKENDPORT}/manager`;
+const CHECKAUTH = `http://localhost:${process.env.REACT_APP_BACKENDPORT}/checkCredential`;
 
 export const axiosUser = axios.create({
   baseURL: USER_BASE_URL,
@@ -29,6 +30,10 @@ export const axiosRoom = axios.create({
 
 export const axiosManager = axios.create({
   baseURL: MANAGER_BASE_URL
+})
+
+export const axiosAuth = axios.create({
+  baseURL: CHECKAUTH
 })
 
 // export const axiosPrivate = axios.create({

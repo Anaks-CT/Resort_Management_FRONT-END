@@ -20,11 +20,13 @@ function ResortManagement() {
 
   // const [allResortDetails, setAllResortDetails] = useState<IResort[]>();
   const allResortDetails = useSelector((state: IStore) => state.allResort)
+  const adminToken = useSelector((state: IStore) => state.adminAuth.token)
+  
   const dispatch = useDispatch()
 
   // changing the resort Status
   const handleDelete = (resortId: string) => {
-    changeResortStatusApi(resortId)
+    changeResortStatusApi(resortId, adminToken)
       .then(res => {
         dispatch(updateAllResortDetails(res.data.data))
         toastMessage("success", res.data.message)

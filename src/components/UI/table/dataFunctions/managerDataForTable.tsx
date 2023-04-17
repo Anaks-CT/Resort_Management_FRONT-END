@@ -5,6 +5,7 @@ import { ChangeManagerStatusApi } from "../../../../api/manager.api";
 export default function managerDataForTable(
   item: any,
   setmanagerDetails: React.Dispatch<React.SetStateAction<IManager[] | undefined>>,
+  adminToken: string
 ) {
 
   ///////////////////////////// makind a cancel and delete function here and passing to tablecell///////////////////////////
@@ -12,7 +13,7 @@ export default function managerDataForTable(
   //change status of selected manager
   const handleDelete = (managerId: string) => {
     // api call to change room status
-    ChangeManagerStatusApi(managerId)
+    ChangeManagerStatusApi(managerId, adminToken)
       .then(res => {
         setmanagerDetails(res.data.data)
         toastMessage("success", res.data.message)

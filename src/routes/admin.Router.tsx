@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router";
+import { Route, Routes, Navigate } from "react-router-dom";
 import {
   ResortManagement,
   AdminDashboard,
@@ -12,6 +12,13 @@ import {
   RoomCustomize,
   MangerManagement,
 } from "../pages/pages";
+import { useSelector } from "react-redux";
+import { IStore } from "../interface/slice.interface";
+import ProtectedAdminRoute from "../helpers/ProtectedAdminRoute";
+import { useEffect, useState } from "react";
+import { checkCredentialApi } from "../api/checkAuth";
+import { useDispatch } from "react-redux";
+import { removeToken } from "../store/slices/adminToken.slice";
 
 type routers = {
   path: string;
@@ -19,11 +26,24 @@ type routers = {
 };
 
 function AdminRouter() {
+  const adminToken = useSelector((state: IStore) => state.adminAuth)
+  const [auth, setAuth] = useState(null)
+  const dispatch = useDispatch()
+  
+  useEffect(() => {
+    if(adminToken.token){
+      checkCredentialApi(adminToken.token)
+      .then(res => setAuth(res.data.message))
+  
+      .catch(err => { 
+        dispatch(removeToken())
+      })
+    }else{
+      setAuth(null)
+    }
+    // eslint-disable-next-line
+  },[adminToken])
   const publicRoutes: routers[] = [
-    {
-      path: "/login",
-      component: <AdminLoginPage />,
-    },
     {
       path: "/adminDashboard",
       component: <AdminDashboard />,
@@ -67,8 +87,9 @@ function AdminRouter() {
   ];
   return (
     <Routes>
+      <Route path="/login" element={!auth ? <AdminLoginPage /> : <Navigate to="/admin/adminDashboard" />} />
       {publicRoutes.map(({ path, component }) => (
-        <Route key={path} path={path} element={component} /> // warning
+        <Route key={path} path={path} element={ProtectedAdminRoute(component)} /> // warning
       ))}
     </Routes>
   );

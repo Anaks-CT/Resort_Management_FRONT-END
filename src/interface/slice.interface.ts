@@ -9,4 +9,5 @@ export interface IStore{
     },
     gallary:IGallary,
     allResort: IResort[] | null
+    adminAuth: {token: string}
 }

@@ -16,7 +16,8 @@ import { toastMessage } from "../../../../helpers/toast";
     seterror: any,
     largeBannerId: string,
     resortId: string,
-    closeModal: any
+    closeModal: any,
+    adminToken: string
   ) {
     if (type === "add") {
       // putting the loading button
@@ -38,7 +39,8 @@ import { toastMessage } from "../../../../helpers/toast";
             resortId,
             data.url,
             values.description1,
-            values.description2
+            values.description2,
+            adminToken
           )
             .then((res) => {
               // setting the newly fetched data from database ******* might change it to redux *******
@@ -67,7 +69,8 @@ import { toastMessage } from "../../../../helpers/toast";
         resortId,
         largeBannerId,
         values.description1,
-        values.description2
+        values.description2,
+        adminToken
       )
         .then((res) => {
           setloading(true);
@@ -105,7 +108,7 @@ import { toastMessage } from "../../../../helpers/toast";
         .then((res) => res.json())
         .then((data) => {
           // sending the data to the bacckend to save by calling the api
-          editLargeBannerImageApi(resortId, largeBannerId, data.url)
+          editLargeBannerImageApi(resortId, largeBannerId, data.url, adminToken)
             .then((res) => {
               // setting the newly fetched data from database ******* might change it to redux *******
               dispatch(updateGallary(res.data.data))

@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux";
 import { updateAllResortDetails } from "../../store/slices/allResortSlice";
 import { useLocation, useNavigate } from "react-router-dom";
 import FormikDataForResortManagement from "../../components/Manager/resort/FormikDataForAdd&EditResort";
+import { useSelector } from "react-redux";
+import { IStore } from "../../interface/slice.interface";
 
 function AddResort() {
   //////////////////////////// message passed from other pages //////////////////////////////
@@ -14,6 +16,8 @@ function AddResort() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const adminToken = useSelector((state: IStore) => state.adminAuth.token)
 
   ////////////////////////////// state for loading /////////////////////
 
@@ -87,7 +91,7 @@ function AddResort() {
       })
         .then((res) => res.json())
         .then((data) => {
-          createResortApi(formValues, data?.url)
+          createResortApi(formValues, data?.url, adminToken)
             .then((res) => {
               // updating the all resort slice in redux
               dispatch(updateAllResortDetails(res.data.data));
@@ -123,7 +127,7 @@ function AddResort() {
         })
           .then((res) => res.json())
           .then((responseData) => {
-            editResortApi(formValues, responseData?.url, data && data[0]._id)
+            editResortApi(formValues, responseData?.url, data && data[0]._id, adminToken)
               .then((res) => {
                 // updating the all resort slice in redux
                 dispatch(updateAllResortDetails(res.data.data));
@@ -147,7 +151,7 @@ function AddResort() {
       } else {
         ////////////////////////////////////// edit details when image is not added ////////////////////////////////
 
-        editResortApi(formValues, null, data && data[0]._id)
+        editResortApi(formValues, null, data && data[0]._id, adminToken)
           .then((res) => {
             // updating the all resort slice in redux
             dispatch(updateAllResortDetails(res.data.data));

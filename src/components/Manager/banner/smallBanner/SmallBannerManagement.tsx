@@ -25,6 +25,7 @@ import { IStore } from "../../../../interface/slice.interface";
 function SmallBannerManagement() {
   // const [gallaryDetails, setgallaryDetails] = useState<IGallary>();
   const gallaryDetails = useSelector((state: IStore) => state.gallary)
+  const adminToken = useSelector((state: IStore) => state.adminAuth.token)
   const dispatch = useDispatch()
 
 
@@ -122,8 +123,8 @@ function SmallBannerManagement() {
           setOpen,
           seteditButtonClicked,
           setSmallBannerId,
-          resortId
-          // seteditImageClicked
+          resortId,
+          adminToken
         )
       );
     }
@@ -259,7 +260,8 @@ function SmallBannerManagement() {
         seterror,
         smallBannerId,
         resortId,
-        closeModal
+        closeModal,
+        adminToken
       );
     },
   });

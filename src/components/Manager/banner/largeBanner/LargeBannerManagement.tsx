@@ -22,6 +22,7 @@ import { IStore } from "../../../../interface/slice.interface";
 function LargeBannerManagement() {
   // const [gallaryDetails, setgallaryDetails] = useState<IGallary>();
   const gallaryDetails = useSelector((state: IStore) => state.gallary);
+  const adminToken = useSelector((state: IStore) => state.adminAuth.token)
   const dispatch = useDispatch();
 
   const resortId = useSelector((state: IStore) => state.resort.resortId);
@@ -117,8 +118,8 @@ function LargeBannerManagement() {
           setOpen,
           seteditButtonClicked,
           setlargeBannerId,
-          resortId
-          // seteditImageClicked
+          resortId,
+          adminToken
         )
       );
     }
@@ -252,7 +253,8 @@ function LargeBannerManagement() {
         seterror,
         largeBannerId,
         resortId,
-        closeModal
+        closeModal,
+        adminToken
       );
     },
   });

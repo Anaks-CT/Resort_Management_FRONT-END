@@ -12,13 +12,11 @@ import { IResort } from "../../../../interface/resort.interface";
 import { useDispatch } from "react-redux";
 import { IStore } from "../../../../interface/slice.interface";
 
-type store = {
-  gallary: IGallary
-  resort: IResort
-}
+
 
 function CommunityBannerManagement() {
-  const gallaryDetails = useSelector((state: store) => state.gallary) 
+  const gallaryDetails = useSelector((state: IStore) => state.gallary) 
+  const adminToken = useSelector((state: IStore) => state.adminAuth.token)
   const dispatch = useDispatch()
 
   const resortId = useSelector((state: IStore) => state.resort.resortId)
@@ -91,14 +89,15 @@ function CommunityBannerManagement() {
         setOpen,
         seterror,
         imageUrl,
-        resortId
+        resortId,
+        adminToken
       );
     },
   });
 
   
   let arr = gallaryDetails?.communityPics.map((item: any) =>
-  communityDataforTable(item, dispatch, setOpen, setImageUrl, seteditButtonClicked, resortId)
+  communityDataforTable(item, dispatch, setOpen, setImageUrl, seteditButtonClicked, resortId, adminToken)
   );
 
   

@@ -10,8 +10,8 @@ export default function smallBannerDataforTable(
   setOpen: any,
   seteditButtonClicked: any,
   setSmallBannerId: any,
-  resortId: string
-  // seteditImageClicked: any
+  resortId: string,
+  adminToken: string
 ) {
   const { _id, image, description1, description2 } = item;
 
@@ -21,7 +21,7 @@ export default function smallBannerDataforTable(
 
   //delete a selected large banner
   const handleDelete = (largeBannerId: string) => {
-    deleteSmallBannerApi(resortId, largeBannerId)
+    deleteSmallBannerApi(resortId, largeBannerId, adminToken)
       .then((res) => {
         dispatch(updateGallary(res.data.data))
         // giving a toast message deleted

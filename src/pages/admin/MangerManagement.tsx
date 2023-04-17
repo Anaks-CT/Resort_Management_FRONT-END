@@ -22,9 +22,11 @@ import { IStore } from "../../interface/slice.interface";
 function ManagerManagement() {
 
   const location = useLocation();
-  const [managerDetails, setmanagerDetails] = useState<IManager[]>(); //******************will change later to IRoom interface */
-  const resortDetails = useSelector((state: IStore) => state.allResort)
+  const [managerDetails, setmanagerDetails] = useState<IManager[]>();
+  
 
+  const resortDetails = useSelector((state: IStore) => state.allResort)
+  const adminToken = useSelector((state: IStore) => state.adminAuth.token)
 
   ////////////////////////////// state for search and sort //////////////////////
 
@@ -155,7 +157,7 @@ function ManagerManagement() {
   // //// calling the function and passing the data as arguments in a loop
   if (managerDetails) {
       renderData=  managerDetails.map((item: any) => {
-        return managerDataForTable(item, setmanagerDetails)
+        return managerDataForTable(item, setmanagerDetails, adminToken)
       })
   }
 
@@ -183,6 +185,7 @@ function ManagerManagement() {
           seterror,
           closeModal,
           setmanagerDetails,
+          adminToken
         );
       },
     });

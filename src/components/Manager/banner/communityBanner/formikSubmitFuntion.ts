@@ -18,7 +18,8 @@ export function formikSubmit(
   setOpen: any,
   seterror: any,
   imageUrl: string,
-  resortId: string
+  resortId: string,
+  adminToken: string
 ) {
   if (type === "add") {
     // putting the loading button
@@ -36,7 +37,7 @@ export function formikSubmit(
       .then((res) => res.json())
       .then((data) => {
         // sending the data to the bacckend to save by calling the api
-        addCommunityBannerApi(resortId, data.url)
+        addCommunityBannerApi(resortId, data.url, adminToken)
           .then((res) => {
             // setting the newly fetched data from database ******* might change it to redux *******
             dispatch(updateGallary(res.data.data));
@@ -75,7 +76,7 @@ export function formikSubmit(
       .then((res) => res.json())
       .then((data) => {
         // sending the data to the bacckend to save by calling the api
-        editCommunityBannerApi(resortId, data.url, imageUrl)
+        editCommunityBannerApi(resortId, data.url, imageUrl, adminToken)
           .then((res) => {
             // setting the newly fetched data from database ******* might change it to redux *******
             dispatch(updateGallary(res.data.data));

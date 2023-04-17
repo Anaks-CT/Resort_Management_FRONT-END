@@ -14,7 +14,9 @@ import Button from "../../components/UI/Button";
 import { TbArrowsDownUp } from "react-icons/tb";
 import { CgArrowLongDown, CgArrowLongUp } from "react-icons/cg";
 import AdminSideBar from "../../components/Manager/sidebar/AdminSideBar";
-
+import { useSelector } from "react-redux";
+import { IStore } from "../../interface/slice.interface";
+import useLogout from '../../hooks/useLogout'
 
 function FaqManagement() {
   //////////////////////////////////// faq details state ////////////////////////////////
@@ -30,6 +32,8 @@ function FaqManagement() {
   const [sortOrder, setSortOrder] = useState<"asc" | "des" | null>(null);
   // sort by header
   const [sortBy, setsortBy] = useState<string | null>(null);
+  // admin token
+  const adminToken = useSelector((state: IStore) => state.adminAuth.token)
 
   ////////////////////////////////////// fetching faq details //////////////////////
   useEffect(() => {
@@ -38,6 +42,7 @@ function FaqManagement() {
       .catch(err => console.log(err))
   }, [])
   
+  const logout = useLogout()
 
 
   ////////////////////////////// state for loading /////////////////////
@@ -101,10 +106,11 @@ function FaqManagement() {
     //// calling the function and passing the data as arguments in a loop
     if (sortedData) {
        arr = sortedData?.map((item: any) =>
-      faqsDataforTable(item, setOpen, seteditButtonClicked, setFaqDetail, setformikInitialValues, setCurrentFaqId)
+      faqsDataforTable(item, setOpen, seteditButtonClicked, setFaqDetail, setformikInitialValues, setCurrentFaqId, adminToken, logout)
       );
     }
     setRenderingData(arr);
+    // eslint-disable-next-line
   }, [searchInput, sortBy, sortOrder, faqDetail]);
 
     /////////////////////////////////////////// sorting logic //////////////////////////////////////
@@ -210,7 +216,9 @@ const [formikInitialValue, setformikInitialValues] = useState<{question: string,
         seterror,
         closeModal,
         setFaqDetail,
-        currentFaqId
+        currentFaqId,
+        adminToken  ,
+        logout
       );
     },
   });

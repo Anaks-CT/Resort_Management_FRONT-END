@@ -12,8 +12,9 @@ export function formikSubmit(
   seterror: React.Dispatch<React.SetStateAction<string>>,
   closeModal: () => void,
   setmanagerDetails: React.Dispatch<React.SetStateAction<IManager[] | undefined>>,
+  adminToken: string
 ) {
-    addManager(values)
+    addManager(values, adminToken)
       .then(res => {
         setmanagerDetails(res.data.data)
         closeModal();
