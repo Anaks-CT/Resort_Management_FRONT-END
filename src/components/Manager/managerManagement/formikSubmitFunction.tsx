@@ -12,7 +12,8 @@ export function formikSubmit(
   seterror: React.Dispatch<React.SetStateAction<string>>,
   closeModal: () => void,
   setmanagerDetails: React.Dispatch<React.SetStateAction<IManager[] | undefined>>,
-  adminToken: string
+  adminToken: string,
+  logout: any
 ) {
     addManager(values, adminToken)
       .then(res => {
@@ -23,6 +24,8 @@ export function formikSubmit(
         // toast message saying its suceess
         toastMessage("success", res.data.message);
       })
-      .catch((err) => seterror(err.response.data.message))
+      .catch((err) => {
+        if(err.response.status === 401) logout()
+        seterror(err.response.data.message)})
       .finally(() => setloading(false));
 }

@@ -1,6 +1,7 @@
 import { toast } from "react-toastify";
 import { deleteCommunityBannerApi } from "../../../../api/gallary.api";
 import { updateGallary } from "../../../../store/slices/gallarySlice";
+import { toastMessage } from "../../../../helpers/toast";
 
 export default function communityDataforTable(
   item: string,
@@ -9,7 +10,8 @@ export default function communityDataforTable(
   setImageUrl: any,
   seteditButtonClicked: any,
   resortId: string,
-  adminToken: string
+  adminToken: string,
+  logout: any
 ) {
 
 
@@ -23,28 +25,11 @@ export default function communityDataforTable(
       .then((res) => {
         dispatch(updateGallary(res.data.data))
         // giving a toast message deleted
-        toast.error("Banner deleted !", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        toastMessage("success", res.data.message)
       })
       .catch((err) => {
-        toast.error(err.message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        if(err.response.status === 401) logout()
+        toastMessage("error", err.message)
       });
   };
 

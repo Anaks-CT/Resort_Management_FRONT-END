@@ -5,7 +5,8 @@ import { ChangeManagerStatusApi } from "../../../../api/manager.api";
 export default function managerDataForTable(
   item: any,
   setmanagerDetails: React.Dispatch<React.SetStateAction<IManager[] | undefined>>,
-  adminToken: string
+  adminToken: string,
+  logout: any
 ) {
 
   ///////////////////////////// makind a cancel and delete function here and passing to tablecell///////////////////////////
@@ -18,7 +19,9 @@ export default function managerDataForTable(
         setmanagerDetails(res.data.data)
         toastMessage("success", res.data.message)
       })
-      .catch(err => toastMessage("error", err.response.data.message))
+      .catch(err => {
+        if(err.response.status === 401) logout()
+        toastMessage("error", err.response.data.message)})
     
   };
 

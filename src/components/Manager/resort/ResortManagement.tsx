@@ -11,12 +11,14 @@ import { IStore } from "../../../interface/slice.interface";
 import { useDispatch } from "react-redux";
 import { updateAllResortDetails } from "../../../store/slices/allResortSlice";
 import { toastMessage } from "../../../helpers/toast";
+import useLogout from "../../../hooks/useLogout";
 
 function ResortManagement() {
   const navigate = useNavigate()
 
   const location = useLocation()
 
+  const logout = useLogout()
 
   // const [allResortDetails, setAllResortDetails] = useState<IResort[]>();
   const allResortDetails = useSelector((state: IStore) => state.allResort)
@@ -32,6 +34,7 @@ function ResortManagement() {
         toastMessage("success", res.data.message)
       })
       .catch(err => {
+        if(err.response.status === 401) logout()
         toastMessage("error", err.message)
       })
   }

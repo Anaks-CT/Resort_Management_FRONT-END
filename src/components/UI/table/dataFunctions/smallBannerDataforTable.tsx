@@ -2,6 +2,7 @@ import { toast } from "react-toastify";
 import { deleteSmallBannerApi } from "../../../../api/gallary.api";
 import { Idataa } from "../../../../interface/gallary.interface";
 import { updateGallary } from "../../../../store/slices/gallarySlice";
+import { toastMessage } from "../../../../helpers/toast";
 
 export default function smallBannerDataforTable(
   item: Idataa,
@@ -11,7 +12,8 @@ export default function smallBannerDataforTable(
   seteditButtonClicked: any,
   setSmallBannerId: any,
   resortId: string,
-  adminToken: string
+  adminToken: string,
+  logout: any
 ) {
   const { _id, image, description1, description2 } = item;
 
@@ -25,28 +27,11 @@ export default function smallBannerDataforTable(
       .then((res) => {
         dispatch(updateGallary(res.data.data))
         // giving a toast message deleted
-        toast.error("Banner deleted !", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        toastMessage("success", res.data.messge)
       })
       .catch((err) => {
-        toast.error(err.message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        if(err.response.status === 401) logout()
+        toastMessage("error", err.message)
       });
   };
 

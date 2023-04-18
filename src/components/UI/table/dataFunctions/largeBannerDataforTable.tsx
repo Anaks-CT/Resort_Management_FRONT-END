@@ -2,6 +2,7 @@ import { toast } from "react-toastify";
 import { deleteLargeBannerApi } from "../../../../api/gallary.api";
 import { Idataa } from "../../../../interface/gallary.interface";
 import { updateGallary } from "../../../../store/slices/gallarySlice";
+import { toastMessage } from "../../../../helpers/toast";
 
 export default function largeBannerDataforTable(
   item: Idataa,
@@ -11,7 +12,8 @@ export default function largeBannerDataforTable(
   seteditButtonClicked: any,
   setlargeBannerId: any,
   resortId: string,
-  adminToken: string
+  adminToken: string,
+  logout: any
 ) {
   const { _id, image, description1, description2 } = item;
 
@@ -27,28 +29,11 @@ export default function largeBannerDataforTable(
         dispatch(updateGallary(res.data.data)); //********************cant use this here will change this to redux */
 
         // giving a toast message deleted
-        toast.error("Banner deleted !", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        toastMessage("success", res.data.message)
       })
       .catch((err) => {
-        toast.error(err.message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        if(err.response.status === 401) logout()
+        toastMessage("error", err.message)
       });
   };
 

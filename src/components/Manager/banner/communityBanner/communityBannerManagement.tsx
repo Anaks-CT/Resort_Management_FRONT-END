@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import { IResort } from "../../../../interface/resort.interface";
 import { useDispatch } from "react-redux";
 import { IStore } from "../../../../interface/slice.interface";
+import useLogout from "../../../../hooks/useLogout";
 
 
 
@@ -20,6 +21,8 @@ function CommunityBannerManagement() {
   const dispatch = useDispatch()
 
   const resortId = useSelector((state: IStore) => state.resort.resortId)
+
+  const logout = useLogout()
 
   ////////////////////////////// state for loading /////////////////////
   const [loading, setloading] = useState(false);
@@ -90,14 +93,15 @@ function CommunityBannerManagement() {
         seterror,
         imageUrl,
         resortId,
-        adminToken
+        adminToken,
+        logout
       );
     },
   });
 
   
   let arr = gallaryDetails?.communityPics.map((item: any) =>
-  communityDataforTable(item, dispatch, setOpen, setImageUrl, seteditButtonClicked, resortId, adminToken)
+  communityDataforTable(item, dispatch, setOpen, setImageUrl, seteditButtonClicked, resortId, adminToken, logout)
   );
 
   

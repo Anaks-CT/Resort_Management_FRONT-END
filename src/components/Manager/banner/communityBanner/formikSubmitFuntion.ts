@@ -19,7 +19,8 @@ export function formikSubmit(
   seterror: any,
   imageUrl: string,
   resortId: string,
-  adminToken: string
+  adminToken: string,
+  logout: any
 ) {
   if (type === "add") {
     // putting the loading button
@@ -51,6 +52,7 @@ export function formikSubmit(
             seterror("");
           })
           .catch((err) => {
+            if(err.response.status === 401) logout()
             seterror("Image not stored in the database");
           });
       })
@@ -89,7 +91,9 @@ export function formikSubmit(
             resetForm();
             seterror("");
           })
-          .catch((err) => seterror("Image not stored in the database"));
+          .catch((err) => {
+            if(err.response.status === 401) logout()
+            seterror("Image not stored in the database")});
       })
       .catch((err) => seterror("Image not uploaded to cloudinary"))
       .finally(() => setloading(false));

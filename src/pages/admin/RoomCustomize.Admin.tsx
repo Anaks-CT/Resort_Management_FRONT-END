@@ -7,6 +7,7 @@ import AdminResortSideBar from "../../components/Manager/sidebar/AdminResortSide
 import { createRoomApi, updateRoomApi } from "../../api/room.api";
 import { useSelector } from "react-redux";
 import { IStore } from "../../interface/slice.interface";
+import useLogout from "../../hooks/useLogout";
 
 function RoomCustomize() {
   //////////////////////////// message passed from other pages //////////////////////////////
@@ -18,6 +19,7 @@ function RoomCustomize() {
   const currentResort = useSelector((state: IStore) => state.resort);
   const adminToken = useSelector((state: IStore) => state.adminAuth.token);
 
+  const logout = useLogout()
 
   ////////////////////////////// state for loading /////////////////////
 
@@ -114,6 +116,7 @@ function RoomCustomize() {
               seterror("");
             })
             .catch((err) => {
+              if(err.response.status === 401) logout()
               seterror(err.response.data.message);
               setloading(false);
             });
@@ -157,7 +160,9 @@ function RoomCustomize() {
             // setting the previous error if any to empty
             seterror('')
               })
-              .catch((err) => seterror(err.response.data.message))
+              .catch((err) => {
+                if(err.response.status === 401) logout()
+                seterror(err.response.data.message)})
               .finally(() => setloading(false))  
           })
           .catch((err) => seterror("Image not uploaded to cloudinary"))
@@ -173,7 +178,9 @@ function RoomCustomize() {
             // setting the previous error if any to empty
             seterror('')
           })
-          .catch((err) => seterror(err.response.data.message))
+          .catch((err) => {
+            if(err.response.status === 401) logout()
+            seterror(err.response.data.message)})
           .finally(() => setloading(false))
       }
     }

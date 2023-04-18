@@ -17,6 +17,7 @@ import { formikSubmit } from "../../components/Manager/managerManagement/formikS
 import managerDataForTable from "../../components/UI/table/dataFunctions/managerDataForTable";
 import { useSelector } from "react-redux";
 import { IStore } from "../../interface/slice.interface";
+import useLogout from "../../hooks/useLogout";
 
 
 function ManagerManagement() {
@@ -24,6 +25,7 @@ function ManagerManagement() {
   const location = useLocation();
   const [managerDetails, setmanagerDetails] = useState<IManager[]>();
   
+  const logout = useLogout()
 
   const resortDetails = useSelector((state: IStore) => state.allResort)
   const adminToken = useSelector((state: IStore) => state.adminAuth.token)
@@ -157,7 +159,7 @@ function ManagerManagement() {
   // //// calling the function and passing the data as arguments in a loop
   if (managerDetails) {
       renderData=  managerDetails.map((item: any) => {
-        return managerDataForTable(item, setmanagerDetails, adminToken)
+        return managerDataForTable(item, setmanagerDetails, adminToken, logout)
       })
   }
 
@@ -185,7 +187,8 @@ function ManagerManagement() {
           seterror,
           closeModal,
           setmanagerDetails,
-          adminToken
+          adminToken,
+          logout
         );
       },
     });

@@ -8,11 +8,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 import FormikDataForResortManagement from "../../components/Manager/resort/FormikDataForAdd&EditResort";
 import { useSelector } from "react-redux";
 import { IStore } from "../../interface/slice.interface";
+import useLogout from "../../hooks/useLogout";
 
 function AddResort() {
   //////////////////////////// message passed from other pages //////////////////////////////
   // current resortDetails of the editClicked resort in resort management table
   const location = useLocation();
+
+  const logout = useLogout()
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -102,6 +105,7 @@ function AddResort() {
               seterror("");
             })
             .catch((err) => {
+              if(err.response.status === 401) logout()
               seterror(err.response.data.message);
               setloading(false);
             });
@@ -138,6 +142,7 @@ function AddResort() {
                 seterror("");
               })
               .catch((err) => {
+                if(err.response.status === 401) logout()
                 seterror(err.response.data.message);
                 setloading(false);
               });
@@ -162,6 +167,7 @@ function AddResort() {
             seterror("");
           })
           .catch((err) => {
+            if(err.response.status === 401) logout()
             seterror(err.response.data.message);
             setloading(false);
           })

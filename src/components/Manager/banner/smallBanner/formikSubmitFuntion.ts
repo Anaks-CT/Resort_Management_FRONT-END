@@ -17,7 +17,8 @@ import { toastMessage } from "../../../../helpers/toast";
      smallBannerId: string,
      resortId: string,
      closeModal: any,
-     adminToken: string
+     adminToken: string,
+     logout: any
    ) {
      if (type === "add") {
        // putting the loading button
@@ -54,6 +55,7 @@ import { toastMessage } from "../../../../helpers/toast";
                seterror("");
              })
              .catch((err) => {
+              if(err.response.status === 401) logout()
                seterror("Image not stored in the database");
              });
          })
@@ -84,6 +86,7 @@ import { toastMessage } from "../../../../helpers/toast";
            seterror("");
          })
          .catch((err) => {
+          if(err.response.status === 401) logout()
            seterror("Image not stored in the database");
          })
          .finally(() => {
@@ -118,6 +121,7 @@ import { toastMessage } from "../../../../helpers/toast";
                seterror("");
              })
              .catch((err) => {
+              if(err.response.status === 401) logout()
                seterror("Image not stored in the database");
              });
          })
