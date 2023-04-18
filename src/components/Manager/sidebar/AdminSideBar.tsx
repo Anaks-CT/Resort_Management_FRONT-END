@@ -3,9 +3,10 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { updateResort } from "../../../store/slices/resortSlice";
 import { getAllResortDetailsApi } from "../../../api/resort.api";
-import { IResort } from "../../../interface/resort.interface";
 import Sidebar from "./Sidebar";
 import { updateAllResortDetails } from "../../../store/slices/allResortSlice";
+import { useSelector } from "react-redux";
+import { IStore } from "../../../interface/slice.interface";
 type resortProp = {
   _id: string;
   name: string;
@@ -22,6 +23,20 @@ function AdminSideBar() {
     dispatch(updateResort({ resortId, resortName }));
     navigate(`/admin/${resortName}/dashboard`);
   };
+
+  const resortDetails = useSelector((state: IStore) => state.allResort)
+
+  // fetching all resorts and dispatching to redux state
+  useEffect(() => {
+    getAllResortDetailsApi()
+      .then((res) => {
+        dispatch(updateAllResortDetails(res.data.data))
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+      // eslint-disable-next-line
+  },[])
 
   const handleAddResortClick = () => navigate("/admin/resortManagement");
 
@@ -46,23 +61,16 @@ function AdminSideBar() {
       name: "Manager",
       onClick: handleManagerClick,
     });
-    getAllResortDetailsApi()
-      .then((res) => {
-        dispatch(updateAllResortDetails(res.data.data))
-        res.data.data.forEach((item: IResort) => {
-          arr.push({
-            _id: item._id,
-            name: item.resortDetails.name,
-            onClick: handleClickResort,
-          });
-        });
-        setResortNames(arr);
+    resortDetails?.forEach(item => {
+      arr.push({
+        _id: item._id,
+        name: item.resortDetails.name,
+        onClick: handleClickResort,
       })
-      .catch((err) => {
-        console.log(err);
-      });
+    })
+    setResortNames(arr)
     // eslint-disable-next-line
-  }, []);
+  }, [resortDetails]);
 
   return <Sidebar sideBarElems={resortNames} />;
 }

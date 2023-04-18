@@ -1,10 +1,6 @@
 import { axiosRoom } from "../config/api";
 import { setApiHeader } from "../helpers/apiHeader";
-const config = {
-  headres: {
-    "Content-Type": "multipart/form-data",
-  },
-};
+
 
 export const getRoomsByResortIdApi = (resortId: string) =>
   axiosRoom.get(`/${resortId}`);
