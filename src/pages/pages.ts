@@ -6,6 +6,7 @@ import LoginPage from "./user/LoginPage";
 import SignupPage from "./user/SignupPage";
 import WellnessPage from "./user/WellnessPage";
 import NotFoundPage from "./user/404Page";
+import BookingForm1 from "./user/BookingForm1Page";
 
 ////////////////////////////////// manager //////////////////////////////
 
@@ -36,6 +37,7 @@ export {
   WellnessPage,
   DIningPage,
   NotFoundPage,
+  BookingForm1
 };
 
 ///////////////////////////////////manager export /////////////////////////////////

@@ -13,7 +13,7 @@ export const addResort = yup.object().shape({
       (value: any) =>
         !value || (value && SUPPORTED_FORMATS.includes(value?.type))
     ),
-  name: yup.string().trim().required("Name cannot be empty"),
+  name: yup.string().trim().required("Name cannot be empty").matches(/^[A-Za-z0-9]+$/, 'Only alphabetic characters and numbers are allowed'),
   heading: yup.string().trim().required("Heading cannot be empty"),
   description: yup.string().trim().required("Description cannot be empty"),
   location: yup.string().trim().required("Description cannot be empty"),
