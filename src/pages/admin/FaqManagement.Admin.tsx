@@ -253,6 +253,7 @@ const [formikInitialValue, setformikInitialValues] = useState<{question: string,
           inputOnchange={handleChangeSearch}
           buttonOnclick={handleClickSearch}
         />
+        
         <DataTable rows={renderingData} headers={headerDiv} />
       </div>
     </div>

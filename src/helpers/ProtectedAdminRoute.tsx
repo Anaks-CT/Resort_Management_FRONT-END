@@ -11,18 +11,22 @@ function ProtectedAdminRoute(component: JSX.Element) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [auth, setAuth] = useState<String | null>(null)
-  // console.log(auth, adminToken);
+  console.log(auth, 'auth');
   
 useEffect(() => {
   if(adminToken.token){
     checkCredentialApi( adminToken.token)
-      .then(res => setAuth(res.data.message))
+      .then(res => {
+        console.log('hello')
+        setAuth(res.data.message)})
   
       .catch(err => {
+        console.log('in catch')
         navigate('/admin/login')
         dispatch(removeToken())
       })
   }else{
+    console.log('in else no admin token')
     navigate('/admin/login')
   }
   // eslint-disable-next-line

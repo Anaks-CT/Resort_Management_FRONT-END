@@ -26,23 +26,23 @@ type routers = {
 };
 
 function AdminRouter() {
-  const adminToken = useSelector((state: IStore) => state.adminAuth)
-  const [auth, setAuth] = useState(null)
-  const dispatch = useDispatch()
-  
+  const adminToken = useSelector((state: IStore) => state.adminAuth);
+  const [auth, setAuth] = useState(null);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    if(adminToken.token){
+    if (adminToken.token) {
       checkCredentialApi(adminToken.token)
-      .then(res => setAuth(res.data.message))
-  
-      .catch(err => { 
-        dispatch(removeToken())
-      })
-    }else{
-      setAuth(null)
+        .then((res) => setAuth(res.data.message))
+        .catch((err) => {
+          console.log("admin router catch for removing");
+          dispatch(removeToken());
+        });
+    } else {
+      setAuth(null);
     }
     // eslint-disable-next-line
-  },[adminToken])
+  }, [adminToken]);
   const publicRoutes: routers[] = [
     {
       path: "/adminDashboard",
@@ -87,9 +87,18 @@ function AdminRouter() {
   ];
   return (
     <Routes>
-      <Route path="/login" element={!auth ? <AdminLoginPage /> : <Navigate to="/admin/adminDashboard" />} />
+      <Route
+        path="/login"
+        element={
+          !auth ? <AdminLoginPage /> : <Navigate to="/admin/adminDashboard" />
+        }
+      />
       {publicRoutes.map(({ path, component }) => (
-        <Route key={path} path={path} element={ProtectedAdminRoute(component)} /> // warning
+        <Route
+          key={path}
+          path={path}
+          element={ProtectedAdminRoute(component)}
+        /> // warning
       ))}
     </Routes>
   );

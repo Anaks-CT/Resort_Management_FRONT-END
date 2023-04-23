@@ -9,7 +9,8 @@ const adminToken = createSlice({
         state.token = action.payload
     },
     removeToken(state){
-        state.token = ''
+      console.log('token removed')
+        // state.token = ''
     }
   },
 });

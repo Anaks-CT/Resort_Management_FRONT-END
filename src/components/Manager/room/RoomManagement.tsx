@@ -8,6 +8,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { IStore } from "../../../interface/slice.interface";
 import { getRoomsByResortIdApi } from "../../../api/room.api";
+import { Link } from "react-router-dom";
 
 function RoomManagement() {
   const navigate = useNavigate();
@@ -220,19 +221,20 @@ function RoomManagement() {
   };
 
   //////////////////////////////////////// add resort ///////////////////////////////
-  const handleAddRoomClick = () => {
-    navigate(`/admin/${currentResort.resortName}/room/customizeRoom`, {
-      state: { roomDetails: setRoomDetails },
-    });
-  };
+  // const handleAddRoomClick = () => {
+  //   navigate(`/admin/${currentResort.resortName}/room/customizeRoom`, {
+  //     state: { roomDetails: setRoomDetails },
+  //   });
+  // };
 
   return (
     <>
       <div className="mt-20 w-full h-full p-10 text-center">
         <h1 className="text-center mb-10">ROOM</h1>
-        <Button class="mb-10" color="black" onClick={handleAddRoomClick}>
+        <Link  to={`/admin/${currentResort.resortName}/room/customizeRoom`} className="mb-10" color="black">
+        {/* //  onClick={handleAddRoomClick} */}
           ADD ROOM
-        </Button>
+        </Link>
         <div className="text-green-700 text-lg">{location?.state?.message}</div>
         <TableService
           inputOnchange={handleChangeSearch}

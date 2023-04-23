@@ -3,21 +3,21 @@ import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { IResort } from "../../interface/resort.interface";
 import { getAllResortDetailsApi } from "../../api/resort.api";
-import {
-  Formik,
-} from "formik";
+import { Formik } from "formik";
 import { bookingForm1 } from "../../schema/user/bookingForm1";
 import MiniHeader from "../../components/User/Header/MiniHeader";
 import BookingProgress from "../../components/User/BookingProgress";
 import BookingForm1 from "../../components/User/formikForms/BookingForm1";
+import { getAvailableRoomsApi } from "../../api/room.api";
+import { IBookingForm1 } from "../../interface/booking.interface";
 
 function BookingForm1Page() {
   // state for storing all resort details to show in the destination dropdown
   const [allResorts, setAllResorts] = useState<IResort[] | null>(null);
 
-  // state for error if any error occured from the backed 
+  // state for error if any error occured from the backed
   const [error, setError] = useState<string>("");
-
+  console.log(error);
   //state for toggling the destination dropdown
   const [destinationOpen, setDestinationOpen] = useState(false);
 
@@ -78,7 +78,7 @@ function BookingForm1Page() {
     setDestinationOpen(false);
     setRoomDetailsOpen(false);
     setOpenDate(false);
-  }
+  };
 
   // initial value for formik
   const formikInitialValue = {
@@ -92,12 +92,15 @@ function BookingForm1Page() {
       endDate: new Date(),
       key: "selection",
     },
-  }
+  };
 
   // formik submit function
-  const formikSubmit = () => {
-    console.log('hi')
-  }
+  const formikSubmit = (values: IBookingForm1) => {
+    console.log("hi");
+    getAvailableRoomsApi(values)
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
+  };
   return (
     <>
       <MiniHeader />
@@ -110,7 +113,7 @@ function BookingForm1Page() {
           <Formik
             initialValues={formikInitialValue}
             validationSchema={bookingForm1}
-            onSubmit={(values, { resetForm }) => formikSubmit()}
+            onSubmit={(values, { resetForm }) => formikSubmit(values)}
           >
             {({ errors, touched, setFieldValue, values }) => {
               console.log(values);
@@ -123,7 +126,7 @@ function BookingForm1Page() {
                   handleDateClick={handleDateClick}
                   handleRoomDetailsClick={handleRoomDetailsClick}
                   openDate={openDate}
-                  roomDetailsOpen={roomDetailsOpen} 
+                  roomDetailsOpen={roomDetailsOpen}
                   setDate={setDate}
                   setDestinationOpen={setDestinationOpen}
                   setFieldValue={setFieldValue}

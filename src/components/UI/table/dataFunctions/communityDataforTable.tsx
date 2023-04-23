@@ -1,4 +1,3 @@
-import { toast } from "react-toastify";
 import { deleteCommunityBannerApi } from "../../../../api/gallary.api";
 import { updateGallary } from "../../../../store/slices/gallarySlice";
 import { toastMessage } from "../../../../helpers/toast";

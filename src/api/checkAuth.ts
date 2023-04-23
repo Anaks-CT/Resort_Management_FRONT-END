@@ -5,4 +5,4 @@ import { setApiHeader } from "../helpers/apiHeader";
 
 export const checkCredentialApi = (token: string) =>
 
-axiosAuth.get("/checkCredential", setApiHeader(token)) 
+axiosAuth.get("", setApiHeader(token)) 

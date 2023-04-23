@@ -1,6 +1,5 @@
 import { useFormik } from "formik";
 import React, { useState } from "react";
-import { IGallary } from "../../../../interface/gallary.interface";
 import { editImage } from "../../../../schema/admin/AddLargeBannerForm";
 import TransitionsModal from "../../../UI/Modal";
 import DataTable from "../../../UI/table/DataTable";
@@ -8,7 +7,6 @@ import { formikSubmit } from "./formikSubmitFuntion";
 import { modalForm } from "./modalForm";
 import communityDataforTable from "../../../UI/table/dataFunctions/communityDataforTable";
 import { useSelector } from "react-redux";
-import { IResort } from "../../../../interface/resort.interface";
 import { useDispatch } from "react-redux";
 import { IStore } from "../../../../interface/slice.interface";
 import useLogout from "../../../../hooks/useLogout";

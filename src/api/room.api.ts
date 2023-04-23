@@ -1,5 +1,6 @@
 import { axiosRoom } from "../config/api";
 import { setApiHeader } from "../helpers/apiHeader";
+import { IBookingForm1 } from "../interface/booking.interface";
 
 
 export const getRoomsByResortIdApi = (resortId: string) =>
@@ -10,3 +11,6 @@ export const createRoomApi = (resortId: string, roomData: any, token: string) =>
 
 export const updateRoomApi = (resortId: string, formValues: any , token: string, roomId?: string) => 
   axiosRoom.put(`/${resortId}`,{roomId, formValues}, setApiHeader(token))  
+
+export const getAvailableRoomsApi = (formValues: IBookingForm1) => 
+  axiosRoom.post('/availableRooms',{formValues})
