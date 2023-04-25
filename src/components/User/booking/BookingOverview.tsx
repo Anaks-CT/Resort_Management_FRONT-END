@@ -1,0 +1,56 @@
+import React from 'react'
+import { AiOutlineCaretDown, AiOutlineCaretUp } from 'react-icons/ai'
+import { HiArrowLongLeft } from 'react-icons/hi2'
+import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import Button from '../../UI/Button'
+
+type props = {
+    viewOverView: boolean
+    toggleOverview: () => void 
+}
+
+function BookingOverview({viewOverView, toggleOverview}:props) {
+    const navigate = useNavigate()
+  return (
+    <div className="px-7 py-3 fixed top-0 lg:max-w-xs lg:h-full self-end pt-8 text-white lg:opacity-90 bg-[#323232] border border-r-0 border-b-0 border-l-0 border-t-white w-screen ">
+          <div className="flex justify-between lg:hidden ">
+            <div onClick={()=> navigate('/booking/explore')} className="flex cursor-pointer justify-center items-center">
+              <HiArrowLongLeft className=" text-2xl" />
+              <span className="text-md ml-3">Back</span>
+            </div>
+            <div onClick={toggleOverview} className="flex cursor-pointer justify-center items-center">
+              <span className="text-md mr-3">Booking Overview</span>
+              {viewOverView ? <AiOutlineCaretUp className=" text-lg" /> : <AiOutlineCaretDown className=" text-lg" />}
+            </div>
+          </div>
+            <>
+              <div className={`px-2 py-6 text-2xl tracking-wide ${!viewOverView && "hidden"} ${viewOverView ? "lg:block" : "lg:block"}`}>Your Stay</div>
+              <div className={`flex flex-col P-1 my-auto divide-y ${!viewOverView && "hidden"} ${viewOverView ? "lg:block" : "lg:block"}`}>
+                <div className="text-xs tracking-wide border-t p-2  lg:py-5  font-sans flex justify-between">
+                  <div className="font-black lg:font-medium">NAME OF THE DESTINTION</div>
+                  <Link className="text-blue-400" to={"/booking/explore"}>
+                    EDIT
+                  </Link>
+                </div>
+                <div className="text-xs tracking-wide p-2 font-sans lg:py-5   flex justify-between">
+                  <div className="font-black lg:font-medium">1 ROOM(S) - 2 GUESTS(S)</div>
+                  <Link className="text-blue-400" to={"/booking/explore"}>
+                    EDIT
+                  </Link>
+                </div>
+                <div className="text-xs border-b tracking-wide p-2  lg:py-5  font-sans flex justify-between">
+                  <div className="font-black lg:font-medium">hi</div>
+                  <Link className="text-blue-400" to={"/booking/explore"}>
+                    EDIT
+                  </Link>
+                </div>
+                <div className="w-full"><Button class="w-full mt-5 lg:mt-8 mb-2 text-sm" color="transparent" outline>SAVE FOR LATER</Button></div>
+              </div>
+                <div className={`text-[11px] lg:text-[14px] leading-tight ${!viewOverView && "hidden"} ${viewOverView ? "lg:block" : "lg:block"}`}> Rates and availability can not be guaranteed at the time of confirmation.</div>
+            </>
+        </div>
+  )
+}
+
+export default BookingOverview

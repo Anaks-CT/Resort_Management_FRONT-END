@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router";
-import { BookingForm1, DIningPage, HomePage, LoginPage, NotFoundPage, SignupPage, WellnessPage } from "../pages/pages";
+import { BookingForm1, BookingStayPage, DIningPage, HomePage, LoginPage, NotFoundPage, SignupPage, WellnessPage } from "../pages/pages";
 
 type routers = {
     path: string;
@@ -32,6 +32,10 @@ function UserRouter() {
     {
       path: '/booking/explore',
       component: <BookingForm1 />
+    },
+    {
+      path: '/booking/stay',
+      component: <BookingStayPage />
     },
     {
       path: '/*',

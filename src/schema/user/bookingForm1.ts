@@ -19,7 +19,7 @@ export const bookingForm1 = yup.object().shape({
         .typeError("Please provide a number")
         .integer("Please provide an integer")
         .positive("Please provide a positive number")
-        .max(10, "Maximum no. of People in a Room must be less than 10")
+        .max(10, "Maximum no. of People in a Room is 10")
         .min(1, "Minimum atleast 1 person required")
         .required("Please provide the number of people")
         )
@@ -27,7 +27,7 @@ export const bookingForm1 = yup.object().shape({
     date: yup.object().shape({
       startDate: yup
         .date()
-        .min(new Date(), "Start date cannot be before today")
+        .min(new Date(), "Rooms are available from tomorrow")
         .required("Start date is required"),
       endDate: yup.date().required("End date is required"),
       key: yup.string().trim().required("Selection is required"),

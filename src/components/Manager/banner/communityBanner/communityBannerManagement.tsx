@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import React, { useState } from "react";
-import { editImage } from "../../../../schema/admin/AddLargeBannerForm";
+import { editImage } from "../../../../schema/admin/addLargeBannerForm";
 import TransitionsModal from "../../../UI/Modal";
 import DataTable from "../../../UI/table/DataTable";
 import { formikSubmit } from "./formikSubmitFuntion";

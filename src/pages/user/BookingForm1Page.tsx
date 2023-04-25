@@ -10,14 +10,22 @@ import BookingProgress from "../../components/User/BookingProgress";
 import BookingForm1 from "../../components/User/formikForms/BookingForm1";
 import { getAvailableRoomsApi } from "../../api/room.api";
 import { IBookingForm1 } from "../../interface/booking.interface";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { IoMdClose } from "react-icons/io";
 
 function BookingForm1Page() {
   // state for storing all resort details to show in the destination dropdown
   const [allResorts, setAllResorts] = useState<IResort[] | null>(null);
+  
+  const navigate = useNavigate()
 
   // state for error if any error occured from the backed
   const [error, setError] = useState<string>("");
-  console.log(error);
+
+  // state for loading
+  const [loading, setLoading] = useState<boolean>(false)
+
   //state for toggling the destination dropdown
   const [destinationOpen, setDestinationOpen] = useState(false);
 
@@ -46,7 +54,7 @@ function BookingForm1Page() {
   tomorrow.setDate(tomorrow.getDate() + 1);
   const [date, setDate] = useState([
     {
-      startDate: today,
+      startDate: tomorrow,
       endDate: tomorrow,
       key: "selection",
     },
@@ -87,19 +95,24 @@ function BookingForm1Page() {
       id: "",
     },
     roomDetail: [""],
-    date: {
-      startDate: new Date(),
-      endDate: new Date(),
-      key: "selection",
-    },
+    date: date[0]
   };
 
   // formik submit function
   const formikSubmit = (values: IBookingForm1) => {
-    console.log("hi");
-    getAvailableRoomsApi(values)
-      .then(res => console.log(res))
-      .catch(err => console.log(err))
+    setLoading(true)
+    setTimeout(() => {
+      getAvailableRoomsApi(values)
+      .then(res => {
+        navigate('/booking/stay',{
+          state: {
+            data: res.data.data
+          }
+        })
+      })
+      .catch(err => setError(err.response.data.message  ))
+      .finally(() => setLoading(false))
+    }, 3000);
   };
   return (
     <>
@@ -108,8 +121,19 @@ function BookingForm1Page() {
         className="w-full h-screen bg-no-repeat bg-cover  bg-center  saturate-150 flex justify-center "
         style={style}
       >
-        <div className="mt-14 w-full">
-          <BookingProgress />
+        <div className={`mt-14 w-full ${loading && "hidden"}`}>
+        <div className="px-11 text-white lg:hidden">
+          <span className='p-3 flex self-start lg:self-center '>
+            <Link
+              to={"/"}
+              className="tracking-wide text-[12px] lg:text-lg self-start flex items-center gap-2 lg:self-center "
+            >
+              <IoMdClose />
+              CANCEL
+            </Link>
+            </span>
+        </div>
+          <BookingProgress number={1} />
           <Formik
             initialValues={formikInitialValue}
             validationSchema={bookingForm1}
@@ -134,11 +158,18 @@ function BookingForm1Page() {
                   errors={errors}
                   values={values}
                   closeAll={closeAll}
+                  error={error}
                 />
               );
             }}
           </Formik>
-        </div>
+        </div> 
+          <div className={`w-screen h-screen flex justify-center items-center flex-col ${!loading && "hidden"}`}>
+            <img width={"70px"} height={"70px"} src="https://res.cloudinary.com/dhcvbjebj/image/upload/v1682346232/Eclipse-0.9s-210px_lwbe3z.gif" alt="" />
+            <div className="text-white md:text-4xl text-2xl px-10 py-5 text-center">An unforgettable stay awaits...</div>
+            <div className="text-white text-[12px] md:text-lg px-10 text-center">One moment while we find the best publicly available rate for your booking.</div>
+          </div>
+        
         <div className="bg-gradient-to-b from-transparent to-black absolute w-full bottom-0 h-24"></div>
       </div>
     </>

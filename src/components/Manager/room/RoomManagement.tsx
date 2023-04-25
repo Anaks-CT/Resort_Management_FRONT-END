@@ -176,7 +176,7 @@ function RoomManagement() {
           ),
           name: item.name,
           description: item.description,
-          area: item.area,
+          area: `${item.area} m2`,
           staringPrice: `₹${startingPrice} /day`,
           makeChanges: {
             _id: item._id,

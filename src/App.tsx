@@ -4,7 +4,7 @@ import { Route, Routes } from "react-router";
 import UserRouter from "./routes/User.Router";
 import ManagerRouter from "./routes/Manager.Router";
 import { ToastContainer } from "react-toastify";
-import AdminRouter from "./routes/admin.Router";
+import AdminRouter from "./routes/Admin.Router";
 
 function App() {
   return (

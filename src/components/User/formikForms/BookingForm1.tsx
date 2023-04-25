@@ -29,6 +29,7 @@ function BookingForm1({
   setDate,
   openDate,
   closeAll,
+  error,
 }: props) {
   console.log(errors.roomDetail);
   // variable for repeating classnames
@@ -110,7 +111,8 @@ function BookingForm1({
                   ? `${values.roomDetail.length} ROOMS AND ${values.roomDetail
                       .reduce((sum, item) => (sum += item ? +item : 0), 0)
                       .toString()} GUESTS`
-                  : "--ROOMS AND GUESTS--"}
+                  : 
+                  "--ROOMS AND GUESTS--"}
               </span>
               {touched.roomDetail && errors.roomDetail && (
                 <div className="text-red-500 z-30 text-left text-[10px]">
@@ -156,6 +158,7 @@ function BookingForm1({
                               name={`roomDetail[${index}]`}
                               placeholder="No. of People"
                               type="number"
+                              // onChange={(e: any) => handleOnChange(e)}
                             />
 
                             {index > 0 && (
@@ -228,14 +231,17 @@ function BookingForm1({
             )}
           </div>
         </div>
-        <Button
-          type="submit"
-          class="text-white mt-10 lg:mt-0 w-48 text-sm"
-          color="transparent"
-          outline
-        >
-          Discover stay
-        </Button>
+        <div className="flex flex-col w-48 relative">
+          <Button
+            type="submit"
+            class="text-white mt-10 lg:mt-0 text-sm"
+            color="transparent"
+            outline
+          >
+            Discover stay
+          </Button>
+          <span className="absolute text-[11px] font-sans font-normal top-20 md:top-9 md:tracking-normal md:text-sm text-red-600">{error}</span>
+        </div>
       </div>
     </Form>
   );
@@ -274,4 +280,5 @@ type props = {
   >;
   openDate: boolean;
   closeAll: () => void;
+  error: string
 };

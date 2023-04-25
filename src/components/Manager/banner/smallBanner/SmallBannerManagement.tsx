@@ -7,7 +7,7 @@ import {
   addBanner,
   editBanner,
   editImage,
-} from "../../../../schema/admin/AddLargeBannerForm";
+} from "../../../../schema/admin/addLargeBannerForm";
 import TransitionsModal from "../../../UI/Modal";
 import DataTable from "../../../UI/table/DataTable";
 import TableService from "../../../UI/table/TableService";
