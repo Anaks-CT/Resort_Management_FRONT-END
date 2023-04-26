@@ -8,6 +8,7 @@ import WellnessPage from "./user/WellnessPage";
 import NotFoundPage from "./user/404Page";
 import BookingForm1 from "./user/BookingForm1Page";
 import BookingStayPage from "./user/BookingStayPage";
+import BookingConfirmPage from "./user/BookingConfirmPage";
 
 ////////////////////////////////// manager //////////////////////////////
 
@@ -39,7 +40,8 @@ export {
   DIningPage,
   NotFoundPage,
   BookingForm1,
-  BookingStayPage
+  BookingStayPage,
+  BookingConfirmPage
 };
 
 ///////////////////////////////////manager export /////////////////////////////////

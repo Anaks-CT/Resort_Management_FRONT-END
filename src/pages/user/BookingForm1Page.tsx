@@ -106,7 +106,8 @@ function BookingForm1Page() {
       .then(res => {
         navigate('/booking/stay',{
           state: {
-            data: res.data.data
+            data: res.data.data,
+            bookingForm1: values
           }
         })
       })
