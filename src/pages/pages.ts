@@ -9,6 +9,7 @@ import NotFoundPage from "./user/404Page";
 import BookingForm1 from "./user/BookingForm1Page";
 import BookingStayPage from "./user/BookingStayPage";
 import BookingConfirmPage from "./user/BookingConfirmPage";
+import OtpPage from "./user/OtpPage";
 
 ////////////////////////////////// manager //////////////////////////////
 
@@ -41,7 +42,8 @@ export {
   NotFoundPage,
   BookingForm1,
   BookingStayPage,
-  BookingConfirmPage
+  BookingConfirmPage,
+  OtpPage
 };
 
 ///////////////////////////////////manager export /////////////////////////////////

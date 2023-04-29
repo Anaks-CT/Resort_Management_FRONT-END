@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router";
-import { BookingConfirmPage, BookingForm1, BookingStayPage, DIningPage, HomePage, LoginPage, NotFoundPage, SignupPage, WellnessPage } from "../pages/pages";
+import { BookingConfirmPage, BookingForm1, BookingStayPage, DIningPage, HomePage, LoginPage, NotFoundPage, OtpPage, SignupPage, WellnessPage } from "../pages/pages";
 
 type routers = {
     path: string;
@@ -20,6 +20,10 @@ function UserRouter() {
     {
       path: "/signup",
       component: <SignupPage />,
+    },
+    {
+      path: "/signup/otp-verify",
+      component: <OtpPage />,
     },
     {
       path: '/wellness',

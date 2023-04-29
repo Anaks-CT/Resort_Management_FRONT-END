@@ -48,3 +48,9 @@ export const loginSchema = yup.object().shape({
     .trim()
     .required("Password can not be empty")
 });
+
+export const otpValidationSchema = yup.object().shape({
+  otp: yup.string()
+    .required("OTP is required")
+    .matches(/^[0-9]{6}$/, "OTP must be 6 digits and contain only numbers"),
+});

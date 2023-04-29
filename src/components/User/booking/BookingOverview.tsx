@@ -34,7 +34,7 @@ function BookingOverview({
   const navigate = useNavigate();
   const totalRooms = form1Values?.roomDetail.length;
   const totalGuests = form1Values?.roomDetail.reduce(
-    (acc, con) => (acc += +con),
+    (acc, cur) => (acc += +cur),
     0
   );
 
@@ -67,7 +67,7 @@ function BookingOverview({
   ));
 
   return (
-    <div className="px-7 py-3 fixed top-0 lg:max-w-xs lg:h-screen right-0 pt-8 text-white lg:opacity-90 bg-[#323232] border border-r-0 border-b-0 border-l-0 border-t-white w-screen ">
+    <div className="px-7 py-3 overflow-y-auto fixed top-0 lg:max-w-xs lg:h-screen right-0 pt-8 text-white lg:opacity-90 bg-[#323232] border border-r-0 border-b-0 border-l-0 border-t-white w-screen ">
       <div className="flex justify-between lg:hidden ">
         <div
           onClick={

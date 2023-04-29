@@ -102,7 +102,7 @@ export function Header2() {
               </div>
             </>
           )}
-          <div className="absolute top-3 right-20">
+          <div className="absolute top-5 right-20">
             <Link to={'/booking/explore'} className="text-white md:text-lg text-sm bg-premium p-2 rounded-lg" >
               BOOKING
             </Link>

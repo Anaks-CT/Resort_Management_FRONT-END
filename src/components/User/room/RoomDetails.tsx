@@ -18,7 +18,7 @@ function RoomDetails({ highlights, amenities, facilities }: props) {
     points = facilities;
   }
   const pointDetails = points?.map((item) => (
-    <div className="flex md:grid-flow-col gap-3">
+    <div className="flex md:grid-flow-col gap-3" key={item}>
       <div>
         <BsDiamond />
       </div>

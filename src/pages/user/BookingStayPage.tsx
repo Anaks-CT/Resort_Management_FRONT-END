@@ -7,6 +7,8 @@ import SingleRoom from "../../components/User/room/SingleRoom";
 import Button from "../../components/UI/Button";
 import RoomPackage from "../../components/User/room/RoomPackage";
 import { HiArrowLongLeft } from "react-icons/hi2";
+import { IBookingForm1 } from "../../interface/booking.interface";
+import BookingDetails from "../../components/User/booking/BookingDetails";
 
 function BookingStayPage() {
 
@@ -25,7 +27,9 @@ function BookingStayPage() {
   // accessing the formDetails from the booking explore page
   const location = useLocation();
   const availableRoomTypes = location?.state?.data;
-  const form1 = location?.state?.bookingForm1;
+  const form1: IBookingForm1 = location?.state?.bookingForm1;
+
+ 
 
   // state for storing the current package details from the room
   const [currentRoomPackageDetails, setCurrentRoomDetails] =
@@ -53,7 +57,7 @@ function BookingStayPage() {
   const roomList: any = [];
   form1?.roomDetail?.forEach((item: any) => {
     availableRoomTypes.forEach((roomType: any) => {
-      if (item === roomType[0].maxPeople) {
+      if (item === roomType[0].maxPeople || item === roomType[0].maxPeople+1 ) {
         roomList.push(roomType);
       }
     });
@@ -64,8 +68,10 @@ function BookingStayPage() {
     any[]
   >([]);
 
+  console.log(roomListArrayNumber , form1.roomDetail.length);
+
   /////////////////// displaying all the room details according to the order of occupancy /////////////////////
-  const rooms = roomList[roomListArrayNumber]?.map((item: any) => {
+  const rooms = roomList[roomListArrayNumber]?.map((item: any, i: number) => {
 
     // getting the starting price from the packages insider room details
     const packagePrice = item.packages;
@@ -76,7 +82,7 @@ function BookingStayPage() {
 
     return (
       <SingleRoom
-        key={item}
+        key={i}
         setCurrentRoomDetails={setCurrentRoomDetails}
         handleViewRateToggle={handleViewRateToggle}
         roomDetail={item}
@@ -87,13 +93,12 @@ function BookingStayPage() {
 
   // rendering the packages of the selected room details
   const roomPackages = currentRoomPackageDetails?.packages?.map(
-    (singlePackage: any) => (
+    (singlePackage: any, i: number) => (
       <RoomPackage
-        roomListArrayNumber={roomListArrayNumber}
-        roomListLength={roomList.length}
+        key={i}
         singlePackage={singlePackage}
         setRoomListArrayNumber={setRoomListArrayNumber}
-        roomName={currentRoomPackageDetails.name}
+        roomDetail={currentRoomPackageDetails}
         handleViewRateToggle={handleViewRateToggle}
         setBookingOverViewRoomDetails={setBookingOverViewRoomDetails}
       />
@@ -111,9 +116,14 @@ function BookingStayPage() {
           <div className="mt-12 lg:max-w-[250px]">
             <BookingProgress number={2} bookingForm1Detais={location?.state} />
           </div>
+          {roomListArrayNumber === roomList.length ? (
           <div className="text-white text-2xl md:text-4xl py-3 mb-5 px-8">
+            Book your rooms
+          </div>) : (
+            <div className="text-white text-2xl md:text-4xl py-3 mb-5 px-8">
             Choose your room
           </div>
+          )}
           {rooms}
         </div>
 
@@ -142,6 +152,9 @@ function BookingStayPage() {
           </div>
           <div className="p-5 lg:p-14 rounded bg-white">{roomPackages}</div>
         </div>
+        {roomListArrayNumber === form1.roomDetail.length && (
+          <BookingDetails bookingOverViewRoomDetails={bookingOverViewRoomDetails} form1Values={form1} />
+        )}
       </div>
       <BookingOverview
         bookingOverViewRoomDetails={bookingOverViewRoomDetails}
@@ -153,7 +166,6 @@ function BookingStayPage() {
         setBookingOverViewRoomDetails={setBookingOverViewRoomDetails}
         setRoomListArrayNumber={setRoomListArrayNumber}
         setToggleViewRate={setToggleViewRate}
-
       />
     </>
   );
