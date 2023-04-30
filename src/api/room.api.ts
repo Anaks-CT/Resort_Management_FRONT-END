@@ -12,5 +12,5 @@ export const createRoomApi = (resortId: string, roomData: any, token: string) =>
 export const updateRoomApi = (resortId: string, formValues: any , token: string, roomId?: string) => 
   axiosRoom.put(`/${resortId}`,{roomId, formValues}, setApiHeader(token))  
 
-export const getAvailableRoomsApi = (formValues: IBookingForm1) => 
-  axiosRoom.post('/availableRooms',{formValues})
+export const getAvailableRoomsApi = (formValues: IBookingForm1, token: string) => 
+  axiosRoom.post('/availableRooms',{formValues}, setApiHeader(token))

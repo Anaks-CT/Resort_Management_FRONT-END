@@ -3,6 +3,8 @@ import { setApiHeader } from "../helpers/apiHeader";
 
 
 
-export const checkCredentialApi = (token: string) =>
+export const checkAdminCredentialApi = (token: string) =>
+    axiosAuth.get("/admin", setApiHeader(token)) 
 
-axiosAuth.get("", setApiHeader(token)) 
+export const checkUserCredentialApi = (token: string) =>
+    axiosAuth.get("/user", setApiHeader(token)) 

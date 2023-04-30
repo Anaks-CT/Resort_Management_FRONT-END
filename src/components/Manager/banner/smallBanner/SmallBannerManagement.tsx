@@ -20,7 +20,7 @@ import smallBannerDataforTable from "../../../UI/table/dataFunctions/smallBanner
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { IStore } from "../../../../interface/slice.interface";
-import useLogout from "../../../../hooks/useLogout";
+import {useAdminLogout} from "../../../../hooks/useLogout";
 
 
 function SmallBannerManagement() {
@@ -32,7 +32,7 @@ function SmallBannerManagement() {
 
   const resortId = useSelector((state: IStore) => state.resort.resortId);
 
-  const logout = useLogout()
+  const logout = useAdminLogout()
 
   ////////////////////////////// state for loading /////////////////////
   const [loading, setloading] = useState(false);

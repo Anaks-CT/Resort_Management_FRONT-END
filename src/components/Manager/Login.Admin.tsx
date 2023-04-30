@@ -4,7 +4,7 @@ import { adminLoginApi } from '../../api/company.api';
 import { ILoginInterface } from '../../interface/user.interface';
 import Login from '../UI/login/Login'
 import { useDispatch } from 'react-redux';
-import { addAdminToken } from '../../store/slices/adminToken.slice';
+import { addAdminToken } from '../../store/slices/adminTokenSlice';
 
 function AdminLogin() {
     const navigate = useNavigate();
@@ -12,8 +12,6 @@ function AdminLogin() {
     const formikLoginSubmit = (values: ILoginInterface, setError: any, resetForm: () => void) => {
       adminLoginApi(values)
           .then((res) => {
-            console.log(res.data.token);
-            
             dispatch(addAdminToken(res.data.token))
             setError("");
             resetForm();

@@ -1,9 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-// import { motion } from 'framer-motion'
+import { IStore } from "../../../interface/slice.interface";
 
 export function Header2() {
+
+  const userToken = useSelector((state: IStore) => state.userAuth.token);
+
   const [menuToggler, setToggle] = useState(false);
   const [scrolldown, setscrolldown] = useState(false);
   const handleToggle = () => {
@@ -55,12 +59,20 @@ export function Header2() {
           {/* link tag */}{" "}
           <p className="text-white md:text-md text-[12px]">RETRIVE BOOKING</p>
           <div className="flex gap-3">
+          {userToken ? (
             <Link to={"/login"}>
-              <p className="text-blue-200 md:text-md text-[12px]">LOGIN</p>
-            </Link>
-            <Link to={"/signup"}>
-              <p className="text-blue-200 md:text-md text-[12px]">JOIN NOW</p>
-            </Link>
+            <p className="text-blue-200 md:text-md text-[12px]">PROFILE</p>
+          </Link>
+          ) : (
+            <>
+              <Link to={"/login"}>
+                <p className="text-blue-200 md:text-md text-[12px]">LOGIN</p>
+              </Link>
+              <Link to={"/signup"}>
+                <p className="text-blue-200 md:text-md text-[12px]">JOIN NOW</p>
+              </Link>
+            </>
+          )}
           </div>
         </div>
       </div>
@@ -103,7 +115,7 @@ export function Header2() {
             </>
           )}
           <div className="absolute top-5 right-20">
-            <Link to={'/booking/explore'} className="text-white md:text-lg text-sm bg-premium p-2 rounded-lg" >
+            <Link to={userToken ? '/booking/explore' : "/login"} className="text-white md:text-lg text-sm bg-premium p-2 rounded-lg" >
               BOOKING
             </Link>
           </div>

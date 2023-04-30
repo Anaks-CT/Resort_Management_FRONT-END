@@ -3,8 +3,9 @@ import gallarySlice from "./slices/gallarySlice";
 import resortSlice from "./slices/resortSlice";
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
-import adminToken from "./slices/adminToken.slice";
 import { combineReducers, configureStore } from "@reduxjs/toolkit"
+import adminToken from "./slices/adminTokenSlice";
+import userToken from "./slices/userTokenSlice";
 
 const persistConfig={
     key:'root',
@@ -17,6 +18,7 @@ const reducer= combineReducers({
     allResort: allResortSlice.reducer,
     resort:resortSlice.reducer,
     adminAuth:adminToken.reducer,
+    userAuth: userToken.reducer
 })
 
 

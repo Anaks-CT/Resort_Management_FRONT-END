@@ -18,7 +18,7 @@ import Button from "../../../UI/Button";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { IStore } from "../../../../interface/slice.interface";
-import useLogout from "../../../../hooks/useLogout";
+import {useAdminLogout} from "../../../../hooks/useLogout";
 
 function LargeBannerManagement() {
   // const [gallaryDetails, setgallaryDetails] = useState<IGallary>();
@@ -26,7 +26,7 @@ function LargeBannerManagement() {
   const adminToken = useSelector((state: IStore) => state.adminAuth.token)
   const dispatch = useDispatch();
 
-  const logout = useLogout()
+  const logout = useAdminLogout()
   const resortId = useSelector((state: IStore) => state.resort.resortId);
 
   ////////////////////////////// state for loading /////////////////////

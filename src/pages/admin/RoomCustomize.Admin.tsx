@@ -7,7 +7,7 @@ import AdminResortSideBar from "../../components/Manager/sidebar/AdminResortSide
 import { createRoomApi, updateRoomApi } from "../../api/room.api";
 import { useSelector } from "react-redux";
 import { IStore } from "../../interface/slice.interface";
-import useLogout from "../../hooks/useLogout";
+import {useAdminLogout} from "../../hooks/useLogout";
 
 function RoomCustomize() {
   //////////////////////////// message passed from other pages //////////////////////////////
@@ -19,7 +19,7 @@ function RoomCustomize() {
   const currentResort = useSelector((state: IStore) => state.resort);
   const adminToken = useSelector((state: IStore) => state.adminAuth.token);
 
-  const logout = useLogout()
+  const logout = useAdminLogout()
 
   ////////////////////////////// state for loading /////////////////////
 

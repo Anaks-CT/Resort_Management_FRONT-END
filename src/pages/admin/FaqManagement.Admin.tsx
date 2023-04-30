@@ -16,7 +16,7 @@ import { CgArrowLongDown, CgArrowLongUp } from "react-icons/cg";
 import AdminSideBar from "../../components/Manager/sidebar/AdminSideBar";
 import { useSelector } from "react-redux";
 import { IStore } from "../../interface/slice.interface";
-import useLogout from '../../hooks/useLogout'
+import {useAdminLogout} from '../../hooks/useLogout'
 
 function FaqManagement() {
   //////////////////////////////////// faq details state ////////////////////////////////
@@ -42,7 +42,7 @@ function FaqManagement() {
       .catch(err => console.log(err))
   }, [])
   
-  const logout = useLogout()
+  const logout = useAdminLogout()
 
 
   ////////////////////////////// state for loading /////////////////////

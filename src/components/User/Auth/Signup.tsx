@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { verifyPhoneApi } from "../../../api/user.api";
 import { signupSchema } from "../../../schema/user/auth";
 import Button from "../../UI/Button";
@@ -9,6 +9,11 @@ import Input from "../../UI/Input";
 function SignUp() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
+  const location = useLocation()
+  useEffect(() => {
+    setError(location?.state)
+  },[location?.state])
 
   const formik = useFormik({
     initialValues: {

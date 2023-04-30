@@ -8,14 +8,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 import FormikDataForResortManagement from "../../components/Manager/resort/FormikDataForAdd&EditResort";
 import { useSelector } from "react-redux";
 import { IStore } from "../../interface/slice.interface";
-import useLogout from "../../hooks/useLogout";
+import {useAdminLogout} from "../../hooks/useLogout";
 
 function AddResort() {
   //////////////////////////// message passed from other pages //////////////////////////////
   // current resortDetails of the editClicked resort in resort management table
   const location = useLocation();
 
-  const logout = useLogout()
+  const logout = useAdminLogout()
 
   const navigate = useNavigate();
   const dispatch = useDispatch();

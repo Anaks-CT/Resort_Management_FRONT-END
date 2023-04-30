@@ -13,11 +13,18 @@ import { IBookingForm1 } from "../../interface/booking.interface";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { IoMdClose } from "react-icons/io";
+import { useSelector } from "react-redux";
+import { IStore } from "../../interface/slice.interface";
+import { useUserLogout } from "../../hooks/useLogout";
+import { toastMessage } from "../../helpers/toast";
 
 function BookingForm1Page() {
   // state for storing all resort details to show in the destination dropdown
   const [allResorts, setAllResorts] = useState<IResort[] | null>(null);
   
+
+  const logout = useUserLogout()
+
   const navigate = useNavigate()
 
   // state for error if any error occured from the backed
@@ -98,11 +105,13 @@ function BookingForm1Page() {
     date: date[0]
   };
 
+  const userToken = useSelector((state: IStore) => state.userAuth.token)
+
   // formik submit function
   const formikSubmit = (values: IBookingForm1) => {
     setLoading(true)
     setTimeout(() => {
-      getAvailableRoomsApi(values)
+      getAvailableRoomsApi(values, userToken)
       .then(res => {
         navigate('/booking/stay',{
           state: {
@@ -111,7 +120,13 @@ function BookingForm1Page() {
           }
         })
       })
-      .catch(err => setError(err.response.data.message  ))
+      .catch(err => {
+        if(err.response.status === 401) {
+          logout()
+          toastMessage("error", err.response.data.message)
+        }
+        setError(err.response.data.message)
+      })
       .finally(() => setLoading(false))
     }, 3000);
   };

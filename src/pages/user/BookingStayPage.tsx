@@ -4,7 +4,6 @@ import MiniHeader from "../../components/User/Header/MiniHeader";
 import BookingProgress from "../../components/User/BookingProgress";
 import BookingOverview from "../../components/User/booking/BookingOverview";
 import SingleRoom from "../../components/User/room/SingleRoom";
-import Button from "../../components/UI/Button";
 import RoomPackage from "../../components/User/room/RoomPackage";
 import { HiArrowLongLeft } from "react-icons/hi2";
 import { IBookingForm1 } from "../../interface/booking.interface";
@@ -68,7 +67,7 @@ function BookingStayPage() {
     any[]
   >([]);
 
-  console.log(roomListArrayNumber , form1.roomDetail.length);
+  console.log(roomListArrayNumber , form1?.roomDetail?.length);
 
   /////////////////// displaying all the room details according to the order of occupancy /////////////////////
   const rooms = roomList[roomListArrayNumber]?.map((item: any, i: number) => {
@@ -152,7 +151,7 @@ function BookingStayPage() {
           </div>
           <div className="p-5 lg:p-14 rounded bg-white">{roomPackages}</div>
         </div>
-        {roomListArrayNumber === form1.roomDetail.length && (
+        {roomListArrayNumber === form1?.roomDetail?.length && (
           <BookingDetails bookingOverViewRoomDetails={bookingOverViewRoomDetails} form1Values={form1} />
         )}
       </div>

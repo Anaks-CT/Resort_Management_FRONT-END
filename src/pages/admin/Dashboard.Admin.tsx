@@ -1,12 +1,12 @@
 import AdminSideBar from "../../components/Manager/sidebar/AdminSideBar";
 import { Header } from "../../components/Manager/Header";
 import { useDispatch } from "react-redux";
-import { removeToken } from "../../store/slices/adminToken.slice";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { IStore } from "../../interface/slice.interface";
 import { useEffect } from "react";
 import Button from "../../components/UI/Button";
+import { removeAdminToken } from "../../store/slices/adminTokenSlice";
 
 
 
@@ -24,7 +24,7 @@ function AdminDashboard() {
       <h1 className="pt-20 ">DASHBOARD</h1>
       <Header />
       <AdminSideBar />
-      <Button color="danger" OnClickItem={removeToken()}  class="px-4 py-2" onClick={dispatch}>LOGOUT</Button>
+      <Button color="danger" OnClickItem={removeAdminToken()}  class="px-4 py-2" onClick={dispatch}>LOGOUT</Button>
     </div>
   );
 }

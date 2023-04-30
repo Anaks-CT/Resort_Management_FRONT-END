@@ -1,14 +1,27 @@
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { removeToken } from '../store/slices/adminToken.slice'
+import { removeAdminToken } from '../store/slices/adminTokenSlice'
+import { removeUserToken } from '../store/slices/userTokenSlice'
 
-export default function useLogout() {
+export function useAdminLogout() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const logout = () => {
-    dispatch(removeToken())
+    dispatch(removeAdminToken())
     navigate('/admin/login')
+  }
+
+  return logout
+}
+
+export function useUserLogout() {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const logout = () => {
+    dispatch(removeUserToken())
+    navigate('/login')
   }
 
   return logout

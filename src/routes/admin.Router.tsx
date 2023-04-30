@@ -16,9 +16,9 @@ import { useSelector } from "react-redux";
 import { IStore } from "../interface/slice.interface";
 import ProtectedAdminRoute from "../helpers/ProtectedAdminRoute";
 import { useEffect, useState } from "react";
-import { checkCredentialApi } from "../api/checkAuth";
+import { checkAdminCredentialApi } from "../api/checkAuth";
 import { useDispatch } from "react-redux";
-import { removeToken } from "../store/slices/adminToken.slice";
+import { removeAdminToken } from "../store/slices/adminTokenSlice";
 
 type routers = {
   path: string;
@@ -32,11 +32,11 @@ function AdminRouter() {
 
   useEffect(() => {
     if (adminToken.token) {
-      checkCredentialApi(adminToken.token)
+      checkAdminCredentialApi(adminToken.token)
         .then((res) => setAuth(res.data.message))
         .catch((err) => {
           console.log("admin router catch for removing");
-          dispatch(removeToken());
+          dispatch(removeAdminToken());
         });
     } else {
       setAuth(null);

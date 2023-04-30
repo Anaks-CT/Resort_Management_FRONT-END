@@ -1,14 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const adminToken = createSlice({
-  name: "adminToken",
+  name: "token",
   initialState: {token: ''},
   reducers: {
     addAdminToken(state, action) {
         console.log(typeof action.payload);
         state.token = action.payload
     },
-    removeToken(state){
+    removeAdminToken(state){
       console.log('token removed')
         // state.token = ''
     }
@@ -17,5 +17,5 @@ const adminToken = createSlice({
 
 
 
-export const { addAdminToken, removeToken } = adminToken.actions;
+export const { addAdminToken, removeAdminToken } = adminToken.actions;
 export default adminToken;
