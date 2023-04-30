@@ -1,15 +1,16 @@
 import React from 'react'
 import { IoMdClose } from 'react-icons/io'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { IBookingForm1 } from '../../interface/booking.interface'
 import { HiArrowLongLeft } from 'react-icons/hi2'
 
 type props = {
   number : 1 | 2 | 3
   bookingForm1Detais?: IBookingForm1
+  availableRoomTypes?: any
 }
 
-function BookingProgress({number, bookingForm1Detais}:props) {
+function BookingProgress({number, bookingForm1Detais, availableRoomTypes}:props) {
   const navigate = useNavigate()
   const handleProgressCancel = () => {
     if(number === 1){
@@ -17,7 +18,7 @@ function BookingProgress({number, bookingForm1Detais}:props) {
     }else if(number === 2){
       navigate('/booking/explore')
     }else if(number === 3){
-      navigate('/booking/stay',{state:bookingForm1Detais})
+      navigate('/booking/stay',{state:{bookingForm1:bookingForm1Detais, data: availableRoomTypes}})
     }
   }
   return (
@@ -31,6 +32,10 @@ function BookingProgress({number, bookingForm1Detais}:props) {
               {number === 1 ? "CANCEL" : "BACK"}
             </span>
             </span>
+            {number === 3 && <div onClick={handleProgressCancel}
+              className="tracking-wide py-4 px-6  lg:hidden text-[12px] lg:text-lg self-start flex items-center gap-2 lg:self-center cursor-pointer">
+                <HiArrowLongLeft className=" text-3xl" />BACK
+            </div>}
             <div className="flex mt-7 gap-9 lg:gap-36 lg:mt-0">
               <div className="flex items-center gap-1 lg:gap-3">
                 <span className={`p-1 lg:p-4 w-7 lg:w-12 opacity-50 text-[12px] rounded-full ${(number === 1 || number === 2 || number === 3) && "bg-white"} text-center text-black`}>

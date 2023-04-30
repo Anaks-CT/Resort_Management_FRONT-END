@@ -1,8 +1,35 @@
 import React from 'react'
+import { useLocation } from 'react-router-dom'
+import BookingDetails from '../../components/User/booking/BookingDetails'
+import MiniHeader from '../../components/User/Header/MiniHeader'
+import BookingProgress from '../../components/User/BookingProgress'
 
 function BookingConfirmPage() {
-  return (
-    <div className='text-white'>BookingConfirmPage</div>
+  const location = useLocation()
+  const form1 = location?.state?.form1
+  const availableRoomTypes = location?.state?.data
+  const bookingOverViewRoomDetails = location.state.bookingOverViewRoomDetails
+    // style for background image
+    const style = {
+      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.3)), url(https://res.cloudinary.com/dhcvbjebj/image/upload/v1682333333/pexels-asad-photo-maldives-1268871_crcnzg.jpg)`,
+    };
+  return (<>
+    <MiniHeader />
+    <div
+      className={`w-full h-full min-h-screen bg-no-repeat bg-cover bg-center bg-fixed saturate-150 flex lg:pl-9 flex-col `}
+      style={style}
+    >
+      <div className={`lg:w-3/4 `}>
+          <div className="mt-12 lg:max-w-[250px]">
+            <BookingProgress number={3} bookingForm1Detais={form1} availableRoomTypes={availableRoomTypes}/>
+          </div>
+          
+        </div>
+    <BookingDetails bookingOverViewRoomDetails={bookingOverViewRoomDetails} form1Values={form1} />
+
+
+    </div>
+  </>
   )
 }
 

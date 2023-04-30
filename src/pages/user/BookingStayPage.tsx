@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import MiniHeader from "../../components/User/Header/MiniHeader";
 import BookingProgress from "../../components/User/BookingProgress";
 import BookingOverview from "../../components/User/booking/BookingOverview";
@@ -28,7 +28,7 @@ function BookingStayPage() {
   const availableRoomTypes = location?.state?.data;
   const form1: IBookingForm1 = location?.state?.bookingForm1;
 
- 
+ console.log(form1);
 
   // state for storing the current package details from the room
   const [currentRoomPackageDetails, setCurrentRoomDetails] =
@@ -152,7 +152,7 @@ function BookingStayPage() {
           <div className="p-5 lg:p-14 rounded bg-white">{roomPackages}</div>
         </div>
         {roomListArrayNumber === form1?.roomDetail?.length && (
-          <BookingDetails bookingOverViewRoomDetails={bookingOverViewRoomDetails} form1Values={form1} />
+          <Navigate to={'/booking/confirm'} state={{form1, bookingOverViewRoomDetails, data: availableRoomTypes} }/>
         )}
       </div>
       <BookingOverview
