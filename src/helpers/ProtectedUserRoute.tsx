@@ -23,7 +23,7 @@ useEffect(() => {
         dispatch(removeUserToken())
       })
   }else{
-    navigate('/admin/login')
+    navigate('/login')
   }
   // eslint-disable-next-line
 },[userToken])

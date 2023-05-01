@@ -13,7 +13,7 @@ type props = {
 function BookingDetails({form1Values, bookingOverViewRoomDetails}: props) {
 
   const userToken = useSelector((state: IStore) => state.userAuth.token)
-    const totalGuests = form1Values.roomDetail.reduce(
+    const totalGuests = form1Values?.roomDetail.reduce(
         (acc, cur) => (acc += +cur),
         0
       );
@@ -25,7 +25,7 @@ function BookingDetails({form1Values, bookingOverViewRoomDetails}: props) {
 
     }
 
-    const totalRoomCost = bookingOverViewRoomDetails.reduce((acc,cur) => (acc+=cur.packageCost),0)
+    const totalRoomCost = bookingOverViewRoomDetails?.reduce((acc,cur) => (acc+=cur.packageCost),0)
     const taxCost = Math.floor(totalRoomCost*22/100)
     const payableAmount = totalRoomCost+taxCost
 
@@ -36,11 +36,11 @@ function BookingDetails({form1Values, bookingOverViewRoomDetails}: props) {
                   <h2 className="text-center text-2xl mb-10 font-sans tracking-wide font-semibold uppercase ">Booking Details</h2>
                   <div className="flex justify-between">
                     <span>Resort Name :</span>
-                    <span className="w-1/2">{form1Values.destination.name}</span>
+                    <span className="w-1/2">{form1Values?.destination.name}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>No. of Rooms :</span>
-                    <span className="w-1/2">{form1Values.roomDetail.length} Room(s)</span>
+                    <span className="w-1/2">{form1Values?.roomDetail.length} Room(s)</span>
                   </div>
                   <div className="flex justify-between">
                     <span>No. of Guests :</span>
@@ -52,7 +52,7 @@ function BookingDetails({form1Values, bookingOverViewRoomDetails}: props) {
                     {form1Values?.date.endDate.toLocaleDateString()}</span>
                   </div>
                 {
-                  bookingOverViewRoomDetails.map((item, i) => (
+                  bookingOverViewRoomDetails?.map((item, i) => (
                     <div key={item} className='flex flex-col gap-2'>
                       <div className="my-2 font-black px-2">Room {i+1}</div>
                       <div className="flex justify-between">
@@ -74,7 +74,7 @@ function BookingDetails({form1Values, bookingOverViewRoomDetails}: props) {
               <div className='divide-y flex flex-col gap-3 lg:w-1/2 justify-center'>
                 <div>
                   <div className='text-center my-4 font-sans tracking-wide text-premium'>TOTAL ROOM COST EXCLUDING TAXES AND FEES.</div>
-                  <div className='text-2xl font-bold text-center'><span className='text-lg font-normal'>INR</span> {totalRoomCost.toLocaleString('en-IN')}</div>
+                  <div className='text-2xl font-bold text-center'><span className='text-lg font-normal'>INR</span> {totalRoomCost?.toLocaleString('en-IN')}</div>
                 </div>
                 <div >
                   <div className='text-center my-4 font-sans tracking-wide text-premium'>APPLICABLE TAXES & FEES.</div>

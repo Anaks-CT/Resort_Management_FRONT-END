@@ -1,14 +1,21 @@
-import React from 'react'
-import { useLocation } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import BookingDetails from '../../components/User/booking/BookingDetails'
 import MiniHeader from '../../components/User/Header/MiniHeader'
 import BookingProgress from '../../components/User/BookingProgress'
 
 function BookingConfirmPage() {
+  useEffect(() => {
+    if(!availableRoomTypes || !bookingOverViewRoomDetails){
+      navigate('/booking/explore')
+    }
+  })
+
+  const navigate = useNavigate()
   const location = useLocation()
   const form1 = location?.state?.form1
   const availableRoomTypes = location?.state?.data
-  const bookingOverViewRoomDetails = location.state.bookingOverViewRoomDetails
+  const bookingOverViewRoomDetails = location?.state?.bookingOverViewRoomDetails
     // style for background image
     const style = {
       backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.3)), url(https://res.cloudinary.com/dhcvbjebj/image/upload/v1682333333/pexels-asad-photo-maldives-1268871_crcnzg.jpg)`,

@@ -28,7 +28,6 @@ function BookingStayPage() {
   const availableRoomTypes = location?.state?.data;
   const form1: IBookingForm1 = location?.state?.bookingForm1;
 
- console.log(form1);
 
   // state for storing the current package details from the room
   const [currentRoomPackageDetails, setCurrentRoomDetails] =

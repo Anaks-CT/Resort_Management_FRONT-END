@@ -117,6 +117,7 @@ function HomePage() {
       </div>
       <BackgroundBanner
         button1="BOOK NOW"
+        button1Onclick={() => navigate('/booking/explore')}
         heading={gallaryDetails && gallaryDetails[randomNumberForGallary]?.largeBanner[0].description1}
         des={gallaryDetails && gallaryDetails[randomNumberForGallary]?.largeBanner[0].description2}
         url={gallaryDetails && gallaryDetails[randomNumberForGallary]?.largeBanner[0].image}

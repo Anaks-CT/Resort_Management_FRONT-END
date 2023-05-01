@@ -4,6 +4,7 @@ import Input from "../Input";
 import { useFormik } from "formik";
 import { loginSchema } from "../../../schema/user/auth";
 import { ILoginInterface } from "../../../interface/user.interface";
+import { useNavigate } from "react-router-dom";
 
 type props = {
   message?: string
@@ -22,6 +23,8 @@ function Login({onSubmit,message}: props) {
       onSubmit(values, setError, resetForm)
     },
   });
+
+  const navigate = useNavigate()
   return (
     <div className="bg-[#1E1E1E] p-16 self-center z-10 w-[300px] md:w-[350px] flex flex-col justify-center rounded-lg items-center opacity-70">
       <div className="text-green-500">{message}</div>
@@ -60,13 +63,14 @@ function Login({onSubmit,message}: props) {
       </div>
       <Button
         onClick={formik.handleSubmit}
-        class="my-5 w-full"
+        class="mt-5 w-full"
         outline
         color="transparent"
       >
         LOG IN
       </Button>
-      {/* forgot password */}
+      <div className="text-blue-600 cursor-pointer" onClick={() => navigate('/forgotPassword')}>Forgot Password ?</div>
+      <div className="text-blue-600 cursor-pointer" onClick={() => navigate('/forgotPassword/setNewPassword')}>forgot top verify</div>
     </div>
   );
 }

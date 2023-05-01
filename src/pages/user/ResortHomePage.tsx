@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Header2 } from "../../components/User/Header/Header";
 import { IResort } from "../../interface/resort.interface";
-import Cards from "../../components/User/Cards";
 import BackgroundBanner from "../../components/User/Banners/BackgroundBanner";
 import { IGallary } from "../../interface/gallary.interface";
 import CircleBanner from "../../components/User/Banners/CircleBanner";
@@ -10,14 +9,12 @@ import CommunityBanner from "../../components/User/Banners/CommunityBanner";
 import Contact from "../../components/User/Contact";
 import FAQ from "../../components/User/FAQ";
 import Footer from "../../components/User/Footer";
-import { Ifaq } from "../../interface/company.interface";
 import { getGallaryDetailsbyResortIdApi } from "../../api/gallary.api";
 import { toastMessage } from "../../helpers/toast";
 import { getCompanyDetailsApi } from "../../api/company.api";
 import RoomCards from "../../components/User/room/RoomCards";
 import { getRoomsByResortIdApi } from "../../api/room.api";
 import { IRoom } from "../../interface/room.interface";
-import { AiFillCaretLeft } from "react-icons/ai";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 
 function ResortHomePage() {
@@ -53,6 +50,7 @@ function ResortHomePage() {
     if (!location?.state?.resortDetails) {
       navigate("/");
     }
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -73,6 +71,7 @@ function ResortHomePage() {
       .catch((err) => {
         toastMessage("error", err?.response?.data?.message);
       });
+      // eslint-disable-next-line
   }, []);
 
   ///////////////////////////////////////////////// window.innerwidth event listener for cards in homepage/////////////////////////
@@ -195,6 +194,7 @@ function ResortHomePage() {
       </div>
       <BackgroundBanner
         button1="BOOK NOW"
+        button1Onclick={() => navigate('/booking/explore')}
         heading={
           gallaryDetail &&
           gallaryDetail.largeBanner[randomNumberForGallary].description1

@@ -12,6 +12,9 @@ import BookingConfirmPage from "./user/BookingConfirmPage";
 import OtpPage from "./user/OtpPage";
 import ResortHomePage from "./user/ResortHomePage";
 import ResortsListPage from "./user/ResortsListPage";
+import ForgotPasswordPage from "./user/ForgotPasswordPage";
+import ForgotPasswordOtpVerifyPage from "./user/ForgotPasswordOtpVerifyPage";
+import NewPasswordPage from "./user/NewPasswordPage";
 
 ////////////////////////////////// manager //////////////////////////////
 
@@ -47,7 +50,10 @@ export {
   BookingConfirmPage,
   OtpPage,
   ResortsListPage,
-  ResortHomePage
+  ResortHomePage,
+  ForgotPasswordPage,
+  ForgotPasswordOtpVerifyPage,
+  NewPasswordPage
 };
 
 ///////////////////////////////////manager export /////////////////////////////////

@@ -1,35 +1,27 @@
-import React, { useEffect, useState } from "react";
-import { Route, Routes, Navigate } from "react-router";
-import { BookingConfirmPage, BookingForm1, BookingStayPage, DIningPage, HomePage, LoginPage, NotFoundPage, OtpPage, ResortHomePage, ResortsListPage, SignupPage, WellnessPage } from "../pages/pages";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { IStore } from "../interface/slice.interface";
-import { checkUserCredentialApi } from "../api/checkAuth";
-import { removeUserToken } from "../store/slices/userTokenSlice";
+import { Route, Routes } from "react-router";
+import { 
+  BookingConfirmPage,
+  BookingForm1,
+  BookingStayPage, 
+  DIningPage, 
+  ForgotPasswordOtpVerifyPage, 
+  ForgotPasswordPage, 
+  HomePage, 
+  LoginPage, 
+  NewPasswordPage, 
+  NotFoundPage, 
+  OtpPage, 
+  ResortHomePage, 
+  ResortsListPage, 
+  SignupPage, 
+  WellnessPage 
+} from "../pages/pages";
 import ProtectedUserRoute from "../helpers/ProtectedUserRoute";
+import CheckAuthRoute from "../helpers/CheckAuthInRoute";
 
 
 
 function UserRouter() {
-  const userToken = useSelector((state: IStore) => state.userAuth.token);
-  const [auth, setAuth] = useState(null);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (userToken) {
-      checkUserCredentialApi(userToken)
-        .then((res) => setAuth(res.data.message))
-        .catch((err) => {
-          setAuth(null)
-          dispatch(removeUserToken());
-        });
-    } else {
-      setAuth(null);
-    }
-    // eslint-disable-next-line
-  }, [userToken]);
-
-  console.log(auth, userToken);
 
   return (
     <Routes>
@@ -39,9 +31,12 @@ function UserRouter() {
       <Route path="/dining" element={<DIningPage />} />
       <Route path="/:resort" element={<ResortHomePage />} />
 
-      <Route path="/login" element={!auth ? <LoginPage /> : <Navigate to="/" />} />
-      <Route path="/signup" element={!auth ? <SignupPage /> : <Navigate to="/" />} />
-      <Route path="/signup/otp-verify" element={!auth ? <OtpPage /> : <Navigate to="/" />} />
+      <Route path="/signup" element={CheckAuthRoute(<SignupPage />)} />
+      <Route path="/login" element={CheckAuthRoute(<LoginPage />)} />
+      <Route path="/signup/otp-verify" element={CheckAuthRoute(<OtpPage />)} />
+      <Route path="/forgotPassword" element={CheckAuthRoute(<ForgotPasswordPage />)} />
+      <Route path="/forgotPassword/otp-verify" element={CheckAuthRoute(<ForgotPasswordOtpVerifyPage />)} />
+      <Route path="/forgotPassword/setNewPassword" element={CheckAuthRoute(<NewPasswordPage />)} />
 
       <Route path="/booking/explore" element={ProtectedUserRoute(<BookingForm1 />)} />
       <Route path="/booking/stay" element={ProtectedUserRoute(<BookingStayPage />)} />

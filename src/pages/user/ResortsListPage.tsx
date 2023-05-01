@@ -23,8 +23,9 @@ function ResortsListPage() {
 
   const navigate = useNavigate();
 
-  const resortList = allResorts?.map((item) => (
+  const resortList = allResorts?.map((item, i) => (
     <div
+      key={i}
       className="flex py-5 justify-between items-center md:px-9 cursor-pointer"
       onMouseEnter={() => setImage(item.resortDetails.image)}
       onClick={() =>
