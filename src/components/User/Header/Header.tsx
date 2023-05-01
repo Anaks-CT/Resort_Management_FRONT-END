@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IStore } from "../../../interface/slice.interface";
 
 export function Header2() {
 
   const userToken = useSelector((state: IStore) => state.userAuth.token);
-
+  const navigate = useNavigate()
   const [menuToggler, setToggle] = useState(false);
   const [scrolldown, setscrolldown] = useState(false);
   const handleToggle = () => {
@@ -94,7 +94,8 @@ export function Header2() {
           {menuToggler && (
             <>
               <div
-                className={`md:w-1/5 w-screen pb-5 md:pb-0 items-center flex justify-start md:justify-end text-white text-md md:text-lg tracking-wide`}
+                className={`md:w-1/5 w-screen pb-5 md:pb-0 items-center flex justify-start md:justify-end text-white text-md md:text-lg tracking-wide cursor-pointer`}
+                onClick={() => navigate('/resorts')}
               >
                 RESORTS
               </div>

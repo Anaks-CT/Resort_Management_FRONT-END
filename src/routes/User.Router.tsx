@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes, Navigate } from "react-router";
-import { BookingConfirmPage, BookingForm1, BookingStayPage, DIningPage, HomePage, LoginPage, NotFoundPage, OtpPage, SignupPage, WellnessPage } from "../pages/pages";
+import { BookingConfirmPage, BookingForm1, BookingStayPage, DIningPage, HomePage, LoginPage, NotFoundPage, OtpPage, ResortHomePage, ResortsListPage, SignupPage, WellnessPage } from "../pages/pages";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { IStore } from "../interface/slice.interface";
@@ -34,8 +34,11 @@ function UserRouter() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
+      <Route path="/resorts" element={<ResortsListPage />} />
       <Route path="/wellness" element={<WellnessPage />} />
       <Route path="/dining" element={<DIningPage />} />
+      <Route path="/:resort" element={<ResortHomePage />} />
+
       <Route path="/login" element={!auth ? <LoginPage /> : <Navigate to="/" />} />
       <Route path="/signup" element={!auth ? <SignupPage /> : <Navigate to="/" />} />
       <Route path="/signup/otp-verify" element={!auth ? <OtpPage /> : <Navigate to="/" />} />

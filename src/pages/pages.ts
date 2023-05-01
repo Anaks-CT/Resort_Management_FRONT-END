@@ -10,6 +10,8 @@ import BookingForm1 from "./user/BookingForm1Page";
 import BookingStayPage from "./user/BookingStayPage";
 import BookingConfirmPage from "./user/BookingConfirmPage";
 import OtpPage from "./user/OtpPage";
+import ResortHomePage from "./user/ResortHomePage";
+import ResortsListPage from "./user/ResortsListPage";
 
 ////////////////////////////////// manager //////////////////////////////
 
@@ -43,7 +45,9 @@ export {
   BookingForm1,
   BookingStayPage,
   BookingConfirmPage,
-  OtpPage
+  OtpPage,
+  ResortsListPage,
+  ResortHomePage
 };
 
 ///////////////////////////////////manager export /////////////////////////////////

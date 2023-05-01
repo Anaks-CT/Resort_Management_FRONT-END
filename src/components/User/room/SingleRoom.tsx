@@ -5,7 +5,7 @@ import { TbArrowsMove, TbSquareRounded } from 'react-icons/tb'
 import RoomDetails from './RoomDetails'
 import Button from '../../UI/Button'
 import TransitionsModal from '../../UI/Modal'
-import ModalImages from '../../Manager/room/ModalImages'
+import ModalImages from '../../UI/ModalImages'
 
 type props = {
     roomDetail: any
@@ -24,7 +24,7 @@ function SingleRoomType({ roomDetail, startingPrice, handleViewRateToggle, setCu
   return (
     <div className="p-6 bg-white mb-14">
         <TransitionsModal
-          modalForm={() => <ModalImages closeModal={closeModal} images={roomDetail.images} roomName={roomDetail.name}/>}
+          modalForm={() => <ModalImages closeModal={closeModal} images={roomDetail.images} heading={roomDetail.name}/>}
           open={open}
           openModal={openModal}
           closeModal={closeModal}

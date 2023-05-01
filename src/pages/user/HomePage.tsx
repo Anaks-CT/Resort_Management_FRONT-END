@@ -13,13 +13,15 @@ import { Header2 } from "../../components/User/Header/Header";
 import { ICompany } from "../../interface/company.interface";
 import { IGallary } from "../../interface/gallary.interface";
 import { IResort } from "../../interface/resort.interface";
+import { useNavigate } from "react-router-dom";
 
 function HomePage() {
-  const [width, setWidth] = useState<number>(window.innerWidth);
+  const [width, setWidth]  = useState<number>(window.innerWidth);
   const [companyDetails, setcompanyDetails] = useState<ICompany>();
   const [resortDetails, setresortDetails] = useState<IResort[]>();
   const [gallaryDetails, setgallaryDetails] = useState<IGallary[]>();
 
+  const navigate = useNavigate()
   //////////////////////////////////// setting up a random number to generate random background or different resorts/////////////
 
   // const gallaryLength = gallaryDetails?.length || 0
@@ -32,47 +34,26 @@ function HomePage() {
   }
   useEffect(() => {
     window.addEventListener("resize", handleWindowSizeChange);
-    return () => {
-      window.removeEventListener("resize", handleWindowSizeChange);
-    };
+    return () => window.removeEventListener("resize", handleWindowSizeChange);
   }, []);
 
-  ///////////////////////////////////////////////// fetching company details  ////////////////////////////////
-
+  
   useEffect(() => {
+      /////////// fetching company details  //////////
     getCompanyDetailsApi()
-      .then((res) => {
-        setcompanyDetails(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-  /////////////////////////////////////////////////// fetching resorts details/////////////////////////////////
-
-  useEffect(() => {
+        .then((res) => setcompanyDetails(res.data.data))
+        .catch((err) => console.log(err))
+        // /////// fetching resorts details/////////////////
     getAllResortDetailsApi()
-      .then((res) => {
-        setresortDetails(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-  ////////////////////////////////////////////// fetching gallary details //////////////////////////////
-
-  useEffect(() => {
+        .then((res) => setresortDetails(res.data.data))
+        .catch((err) => console.log(err))
+        ///////////////////// fetching gallary details /////////
     getAllGallaryDetailsApi()
-      .then((res) => {
-        setgallaryDetails(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+        .then((res) => setgallaryDetails(res.data.data))
+        .catch((err) => console.log(err))
   }, []);
 
+  // style for background image
   const style = {
     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3),rgba(0, 0, 0, 0.3)), url(${companyDetails?.bannerDetails.image})`,
   };
@@ -145,6 +126,8 @@ function HomePage() {
       <BackgroundBanner
         button1="JOIN NOW"
         button2="LOGIN"
+        button1Onclick={() =>navigate('/signup')}
+        button2Onclick={() =>navigate('/login')}
         des={`Make moments with Jumeirah even 
         more special with member-only benefits.`}
         heading="Join the Trinity One Family Today"
