@@ -18,20 +18,21 @@ const style = {
 };
 
 type props = {
-    buttonMessage: string
+    buttonMessage?: string
     modalForm: () => JSX.Element
     openModal: () => void
     closeModal: ()=> void
     open: boolean
+    noBorder? : boolean
 }
 
-export default function TransitionsModal({buttonMessage, modalForm, openModal, closeModal, open}: props) {
+export default function TransitionsModal({buttonMessage, modalForm, openModal, closeModal, open, noBorder}: props) {
   const handleOpen = () => {openModal()};
   // const handleClose = () => {closeModal()};
 
   return (
     <div>
-      <Button onClick={handleOpen} rounded color='black' class='px-5 py-3 mb-10'>{buttonMessage}</Button>
+      {buttonMessage && <Button onClick={handleOpen} rounded color='black' class='px-5 py-3 mb-10'>{buttonMessage}</Button>}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -46,9 +47,15 @@ export default function TransitionsModal({buttonMessage, modalForm, openModal, c
         }}
       >
         <Fade in={open}>
-          <Box sx={style}>
-          {modalForm()}
-          </Box>
+          {noBorder ? (
+            <div>
+              {modalForm()}
+            </div>
+          ) : (
+            <Box sx={style}>
+            {modalForm()}
+            </Box>
+          )}
         </Fade>
       </Modal>
     </div>

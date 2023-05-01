@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { AiOutlineCaretDown } from 'react-icons/ai'
 import { BsPeopleFill } from 'react-icons/bs'
-import { TbArrowsMove } from 'react-icons/tb'
+import { TbArrowsMove, TbSquareRounded } from 'react-icons/tb'
 import RoomDetails from './RoomDetails'
 import Button from '../../UI/Button'
+import TransitionsModal from '../../UI/Modal'
+import ModalImages from '../../Manager/room/ModalImages'
 
 type props = {
     roomDetail: any
@@ -15,14 +17,28 @@ type props = {
 function SingleRoomType({ roomDetail, startingPrice, handleViewRateToggle, setCurrentRoomDetails}:props) {
   const [viewDetails, setViewDetails] = useState(false);
   const toggleRoomDetails = () => setViewDetails(!viewDetails)
+
+  const [open, setOpen] = useState(false)
+  const openModal = () => setOpen(true)
+  const closeModal = () => setOpen(false)
   return (
     <div className="p-6 bg-white mb-14">
+        <TransitionsModal
+          modalForm={() => <ModalImages closeModal={closeModal} images={roomDetail.images} roomName={roomDetail.name}/>}
+          open={open}
+          openModal={openModal}
+          closeModal={closeModal}
+          noBorder
+        />
             <div className="lg:flex items-start justify-between rounded-sm gap-3">
-              <img
-                className="lg:max-w-[250px] lg:w-1/3 md:py-6 object-contain rounded-lg"
-                src={roomDetail.images[0]}
-                alt=""
-              />
+              <div className='lg:max-w-[250px] lg:w-1/3 md:py-6 '>
+                <img
+                  className="object-contain rounded-lg cursor-pointer"
+                  src={roomDetail.images[0]}
+                  alt=""
+                  onClick={openModal}
+                />
+              </div>
               <div className='lg:w-1/3'>
                 <div className="py-6">
                   <span className="text-2xl ">

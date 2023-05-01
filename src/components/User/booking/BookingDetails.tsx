@@ -23,14 +23,17 @@ function BookingDetails({form1Values, bookingOverViewRoomDetails}: props) {
         .then(res => console.log(res))
         .catch(err => console.log(err))
 
-        // navigate("/booking/confirm");
     }
+
+    const totalRoomCost = bookingOverViewRoomDetails.reduce((acc,cur) => (acc+=cur.packageCost),0)
+    const taxCost = Math.floor(totalRoomCost*22/100)
+    const payableAmount = totalRoomCost+taxCost
 
   return (
     <div className=" px-7 self-center  w-full  my-5">
-            <div className="bg-white p-5 lg:p-10 font-sans text-sm rounded shadow divide-y lg:divide-x lg:divide-y-0 flex flex-col gap-3 lg:flex-row">
-                <div className='lg:w-4/5'>
-                  <h2 className="text-center text-2xl mb-10 font-sans tracking-wide font-semibold uppercase">Booking Details</h2>
+            <div className="bg-white p-5 lg:p-10 font-sans text-sm rounded shadow divide-y lg:justify-between lg:divide-x lg:divide-y-0 flex flex-col gap-3 lg:flex-row">
+                <div className='lg:w-2/5'>
+                  <h2 className="text-center text-2xl mb-10 font-sans tracking-wide font-semibold uppercase ">Booking Details</h2>
                   <div className="flex justify-between">
                     <span>Resort Name :</span>
                     <span className="w-1/2">{form1Values.destination.name}</span>
@@ -70,20 +73,21 @@ function BookingDetails({form1Values, bookingOverViewRoomDetails}: props) {
               </div>
               <div className='divide-y flex flex-col gap-3 lg:w-1/2 justify-center'>
                 <div>
-                  <div className='text-center my-4 font-sans tracking-wide'>TOTAL ROOM COST EXCLUDING TAXES AND FEES.</div>
-                  <div className='text-2xl font-bold text-center'><span className='text-lg font-normal'>INR</span> 4,51,245</div>
+                  <div className='text-center my-4 font-sans tracking-wide text-premium'>TOTAL ROOM COST EXCLUDING TAXES AND FEES.</div>
+                  <div className='text-2xl font-bold text-center'><span className='text-lg font-normal'>INR</span> {totalRoomCost.toLocaleString('en-IN')}</div>
                 </div>
                 <div >
-                  <div className='text-center my-4 font-sans tracking-wide'>APPLICABLE TAXES & FEES.</div>
-                  <div className='text-2xl font-bold text-center mb-2'><span className='text-lg font-normal'>INR</span> 51,245</div>
+                  <div className='text-center my-4 font-sans tracking-wide text-premium'>APPLICABLE TAXES & FEES.</div>
+                  <div className='text-2xl font-bold text-center mb-2'><span className='text-lg font-normal'>INR</span> {taxCost.toLocaleString('en-IN')}</div>
                   <div className='text-[10px] px-8'>*Room rate is subject to 10% Service Charge, 7% Municipality Fee, and 5% VAT. A Tourism Dirham Fee of AED20 per bedroom, per night, is not included in the total room cost and will be charged at the hotel at time of check-out.</div>
                 </div>
                 <div >
-                  <div className='text-center my-4 font-sans tracking-wide'>TOTAL PAYABLE AMOUNT.</div>
-                  <div className='text-4xl font-bold text-center mb-2'><span className='text-lg font-normal'>INR</span> 51,245</div>
+                  <div className='text-center my-4 font-sans tracking-wide text-premium'>TOTAL PAYABLE AMOUNT.</div>
+                  <div className='text-4xl font-bold text-center mb-2'><span className='text-lg font-normal'>INR</span> {payableAmount.toLocaleString('en-IN')}</div>
                 </div>
-                <div className="mx-auto w-1/2 mt-8">
+                <div className="mx-auto w-1/2 mt-5">
                   <Button onClick={handleSubmitBooking} class="w-full" outline color="premium" >BOOK NOW</Button>
+                  <div className='text-[9px]'>*I will present a valid ID during CHECK-IN. I also agree to the terms & conditions.</div>
                 </div>
               </div>
             </div>

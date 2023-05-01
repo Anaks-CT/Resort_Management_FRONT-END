@@ -10,7 +10,7 @@ const userToken = createSlice({
     },
     removeUserToken(state){
       
-        // state.token = ''
+        state.token = ''
     }
   },
 });

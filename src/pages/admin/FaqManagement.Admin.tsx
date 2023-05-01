@@ -62,9 +62,8 @@ function FaqManagement() {
 
   // we pass this funtions and state to the modal component and make use of it
   const [open, setOpen] = useState(false);
-  const openModal = () => {
-    setOpen(true);
-  };
+  const openModal = () => setOpen(true);
+  
 // close modal function
   const closeModal = () => {
     // formik.resetForm()
