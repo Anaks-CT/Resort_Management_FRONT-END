@@ -1,6 +1,4 @@
 import { Header2 } from "../../components/User/Header/Header";
-import OtpInput from "react18-input-otp";
-import Button from "../../components/UI/Button";
 import { useFormik } from "formik";
 import { otpValidationSchema } from "../../schema/user/auth";
 import { signupApi, verifyOTPapi } from "../../api/user.api";
@@ -21,7 +19,7 @@ function OtpPage() {
 
   const phoneNumber = location?.state.phone.toString()
   const fourDigits = phoneNumber.slice(-4)
-
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string>('');
 
   const formik = useFormik({
@@ -30,6 +28,7 @@ function OtpPage() {
     },
     validationSchema: otpValidationSchema,
     onSubmit: (values) => {
+      setLoading(true)
       verifyOTPapi(values.otp, location?.state.phone)
         .then((res) => {
           signupApi(location?.state)
@@ -50,7 +49,8 @@ function OtpPage() {
                 })
             )
         })
-        .catch((err) => {console.log(err); setError(err?.response?.data?.message)});
+        .catch((err) => {console.log(err); setError(err?.response?.data?.message)})
+        .finally(() => setLoading(false))
     },
   });
   return (
@@ -61,7 +61,7 @@ function OtpPage() {
         style={style}
       >
         <div className="bg-gradient-to-t from-transparent to-black absolute w-screen h-64 "></div>
-        <VerifyOTP  error={error} formik={formik} fourDigits={fourDigits}/>
+        <VerifyOTP  error={error} formik={formik} fourDigits={fourDigits} loading={loading}/>
         <div className="bg-gradient-to-b from-transparent to-black absolute w-screen bottom-0 h-64"></div>
       </div>
     </>

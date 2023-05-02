@@ -6,9 +6,10 @@ type props = {
     error: string
     formik: any
     fourDigits: string
+    loading: boolean
 }
 
-function VerifyOTP({error, formik, fourDigits}: props) {
+function VerifyOTP({error, formik, fourDigits, loading}: props) {
   return (
     <div className="bg-[#1E1E1E] px-16 py-10 md:p-16 self-center z-10 w-[300px] md:w-[360px] flex flex-col justify-center rounded-lg items-center opacity-70">
           <h1 className="text-white z-10 md:text-5xl text-3xl tracking-wide pb-5 text-center">
@@ -43,6 +44,15 @@ function VerifyOTP({error, formik, fourDigits}: props) {
             >
               Verify OTP
             </Button>
+            {loading && (
+                <div className="flex justify-center">
+                  <img
+                    width={50}
+                    src="https://res.cloudinary.com/dhcvbjebj/image/upload/v1680669482/Spinner-1s-200px_4_ontbds.gif"
+                    alt=""
+                  />
+                </div>
+              )}
           </div>
         </div>
 

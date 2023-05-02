@@ -1,21 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Header2 } from '../../components/User/Header/Header'
 import Button from '../../components/UI/Button';
 import { useFormik } from 'formik';
 import { verfyEmailSchema } from '../../schema/user/auth';
 import Input from '../../components/UI/Input';
+import { forgotPasswordVerifyEmailApi } from '../../api/user.api';
+import { useNavigate } from 'react-router-dom';
 
 function ForgotPasswordPage() {
     const style = {
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.7)), url("https://res.cloudinary.com/dxnisjppy/image/upload/v1678359059/wpkwoqgc6ctjqkjeltju.jpg")`,
       };
+  const [loading, setloading] = useState(false)
+
+      const [error, setError] = useState('')
+      const navigate = useNavigate()
       const formik = useFormik({
         initialValues: {
           email: "",
         },
         validationSchema: verfyEmailSchema,
         onSubmit: (values) => {
-          console.log(values);
+          setloading(true)
+          forgotPasswordVerifyEmailApi(values.email)
+            .then(res => navigate('/forgotPassword/otp-verify',{state: {phone: res?.data?.data, email: values.email}}))
+            .catch(err => {console.log(err); setError(err?.response?.data?.message)})
+            .finally(() => setloading(false))
         },
       });
   return (
@@ -56,6 +66,16 @@ function ForgotPasswordPage() {
           >
             Send OTP
           </Button>
+          <div className="text-red-500 text-center">{error}</div>
+          {loading && (
+                <div className="flex justify-center">
+                  <img
+                    width={50}
+                    src="https://res.cloudinary.com/dhcvbjebj/image/upload/v1680669482/Spinner-1s-200px_4_ontbds.gif"
+                    alt=""
+                  />
+                </div>
+              )}
         </div>
       </div>
 

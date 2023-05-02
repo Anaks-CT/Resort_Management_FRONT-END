@@ -1,31 +1,45 @@
-import React, {useState} from 'react'
-import Input from '../../UI/Input'
-import Button from '../../UI/Button'
-import { useFormik } from 'formik';
-import { passwordSchema } from '../../../schema/user/auth';
+import React, { useState } from "react";
+import Input from "../../UI/Input";
+import Button from "../../UI/Button";
+import { useFormik } from "formik";
+import { passwordSchema } from "../../../schema/user/auth";
+import { setNewPasswordApi } from "../../../api/user.api";
+import { useNavigate } from "react-router-dom";
+import { toastMessage } from "../../../helpers/toast";
 
-function NewPasswordForm() {
-        const [error, setError] = useState("");
-        const formik = useFormik({
-          initialValues: {
-            password: "",
-            cPassword: "",
-          },
-          validationSchema: passwordSchema,
-          onSubmit: (values, { resetForm }) => {
-            console.log(values);
-            // will navigate back to login with a message saying your password has been changed successfully
-        },
-        });
+type props = {
+  email: string;
+};
+
+function NewPasswordForm({ email }: props) {
+  const [loading, setloading] = useState(false);
+
+  const navigate = useNavigate();
+  const formik = useFormik({
+    initialValues: {
+      password: "",
+      cPassword: "",
+    },
+    validationSchema: passwordSchema,
+    onSubmit: (values, { resetForm }) => {
+      setloading(true);
+      setNewPasswordApi(email, values)
+        .then((res) =>
+          navigate("/login", { state: { message: res.data.message } })
+        )
+        .catch((err) => toastMessage("error", err?.response?.data.message))
+        .finally(() => setloading(false));
+    },
+  });
   return (
     <div className="bg-[#1E1E1E] p-16 self-center z-10 w-[300px] md:w-[350px] flex flex-col justify-center rounded-lg items-center opacity-70">
-      <h1 className="text-white z-10 md:text-5xl text-3xl tracking-wide pb-8 text-center">
-        RESET PASSWORD
+      <h1 className="text-white z-10 md:text-4xl text-3xl tracking-wide pb-8 text-center">
+        PASSWORD RESET
       </h1>
       <Input
         onChange={formik.handleChange}
         required
-        placeholder="PASSWORD"
+        placeholder="NEW PASSWORD"
         name="password"
         class="mt-2 text-sm"
         value={formik.values.password}
@@ -49,9 +63,6 @@ function NewPasswordForm() {
       <p className="text-slate-500 text-[10px] md:text-sm mt-10">
         By signing in you accept the Terms and Conditions of Trinity
       </p>
-      <div className="text-center text-red-500 tracking-wide font-semibold">
-        {error}
-      </div>
       <Button
         onClick={formik.handleSubmit}
         class="mt-5 w-full"
@@ -60,8 +71,17 @@ function NewPasswordForm() {
       >
         LOG IN
       </Button>
+      {loading && (
+        <div className="flex justify-center">
+          <img
+            width={50}
+            src="https://res.cloudinary.com/dhcvbjebj/image/upload/v1680669482/Spinner-1s-200px_4_ontbds.gif"
+            alt=""
+          />
+        </div>
+      )}
     </div>
-  )
+  );
 }
 
-export default NewPasswordForm
+export default NewPasswordForm;

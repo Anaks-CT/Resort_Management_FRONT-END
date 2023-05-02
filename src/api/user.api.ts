@@ -14,3 +14,12 @@ export const verifyPhoneApi = (phoneNumber: string, email: string) =>
 
 export const verifyOTPapi = (otp: string, phoneNumber: string) => 
   axios.post(`/verifyPhone?otp=${otp}&phone=${phoneNumber}`)
+
+export const forgotPasswordVerifyEmailApi = (email: string) => 
+  axios.get(`/forgotPassword?email=${email}`)
+
+export const forgotPasswordVerifyOtpApi = (otp: string, phoneNumber: string) =>
+  axios.post(`/forgotPassword?otp=${otp}&phone=${phoneNumber}`)
+
+export const setNewPasswordApi = (email: string, passwordDetails: {password: string, cPassword: string}) => 
+  axios.put(`/forgotPassword?email=${email}`,passwordDetails)

@@ -10,7 +10,7 @@ function ForgotPasswordOtpVerifyPage() {
     const style = {
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.7)), url("https://res.cloudinary.com/dxnisjppy/image/upload/v1678359059/wpkwoqgc6ctjqkjeltju.jpg")`,
       };
-    
+    const [loading, setLoading] = useState(false)
       const navigate = useNavigate();
       const location = useLocation();
       useEffect(() => {
@@ -18,6 +18,7 @@ function ForgotPasswordOtpVerifyPage() {
       });
     
       const phoneNumber = location?.state.phone.toString()
+      const email = location?.state.email
       const fourDigits = phoneNumber.slice(-4)
     
       const [error, setError] = useState<string>('');
@@ -28,11 +29,13 @@ function ForgotPasswordOtpVerifyPage() {
         },
         validationSchema: otpValidationSchema,
         onSubmit: (values) => {
+          setLoading(true)
           verifyOTPapi(values.otp, location?.state.phone)
             .then((res) => {
-              navigate('/newPassword')
+              navigate('/forgotPassword/setNewPassword',{state: {email: email}})
             })
-            .catch((err) => {console.log(err); setError(err?.response?.data?.message)});
+            .catch((err) => {console.log(err); setError(err?.response?.data?.message)})
+            .finally(() => setLoading(false))
         },
       });
   return (
@@ -43,7 +46,7 @@ function ForgotPasswordOtpVerifyPage() {
       style={style}
     >
       <div className="bg-gradient-to-t from-transparent to-black absolute w-screen h-64 "></div>
-      <VerifyOTP  error={error} formik={formik} fourDigits={fourDigits}/>
+      <VerifyOTP  error={error} formik={formik} fourDigits={fourDigits} loading={loading}/>
       <div className="bg-gradient-to-b from-transparent to-black absolute w-screen bottom-0 h-64"></div>
     </div>
   </>

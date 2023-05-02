@@ -9,7 +9,7 @@ import Input from "../../UI/Input";
 function SignUp() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
-
+  const [loading, setLoading] = useState(false)
   const location = useLocation()
   useEffect(() => {
     setError(location?.state)
@@ -24,14 +24,16 @@ function SignUp() {
       cPassword: "",
     },
     validationSchema: signupSchema,
-    onSubmit: (values, { resetForm }) => {
+    onSubmit: (values) => {
+      setLoading(true)
       verifyPhoneApi(values.phone, values.email)
         .then((res) => 
             navigate("/signup/otp-verify", {
             state: values,
           })
         )
-        .catch((err) => setError(err?.response?.data?.message));
+        .catch((err) => setError(err?.response?.data?.message))
+        .finally(() => setLoading(false))
     },
   });
   return (
@@ -112,7 +114,16 @@ function SignUp() {
           onClick={formik.handleSubmit}
         >
           SIGN UP
-        </Button>{" "}
+        </Button>
+        {loading && (
+                <div className="flex justify-center">
+                  <img
+                    width={50}
+                    src="https://res.cloudinary.com/dhcvbjebj/image/upload/v1680669482/Spinner-1s-200px_4_ontbds.gif"
+                    alt=""
+                  />
+                </div>
+              )}
         {/*showToastMessage, formik.handleSubmit*/}
     </div>
   );
