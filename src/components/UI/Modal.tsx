@@ -52,7 +52,10 @@ export default function TransitionsModal({buttonMessage, modalForm, openModal, c
               {modalForm()}
             </div>
           ) : (
-            <Box sx={style}>
+            <Box sx={style}
+        className='border'
+            
+            >
             {modalForm()}
             </Box>
           )}

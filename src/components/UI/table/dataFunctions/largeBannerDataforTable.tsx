@@ -59,12 +59,12 @@ export default function largeBannerDataforTable(
 
   return {
     image: (
-      <div className="h-32 w-32 mx-auto object-contain">
+      <div className="h-32 mx-auto object-contain">
         <img src={image} alt="" />
       </div>
     ),
-    description1: <div className="w-[300px] mx-auto">{description1}</div>,
-    description2: <div className="w-[300px] mx-auto">{description2}</div>,
+    description1: <div className=" mx-auto">{description1}</div>,
+    description2: <div className=" mx-auto">{description2}</div>,
     makeChanges: { _id, handleDelete, handleEdit, handleEditImage, extraEditButton: true },
   };
 }

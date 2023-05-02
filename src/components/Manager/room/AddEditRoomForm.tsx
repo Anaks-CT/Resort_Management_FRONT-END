@@ -32,7 +32,7 @@ function AddEditRoomForm({
   error,
 }: props) {
   const navigate = useNavigate();
-  const currentResort = useSelector((state: IStore) => state.resort)
+  const currentResort = useSelector((state: IStore) => state.resort);
   return (
     <>
       <div className="md:p-20 p-10">
@@ -46,16 +46,7 @@ function AddEditRoomForm({
               : initialValues
           }
           validationSchema={addRoomSchema}
-          onSubmit={(values, { resetForm }) => {
-            console.log("value poi");
-            // console.log(data);
-
-            // createRoomApi(currentResort.resortId,  {...values, images: ['heli', 'ffewfew', 'fwefewf', 'fwefewfw']})
-            //   .then(res => console.log(res))
-            //   .catch(err => console.log(err))
-            formikOnSubmit(values ,data?._id );
-            // resetForm();
-          }}
+          onSubmit={(values) => formikOnSubmit(values, data?._id)}
         >
           {({ errors, touched, setFieldValue, values }) => {
             console.log(values);
@@ -76,7 +67,7 @@ function AddEditRoomForm({
                   </div>
 
                   <div className=" lg:h-60 md:w-72 w-52 md:h-32 mx-auto h-32 border">
-                  {values.images.length < 1 && data && (
+                    {values.images.length < 1 && data && (
                       <img
                         className="h-full w-full"
                         src={data.images[1]}
@@ -88,7 +79,7 @@ function AddEditRoomForm({
                     )}
                   </div>
                   <div className=" lg:h-60 md:w-72 w-52 md:h-32 mx-auto h-32 border">
-                  {values.images.length < 1 && data && (
+                    {values.images.length < 1 && data && (
                       <img
                         className="h-full w-full"
                         src={data.images[2]}
@@ -100,7 +91,7 @@ function AddEditRoomForm({
                     )}
                   </div>
                   <div className=" lg:h-60 md:w-72 w-52 md:h-32 mx-auto h-32 border">
-                  {values.images.length < 1 && data && (
+                    {values.images.length < 1 && data && (
                       <img
                         className="h-full w-full"
                         src={data.images[3]}
@@ -138,66 +129,101 @@ function AddEditRoomForm({
                 </div>
                 <div className="w-full md:flex bg-white md:p-10 pb-10">
                   <div className="md:w-1/2 w-full px-10">
-                    {touched.name && errors.name && (
-                      <div className="text-red-500 text-left">
-                        {errors.name as FormikErrors<"">}
-                      </div>
-                    )}
-                    <Field
-                      name="name"
-                      class="mb-5 box-border p-[16px] block w-full tracking-wide"
-                      placeholder="Room Type"
-                      type="text"
-                    />
+                    <div className="relative">
+                      {values.name && (
+                        <span className="absolute -top-4  text-[12px] text-[#636c72] left-0 tracking-wider">
+                          Room Type
+                        </span>
+                      )}
+                      <Field
+                        name="name"
+                        class="mt-5 box-border p-[16px] block w-full tracking-wide"
+                        placeholder="Room Type"
+                        type="text"
+                      />
+                      {touched.name && errors.name && (
+                        <div className="text-red-500 text-left">
+                          {errors.name as FormikErrors<"">}
+                        </div>
+                      )}
+                    </div>
 
-                    {touched.description && errors.description && (
-                      <div className="text-red-500 text-left">
-                        {errors.description as FormikErrors<"">}
-                      </div>
-                    )}
-                    <Field
-                      name="description"
-                      class="mb-5 box-border p-[16px] block w-full tracking-wide"
-                      placeholder="Description"
-                      type="text"
-                    />
+                    <div className="relative">
+                      {values.description && (
+                        <span className="absolute -top-4  text-[12px] text-[#636c72] left-0 tracking-wider">
+                          Description
+                        </span>
+                      )}
+                      <Field
+                        name="description"
+                        class="mt-5 box-border p-[16px] block w-full tracking-wide"
+                        placeholder="Description"
+                        type="text"
+                      />
+                      {touched.description && errors.description && (
+                        <div className="text-red-500 text-left">
+                          {errors.description as FormikErrors<"">}
+                        </div>
+                      )}
+                    </div>
                   </div>
                   <div className="md:w-1/2 w-full px-10">
-                    {touched.maxPeople && errors.maxPeople && (
-                      <div className="text-red-500 text-left">
-                        {errors.maxPeople as FormikErrors<"">}
-                      </div>
-                    )}
-                    <Field
-                      name="maxPeople"
-                      class="mb-5 box-border p-[16px] block w-full tracking-wide"
-                      placeholder="Maximum people"
-                      type="number"
-                    />
+                    <div className="relative">
+                      {values.maxPeople && (
+                        <span className="absolute -top-4  text-[12px] text-[#636c72] left-0 tracking-wider">
+                          Maximum people
+                        </span>
+                      )}
+                      <Field
+                        name="maxPeople"
+                        class="mt-5 box-border p-[16px] block w-full tracking-wide"
+                        placeholder="Maximum people"
+                        type="number"
+                      />
+                      {touched.maxPeople && errors.maxPeople && (
+                        <div className="text-red-500 text-left">
+                          {errors.maxPeople as FormikErrors<"">}
+                        </div>
+                      )}
+                    </div>
 
-                    {touched.noOfRooms && errors.noOfRooms && (
-                      <div className="text-red-500 text-left">
-                        {errors.noOfRooms as FormikErrors<"">}
-                      </div>
-                    )}
-                    <Field
-                      name="noOfRooms"
-                      class="mb-5 box-border p-[16px] block w-full tracking-wide"
-                      placeholder="Number of Rooms"
-                      type="number"
-                    />
+                    <div className="relative">
+                      {values.noOfRooms && (
+                        <span className="absolute -top-4  text-[12px] text-[#636c72] left-0 tracking-wider">
+                          Number of Rooms
+                        </span>
+                      )}
+                      <Field
+                        name="noOfRooms"
+                        class="mt-5 box-border p-[16px] block w-full tracking-wide"
+                        placeholder="Number of Rooms"
+                        type="number"
+                      />
+                      {touched.noOfRooms && errors.noOfRooms && (
+                        <div className="text-red-500 text-left">
+                          {errors.noOfRooms as FormikErrors<"">}
+                        </div>
+                      )}
+                    </div>
 
-                    {touched.area && errors.area && (
-                      <div className="text-red-500 text-left">
-                        {errors.area as FormikErrors<"">}
-                      </div>
-                    )}
-                    <Field
-                      name="area"
-                      class="mb-5 box-border p-[16px] block w-full tracking-wide"
-                      placeholder="Room Area in m^2"
-                      type="number"
-                    />
+                    <div className="relative">
+                      {values.area && (
+                        <span className="absolute -top-4  text-[12px] text-[#636c72] left-0 tracking-wider">
+                          Room Area in m^2
+                        </span>
+                      )}
+                      <Field
+                        name="area"
+                        class="mt-5 box-border p-[16px] block w-full tracking-wide"
+                        placeholder="Room Area in m^2"
+                        type="number"
+                      />
+                      {touched.area && errors.area && (
+                        <div className="text-red-500 text-left">
+                          {errors.area as FormikErrors<"">}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
                 <div className="px-10 pb-10 bg-white">
@@ -215,33 +241,50 @@ function AddEditRoomForm({
                               </h3>
                               <div className="row md:flex" key={index}>
                                 <div className="w-full md:px-10">
-                                  <ErrorMessage
-                                    name={`packages.${index}.packageName`}
-                                    component="div"
-                                    className="field-error text-red-500"
-                                  />
-                                  <Field
-                                    name={`packages.${index}.packageName`}
-                                    placeholder="Package Name"
-                                    class="mb-5 box-border p-[16px] block w-full tracking-wide"
-                                    type="text"
-                                  />
+                                  <div className="relative">
+                                    {values.packages[index].packageName && (
+                                      <span className="absolute -top-4  text-[12px] text-[#636c72] left-0 tracking-wider">
+                                        Package Name
+                                      </span>
+                                    )}
+
+                                    <Field
+                                      name={`packages.${index}.packageName`}
+                                      placeholder="Package Name"
+                                      class="mt-5 box-border p-[16px] block w-full tracking-wide"
+                                      type="text"
+                                    />
+                                    <ErrorMessage
+                                      name={`packages.${index}.packageName`}
+                                      component="div"
+                                      className="field-error text-red-500"
+                                    />
+                                  </div>
                                 </div>
                                 <div className="w-full md:px-10">
-                                  <ErrorMessage
-                                    name={`packages.${index}.cost`}
-                                    component="div"
-                                    className="field-error text-red-500"
-                                  />
-                                  <Field
-                                    name={`packages.${index}.cost`}
-                                    placeholder="Cost"
-                                    class="mb-5 box-border p-[16px] block w-full tracking-wide"
-                                    type="number"
-                                  />
+                                  <div className="relative">
+                                    {values.packages[index].cost && (
+                                      <span className="absolute -top-4  text-[12px] text-[#636c72] left-0 tracking-wider">
+                                        Cost
+                                      </span>
+                                    )}
+
+                                    <Field
+                                      name={`packages.${index}.cost`}
+                                      placeholder="Cost"
+                                      class="mt-5 box-border p-[16px] block w-full tracking-wide"
+                                      type="number"
+                                    />
+                                    <ErrorMessage
+                                      name={`packages.${index}.cost`}
+                                      component="div"
+                                      className="field-error text-red-500"
+                                    />
+                                  </div>
                                 </div>
                               </div>
                               <div>
+                                <div className="font-normal text-2xl my-5 text-center">Package Features</div>
                                 <FieldArray name={`packages.${index}.features`}>
                                   {(fieldArrayProps) => {
                                     const { push, remove, form } =
@@ -258,6 +301,7 @@ function AddEditRoomForm({
                                                 key={indexNumber}
                                                 className="flex md:px-10"
                                               >
+                                                <span className='py-2 pt-7 w-8'>{indexNumber+1} . </span>
                                                 <Field
                                                   class="mb box-border p-[16px] block w-full tracking-wide"
                                                   name={`packages.${index}.features[${indexNumber}]`}
@@ -283,7 +327,7 @@ function AddEditRoomForm({
                                               >
                                                 {(msg) => (
                                                   <div
-                                                    className="md:px-10"
+                                                    className="md:px-10 ml-8"
                                                     style={{
                                                       color: "red",
                                                       textAlign: "left",
@@ -353,6 +397,8 @@ function AddEditRoomForm({
                           {highlights?.map((item: any, index: number) => (
                             <>
                               <div key={index} className="flex">
+                              <span className='py-2 pt-7 w-8'>{index+1} . </span>
+
                                 <Field
                                   class=" box-border p-[16px] block w-full tracking-wide"
                                   name={`highlights[${index}]`}
@@ -373,7 +419,7 @@ function AddEditRoomForm({
                               </div>
                               <ErrorMessage name={`highlights[${index}]`}>
                                 {(msg) => (
-                                  <div
+                                  <div className="pl-8"
                                     style={{ color: "red", textAlign: "left" }}
                                   >
                                     {msg}
@@ -382,6 +428,7 @@ function AddEditRoomForm({
                               </ErrorMessage>
                             </>
                           ))}
+                          <div className="pl-8">
                           <Button
                             class="border w-full"
                             color="black"
@@ -390,6 +437,7 @@ function AddEditRoomForm({
                           >
                             Add New Highlights
                           </Button>
+                          </div>
                         </div>
                       );
                     }}
@@ -409,6 +457,7 @@ function AddEditRoomForm({
                           {amenities?.map((item: any, index: number) => (
                             <>
                               <div key={index} className="flex">
+                              <span className='py-2 pt-7 w-8'>{index+1} . </span>
                                 <Field
                                   class=" box-border p-[16px] block w-full tracking-wide"
                                   name={`amenities[${index}]`}
@@ -429,7 +478,7 @@ function AddEditRoomForm({
                               </div>
                               <ErrorMessage name={`amenities[${index}]`}>
                                 {(msg) => (
-                                  <div
+                                  <div className="pl-8"
                                     style={{ color: "red", textAlign: "left" }}
                                   >
                                     {msg}
@@ -438,6 +487,7 @@ function AddEditRoomForm({
                               </ErrorMessage>
                             </>
                           ))}
+                          <div className="pl-8">
                           <Button
                             class="border w-full"
                             color="black"
@@ -446,6 +496,7 @@ function AddEditRoomForm({
                           >
                             Add New Amenities
                           </Button>
+                          </div>
                         </div>
                       );
                     }}
@@ -465,6 +516,7 @@ function AddEditRoomForm({
                           {facilities?.map((item: any, index: number) => (
                             <>
                               <div key={index} className="flex">
+                              <span className='py-2 pt-7 w-8'>{index+1} . </span>
                                 <Field
                                   class=" box-border p-[16px] block w-full tracking-wide"
                                   name={`facilities[${index}]`}
@@ -485,7 +537,7 @@ function AddEditRoomForm({
                               </div>
                               <ErrorMessage name={`facilities[${index}]`}>
                                 {(msg) => (
-                                  <div
+                                  <div className="pl-8"
                                     style={{ color: "red", textAlign: "left" }}
                                   >
                                     {msg}
@@ -494,6 +546,7 @@ function AddEditRoomForm({
                               </ErrorMessage>
                             </>
                           ))}
+                          <div className="pl-8">
                           <Button
                             class="border w-full"
                             color="black"
@@ -502,20 +555,21 @@ function AddEditRoomForm({
                           >
                             Add New Facilities
                           </Button>
+                          </div>
                         </div>
                       );
                     }}
                   </FieldArray>
                   {loading && (
-                <div className="flex justify-center">
-                  <img
-                    width={50}
-                    src="https://res.cloudinary.com/dhcvbjebj/image/upload/v1680669482/Spinner-1s-200px_4_ontbds.gif"
-                    alt=""
-                  />
-                </div>
-              )}
-                <div className="text-center mt-10 text-red-500">{error}</div>
+                    <div className="flex justify-center">
+                      <img
+                        width={50}
+                        src="https://res.cloudinary.com/dhcvbjebj/image/upload/v1680669482/Spinner-1s-200px_4_ontbds.gif"
+                        alt=""
+                      />
+                    </div>
+                  )}
+                  <div className="text-center mt-10 text-red-500">{error}</div>
                   <div className="text-center ">
                     <Button
                       type="submit"
@@ -529,7 +583,9 @@ function AddEditRoomForm({
                       class="py-3 px-4 rounded mt-8 mx-10"
                       color="danger"
                       disable={loading ? true : false}
-                      onClick={() => navigate(`/admin/${currentResort.resortName}/room`)}
+                      onClick={() =>
+                        navigate(`/admin/${currentResort.resortName}/room`)
+                      }
                     >
                       CANCEL
                     </Button>

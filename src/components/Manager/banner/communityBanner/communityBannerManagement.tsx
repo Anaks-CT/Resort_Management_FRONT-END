@@ -107,14 +107,15 @@ console.log(gallaryDetails);
 
   return (
     <div>
-      <div className="mt-20 p-10 text-center">
-        <h1 className="text-center mb-10">COMMUNITY PICS</h1>
+      <div className="mt-5 p-10 text-center">
+        <h1 className="text-center mb-10 font-normal tracking-wide text-5xl">COMMUNITY PICS</h1>
         <TransitionsModal
           buttonMessage="ADD BANNER"
-          modalForm={() => modalForm(error, loading, formik, setOpen, closeModal)}
+          modalForm={() => modalForm(error, loading, formik, setOpen, closeModal, editButtonClicked)}
           open={open}
           openModal={openModal}
           closeModal={closeModal}
+          
         />
 
         <DataTable rows={arr} headers={headerDiv} />

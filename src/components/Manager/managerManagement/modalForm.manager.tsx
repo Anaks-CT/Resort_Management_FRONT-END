@@ -28,16 +28,31 @@ export const modalForm = (
         )}
           <h2 className="text-center mb-10 text-white text-3xl tracking-wide ">ADD MANAGER</h2>
         <form className="w-full bg-black bg-opacity-70 px-28">
-          <Input onChange={formik.handleChange} value={formik.values.name} required placeholder="NAME" class="text-sm bg-black" name='name' type="text"/>
-          {formik.touched.name && formik.errors.name && <div className="text-red-500">{formik.errors.name}</div>}
-          <Input onChange={formik.handleChange} value={formik.values.email} required placeholder="EMAIL ADDRESS" class="text-sm bg-black" name='email' type="text"/>
-          {formik.touched.email && formik.errors.email && <div className="text-red-500">{formik.errors.email}</div>}
-          <Input onChange={formik.handleChange} value={formik.values.phone} required placeholder="PHONE" class="text-sm bg-black" name='phone' type="number"/>
-          {formik.touched.phone && formik.errors.phone && <div className="text-red-500">{formik.errors.phone}</div>}
-          <Input onChange={formik.handleChange} value={formik.values.password} required placeholder="PASSWORD" class="text-sm bg-black" name='password' type="password"/>
-          {formik.touched.password && formik.errors.password && <div className="text-red-500">{formik.errors.password}</div>}
-          <Input onChange={formik.handleChange} value={formik.values.cPassword} required placeholder="CONFIRM PASSWORD" class="text-sm bg-black" name='cPassword' type="password"/>
-          {formik.touched.cPassword && formik.errors.cPassword && <div className="text-red-500">{formik.errors.cPassword}</div>}
+          <div className="relative py-2">
+              {formik.values.name && <span className='absolute top-0  text-[12px] text-[#636c72] left-3 tracking-wider'>Name</span>}
+            <Input onChange={formik.handleChange} value={formik.values.name} required placeholder="NAME" class="text-sm bg-black" name='name' type="text"/>
+            {formik.touched.name && formik.errors.name && <div className="text-red-500">{formik.errors.name}</div>}
+          </div>
+          <div className="relative py-2">
+              {formik.values.email && <span className='absolute top-0  text-[12px] text-[#636c72] left-3 tracking-wider'>Email Address</span>}
+            <Input onChange={formik.handleChange} value={formik.values.email} required placeholder="EMAIL ADDRESS" class="text-sm bg-black" name='email' type="text"/>
+            {formik.touched.email && formik.errors.email && <div className="text-red-500">{formik.errors.email}</div>}
+          </div>
+          <div className="relative py-2">
+              {formik.values.phone && <span className='absolute top-0  text-[12px] text-[#636c72] left-3 tracking-wider'>Phone</span>}
+            <Input onChange={formik.handleChange} value={formik.values.phone} required placeholder="PHONE" class="text-sm bg-black" name='phone' type="number"/>
+            {formik.touched.phone && formik.errors.phone && <div className="text-red-500">{formik.errors.phone}</div>}
+          </div>
+          <div className="relative py-2">
+              {formik.values.password && <span className='absolute top-0  text-[12px] text-[#636c72] left-3 tracking-wider'>Password</span>}
+            <Input onChange={formik.handleChange} value={formik.values.password} required placeholder="PASSWORD" class="text-sm bg-black" name='password' type="password"/>
+            {formik.touched.password && formik.errors.password && <div className="text-red-500">{formik.errors.password}</div>}
+          </div>
+          <div className="relative py-2">
+              {formik.values.cPassword && <span className='absolute top-0  text-[12px] text-[#636c72] left-3 tracking-wider'>Confirm Password</span>}
+            <Input onChange={formik.handleChange} value={formik.values.cPassword} required placeholder="CONFIRM PASSWORD" class="text-sm bg-black" name='cPassword' type="password"/>
+            {formik.touched.cPassword && formik.errors.cPassword && <div className="text-red-500">{formik.errors.cPassword}</div>}
+          </div>
             <select name='resortId' value={formik.values.resortId} onChange={formik.handleChange} className='my-select border-0 border-b-2 w-full border-white box-border p-[16px] block bg-opacity-70 text-white tracking-wide bg-black'>
                 <option value="" selected disabled>--select Resorts--</option>
                 {renderData}

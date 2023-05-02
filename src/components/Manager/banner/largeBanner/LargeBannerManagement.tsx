@@ -265,8 +265,8 @@ function LargeBannerManagement() {
 
   return (
     <div>
-      <div className="mt-20 p-10 text-center">
-        <h1 className="text-center mb-10">LARGE BANNER</h1>
+      <div className="mt-5 p-10 text-center">
+        <h1 className="text-center mb-10 font-normal tracking-wide text-5xl">LARGE BANNER</h1>
         <TransitionsModal
           buttonMessage="ADD BANNER"
           modalForm={() =>
@@ -277,13 +277,14 @@ function LargeBannerManagement() {
               formik,
               setOpen,
               seteditButtonClicked,
-              setformikInitialValues
+              setformikInitialValues,
             )
           }
           open={open}
           openModal={openModal}
           closeModal={closeModal}
         />
+        <div className="w-[900px]">
         <TableService
           inputOnchange={handleChangeSearch}
           buttonOnclick={handleClickSearch}
@@ -291,6 +292,7 @@ function LargeBannerManagement() {
           // pages={gallaryDetails?.largeBanner.length!}
         />
         <DataTable rows={renderingData} headers={headerDiv} />
+        </div>
       </div>
     </div>
   );

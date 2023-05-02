@@ -47,8 +47,8 @@ logout: any
 
 
   return {
-    description1: <div className="pl-12 mx-auto text-start">{Q}</div>,
-    description2: <div className="w-[600px] mx-auto text-start">{A}</div>,
+    description1: <div className="mx-auto text-start">{Q}</div>,
+    description2: <div className="mx-auto text-start">{A}</div>,
     makeChanges: { _id, handleDelete, handleEdit },
   };
 }

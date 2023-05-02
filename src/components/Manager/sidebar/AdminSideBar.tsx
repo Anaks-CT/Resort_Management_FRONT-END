@@ -44,11 +44,14 @@ function AdminSideBar() {
 
   const handleManagerClick = () => navigate("/admin/managerManagement");
   
+  const handleDashBoardClick = () => navigate("/admin/adminDashboard");
+  
+  
   useEffect(() => {
     let arr: resortProp[] = [];
     arr.push({
       _id: "ResortManagement",
-      name: "Manage Resorts",
+      name: "Resorts",
       onClick: handleAddResortClick,
     });
     arr.push({
@@ -60,6 +63,11 @@ function AdminSideBar() {
       _id: "Manager",
       name: "Manager",
       onClick: handleManagerClick,
+    });
+    arr.push({
+      _id: "Dashboard",
+      name: "Dashboard",
+      onClick: handleDashBoardClick,
     });
     resortDetails?.forEach(item => {
       arr.push({

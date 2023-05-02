@@ -20,8 +20,8 @@ function TableService({ inputOnchange, buttonOnclick, pages, handlePageClick }: 
       }
     }
   return (
-    <div className=" flex items-center justify-between ">
-      <div className="flex gap-4">
+    <div className=" flex items-center justify-between">
+      <div className="flex gap-4 h-10">
         <Input
           name="search"
           onChange={inputOnchange}

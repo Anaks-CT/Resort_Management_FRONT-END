@@ -4,12 +4,20 @@ import { Header } from "../../components/Manager/Header";
 import AdminSideBar from "../../components/Manager/sidebar/AdminSideBar";
 
 function ResortManagementAdmin() {
+  const style = {
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.7)), url("https://res.cloudinary.com/dhcvbjebj/image/upload/v1683015725/wallpaperflare.com_wallpaper_9_s9z82o.jpg")`,
+  };
   return (
-    <div className="bg-slate-400 flex flex-col items-center w-full">
+    <>
       <Header />
-      <AdminSideBar />
-      <ResortManagement />
-    </div> 
+      <div
+        className="bg-no-repeat bg-fixed bg-center h-screen w-screen pt-[60px] flex justify-center" // doubt in mobile view
+        style={style}
+      >
+        <AdminSideBar />
+        <ResortManagement />
+      </div>
+    </>
   );
 }
 

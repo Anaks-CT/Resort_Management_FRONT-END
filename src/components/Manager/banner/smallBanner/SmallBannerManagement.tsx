@@ -272,8 +272,8 @@ function SmallBannerManagement() {
 
   return (
     <div>
-      <div className="mt-20 p-10 text-center">
-        <h1 className="text-center mb-10">SMALL BANNER</h1>
+      <div className="mt-5 p-10 text-center">
+        <h1 className="text-center mb-10 font-normal tracking-wide text-5xl">SMALL BANNER</h1>
         <TransitionsModal
           buttonMessage="ADD BANNER"
           modalForm={() =>

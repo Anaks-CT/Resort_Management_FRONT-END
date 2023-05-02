@@ -204,13 +204,19 @@ function ManagerManagement() {
     if (searchInputValue === "") setSearchInput("");
   };
 
-
+  const style = {
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.7)), url("https://res.cloudinary.com/dhcvbjebj/image/upload/v1683015725/wallpaperflare.com_wallpaper_9_s9z82o.jpg")`,
+  };
   return (
-    <div className="bg-slate-400 flex flex-col items-center w-full">
+      <>
       <Header />
-      <AdminSideBar />
-      <div className="mt-20 w-full h-full p-10 text-center">
-        <h1 className="text-center mb-10">MANAGER</h1>
+      <div
+        className="bg-no-repeat bg-fixed bg-center h-screen w-screen pt-[60px] flex justify-center" // doubt in mobile view
+        style={style}
+      >
+        <AdminSideBar />
+        <div className="mt-5 w-full text-center">
+        <h1 className="text-center mb-8 font-normal tracking-wide text-5xl">MANAGER</h1>
         <TransitionsModal
           buttonMessage="ADD  MANAGER"
           modalForm={() => modalForm(error, loading, formik, closeModal, resortDetails)}
@@ -219,6 +225,7 @@ function ManagerManagement() {
           closeModal={closeModal}
         />
         <div className="text-green-700 text-lg">{location?.state?.message}</div>
+        <div className="max-w-5xl mx-auto">
         <TableService
           inputOnchange={handleChangeSearch}
           buttonOnclick={handleClickSearch}
@@ -230,8 +237,10 @@ function ManagerManagement() {
           deleteButtonValue={true}
           headers={headerDiv}
         />
+        </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }
 

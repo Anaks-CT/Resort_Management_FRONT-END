@@ -189,8 +189,8 @@ function ResortManagement() {
 
   return (
     <>
-    <div className="mt-20 w-full h-full p-10 text-center">
-      <h1 className="text-center mb-10">RESORTS</h1>
+    <div className="mt-5 text-center">
+      <h1 className="text-center mb-8 font-normal tracking-wide text-5xl">RESORTS</h1>
       <Button class="mb-10" color="black" onClick={handleAddResortClick}>ADD RESORT</Button>
       <div className="text-green-700 text-lg">{location?.state?.message}</div>
       <TableService

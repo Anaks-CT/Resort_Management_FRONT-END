@@ -12,12 +12,12 @@ export default function BasicTable({ headers, rows, editImage, deleteButtonValue
   return (
     <>
     
-      <TableContainer component={Paper} className="h-[600px]">
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow className="bg-black">
+      <TableContainer component={Paper} className="max-h-[450px] min-h-[300px]">
+        <Table sx={{ minWidth: 550 }} aria-label="simple table" className="">
+          <TableHead className=" sticky top-0 z-10 bg-black text-white">
+            <TableRow className="bg-black border flex divide-x !min-h-10px">
               {headers.map((header: any) => (
-                <TableCell align="center" key={header}>
+                <TableCell align="center" className="py-2" key={header}>
                   <h2 className="text-white text-lg">{header}</h2>
                 </TableCell>
               ))}

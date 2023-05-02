@@ -19,13 +19,14 @@ function CustomTableRow({ row, editImage, deleteButtonValue }: any) {
     <>
       {noData}
       <TableRow
+      className="flex border"
         key={row}
         sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
       >
         {Object.keys(row).map((key: string) => {
           if (key === "makeChanges") {
             return (
-              <TableCell align="center">
+              <TableCell align="center" className="border">
                 <div className="flex gap-5 justify-center">
                   <input
                     type="text"
@@ -67,7 +68,7 @@ function CustomTableRow({ row, editImage, deleteButtonValue }: any) {
             );
           }
           return (
-            <TableCell align="center">
+            <TableCell align="center" className="border">
               <div>{row[key]}</div>
             </TableCell>
           );

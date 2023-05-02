@@ -233,29 +233,39 @@ const [formikInitialValue, setformikInitialValues] = useState<{question: string,
     if (searchInputValue) setSearchInput(searchInputValue);
     if (searchInputValue === "") setSearchInput("");
   };
-
+  const style = {
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.7)), url("https://res.cloudinary.com/dhcvbjebj/image/upload/v1683015725/wallpaperflare.com_wallpaper_9_s9z82o.jpg")`,
+  };
 
   return (
-    <div className="bg-slate-400">
+      <>
       <Header />
-      <AdminSideBar />
-      <div className="mt-20 p-10 text-center">
-        <h1 className="text-center mb-10">F A Q s</h1>
+      <div
+        className="bg-no-repeat bg-fixed bg-center h-screen w-screen pt-[60px] flex justify-center" // doubt in mobile view
+        style={style}
+      >
+        <AdminSideBar />
+
+        <div className="mt-5 text-center">
+        <h1 className="text-center mb-8 font-normal tracking-wide text-5xl">F A Q s</h1>
         <TransitionsModal
           buttonMessage="ADD  FAQ"
-          modalForm={() => modalForm(error, loading, formik, closeModal, setformikInitialValues)}
+          modalForm={() => modalForm(error, loading, formik, closeModal, setformikInitialValues, editButtonClicked)}
           open={open}
           openModal={openModal}
           closeModal={closeModal}
         />
+        <div className="w-[800px]">
         <TableService
           inputOnchange={handleChangeSearch}
           buttonOnclick={handleClickSearch}
         />
         
         <DataTable rows={renderingData} headers={headerDiv} />
+        </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }
 

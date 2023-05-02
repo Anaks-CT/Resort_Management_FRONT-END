@@ -49,7 +49,7 @@ function FormikDataForResortManagement({data, editInitialValues, initialValues, 
       >
         {({ errors, touched, setFieldValue, values }) => (
           <Form>
-            <div className="p-12 bg-slate-600 mt-32 w-[780px] text-center">
+            <div className="p-12 bg-[#1E1E1E] mt-32 w-[780px] text-center">
               {loading && (
                 <div className="flex justify-center">
                   <img
@@ -86,27 +86,36 @@ function FormikDataForResortManagement({data, editInitialValues, initialValues, 
               {touched.image && errors.image && (
                 <div className="text-red-500 text-left">{errors.image as FormikErrors<''>}</div>
               )}
+              
+              <div className='relative'>
+                {values.name && <span className='absolute text-[12px] text-[#636c72] left-3 tracking-wider'>Resort name</span>}
               <Field
                 name="name"
-                class="border-0 border-b-2 border-white box-border p-[16px] block w-full bg-[#1E1E1E] bg-opacity-70 text-white tracking-wide"
+                className="border-0 border-b-2 border-white box-border pt-[20px] mt-2 block w-full bg-transparent bg-opacity-70 text-white tracking-wide"
                 placeholder="Resort Name"
                 type="text"
               />
               {touched.name && errors.name && (
                 <div className="text-red-500 text-left">{errors.name as FormikErrors<''>}</div>
               )}
+              </div>
+              <div className='relative'>
+              {values.heading && <span className='absolute text-[12px] text-[#636c72] left-3 tracking-wider'>Heading</span>}
               <Field
                 name="heading"
-                class="border-0 border-b-2 border-white box-border p-[16px] block w-full bg-[#1E1E1E] bg-opacity-70 text-white tracking-wide"
+                className="border-0 border-b-2 border-white box-border pt-[20px] mt-2 block w-full bg-transparent bg-opacity-70 text-white tracking-wide"
                 placeholder="Heading"
                 type="text"
               />
               {touched.heading && errors.heading && (
                 <div className="text-red-500 text-left">{errors.heading as FormikErrors<''>}</div>
               )}
+              </div>
+              <div className='relative'>
+              {values.description && <span className='absolute text-[12px] text-[#636c72] left-3 tracking-wider'>Description</span>}
               <Field
                 name="description"
-                className="border-0 border-b-2 border-white box-border p-[16px] block w-full bg-[#1E1E1E] bg-opacity-70 text-white tracking-wide"
+                className="border-0 border-b-2 border-white box-border px-3 pt-[20px] mt-2 block w-full bg-transparent bg-opacity-70 text-white tracking-wide"
                 placeholder="Description"
               />
               {touched.description && errors.description && (
@@ -114,26 +123,35 @@ function FormikDataForResortManagement({data, editInitialValues, initialValues, 
                   {errors.description as FormikErrors<''>}
                 </div>
               )}
+              </div>
+              <div className='relative'>
+              {values.location && <span className='absolute text-[12px] text-[#636c72] left-3 tracking-wider'>Location</span>}
               <Field
                 name="location"
-                className="border-0 border-b-2 border-white box-border p-[16px] block w-full bg-[#1E1E1E] bg-opacity-70 text-white tracking-wide"
+                className="border-0 border-b-2 border-white box-border px-3 pt-[20px] mt-2 block w-full bg-transparent bg-opacity-70 text-white tracking-wide"
                 placeholder="Location"
               />
               {touched.location && errors.location && (
                 <div className="text-red-500 text-left">{errors.location as FormikErrors<''>}</div>
               )}
+              </div>
+              <div className='relative'>
+              {values.email && <span className='absolute text-[12px] text-[#636c72] left-3 tracking-wider'>Email</span>}
               <Field
                 name="email"
-                className="border-0 border-b-2 border-white box-border p-[16px] block w-full bg-[#1E1E1E] bg-opacity-70 text-white tracking-wide"
+                className="border-0 border-b-2 border-white box-border px-3 pt-[20px] mt-2 block w-full bg-transparent bg-opacity-70 text-white tracking-wide"
                 placeholder="Email"
               />
               {touched.email && errors.email && (
                 <div className="text-red-500 text-left">{errors.email as FormikErrors<''>}</div>
               )}
+              </div>
+              <div className='relative'>
+              {values.customerCareNo && <span className='absolute text-[12px] text-[#636c72] left-3 tracking-wider'>CustomerCareNo</span>}
               <Field
                 name="customerCareNo"
                 type="text"
-                className="border-0 border-b-2 border-white box-border p-[16px] block w-full bg-[#1E1E1E] bg-opacity-70 text-white tracking-wide"
+                className="border-0 border-b-2 border-white box-border pt-[20px] mt-2 block w-full bg-transparent bg-opacity-70 text-white tracking-wide"
                 placeholder="CustomerCareNo"
               />
               {touched.customerCareNo && errors.customerCareNo && (
@@ -141,6 +159,8 @@ function FormikDataForResortManagement({data, editInitialValues, initialValues, 
                   {errors.customerCareNo as FormikErrors<''>}
                 </div>
               )}
+              </div>
+              <div className='text-white text-xl tracking-wider my-5'>Features</div>
               <FieldArray name="features">
                 {(fieldArrayProps) => {
                   const { push, remove, form } = fieldArrayProps;
@@ -151,8 +171,9 @@ function FormikDataForResortManagement({data, editInitialValues, initialValues, 
                       {features?.map((item: any, index: number) => (
                         <>
                           <div key={index} className="flex">
+                            <span className='py-2 pt-7 text-white w-10'>{index+1} . </span>
                             <Field
-                              class="order-0 border-b-2 border-white box-border p-[16px] block w-full bg-[#1E1E1E] bg-opacity-70 text-white tracking-wide"
+                              className="order-0 border-b-2 border-white box-border pt-[20px] block w-full bg-transparent bg-opacity-70 text-white tracking-wide"
                               name={`features[${index}]`}
                               placeholder={`Feature ${index + 1}`}
                               type="text"
@@ -171,21 +192,24 @@ function FormikDataForResortManagement({data, editInitialValues, initialValues, 
                           </div>
                           <ErrorMessage name={`features[${index}]`}>
                             {(msg) => (
-                              <div style={{ color: "red", textAlign: "left" }}>
+                              <div className='pl-11' style={{ color: "red", textAlign: "left" }}>
                                 {msg}
                               </div>
                             )}
                           </ErrorMessage>
                         </>
                       ))}
-                      <Button
-                        class="border w-full"
-                        color="premium"
-                        onClick={push}
-                        disable={false}
-                      >
-                        Add New Feature
-                      </Button>
+                      <div className='pl-9'>
+                        <Button
+                          class="border w-full"
+                          color="premium"
+                          onClick={push}
+                          disable={false}
+                        >
+                          Add New Feature
+                        </Button>
+
+                      </div>
                     </div>
                   );
                 }}

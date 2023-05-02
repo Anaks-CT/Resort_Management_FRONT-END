@@ -84,7 +84,7 @@ function Login({ onSubmit, message, loading }: props) {
         LOG IN
       </Button>
       <div
-        className="text-blue-600 cursor-pointer"
+        className="text-white cursor-pointer pt-3"
         onClick={() => navigate("/forgotPassword")}
       >
         Forgot Password ?

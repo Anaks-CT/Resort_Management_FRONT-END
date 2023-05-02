@@ -52,9 +52,11 @@ export const modalForm = (
 
           {editButtonClicked === "editImage" || (
             <>
+               <div className="relative py-2">
+              {formik.values.description1 && <span className='absolute top-0 text-[12px] text-[#636c72] left-3 tracking-wider'>Description1</span>}
               <Input
                 type="text"
-                class="bg-black "
+                class="bg-black"
                 onChange={formik.handleChange}
                 placeholder="Description1"
                 required
@@ -64,9 +66,12 @@ export const modalForm = (
               {formik.touched.description1 && formik.errors.description1 && (
                 <div className="text-red-500">{formik.errors.description1}</div>
               )}
+              </div>
+              <div className="relative py-2">
+              {formik.values.description2 && <span className='absolute top-0 text-[12px] text-[#636c72] left-3 tracking-wider'>Description2</span>}
               <Input
                 type="text"
-                class="bg-black "
+                class="bg-black"
                 onChange={formik.handleChange}
                 placeholder="Description2"
                 required
@@ -76,6 +81,7 @@ export const modalForm = (
               {formik.touched.description2 && formik.errors.description2 && (
                 <div className="text-red-500">{formik.errors.description2}</div>
               )}
+              </div>
             </>
           )}
 
@@ -85,7 +91,7 @@ export const modalForm = (
               onClick={formik.handleSubmit}
               class="px-10 py-3"
             >
-              ADD
+              {editButtonClicked==="nothingClicked" ? "ADD" : "EDIT" }
             </Button>
             <Button
               color="danger"

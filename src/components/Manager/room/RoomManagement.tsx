@@ -8,7 +8,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { IStore } from "../../../interface/slice.interface";
 import { getRoomsByResortIdApi } from "../../../api/room.api";
-import { Link } from "react-router-dom";
 
 function RoomManagement() {
   const navigate = useNavigate();
@@ -169,7 +168,7 @@ function RoomManagement() {
             <img
               src={item.images[0]}
               className="object-contain"
-              width="100px"
+              width="600px"
               height="150px"
               alt=""
             ></img>
@@ -229,13 +228,14 @@ function RoomManagement() {
 
   return (
     <>
-      <div className="mt-20 w-full h-full p-10 text-center">
-        <h1 className="text-center mb-10">ROOM</h1>
-        <Link  to={`/admin/${currentResort.resortName}/room/customizeRoom`} className="mb-10" color="black">
+      <div className="pt-5 w-full h-full text-center">
+        <h1 className="text-center mb-5 font-normal tracking-wide text-5xl">ROOM</h1>
+        <Button   onClick={() => navigate(`/admin/${currentResort.resortName}/room/customizeRoom`)} class="mb-10" color="black">
         {/* //  onClick={handleAddRoomClick} */}
           ADD ROOM
-        </Link>
+        </Button>
         <div className="text-green-700 text-lg">{location?.state?.message}</div>
+        <div className="w-[1000px] mx-auto">
         <TableService
           inputOnchange={handleChangeSearch}
           buttonOnclick={handleClickSearch}
@@ -247,6 +247,7 @@ function RoomManagement() {
           deleteButtonValue={true}
           headers={headerDiv}
         />
+        </div>
       </div>
     </>
   );

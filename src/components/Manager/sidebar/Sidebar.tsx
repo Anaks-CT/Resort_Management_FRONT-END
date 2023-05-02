@@ -6,10 +6,7 @@ import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import { AiOutlineMenu } from "react-icons/ai";
 
 type Anchor = "top" | "left" | "bottom" | "right";
@@ -40,23 +37,30 @@ export default function Sidebar({sideBarElems}: props) {
 
   const list = (anchor: Anchor) => (
     <Box
+      color={'white'}
+      // bgcolor={"black"}
+      className="h-full border-r bg-black"
       sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List>
+      <div className="flex flex-col divide-y gap-4">
+      <div className="flex justify-center text-3xl mt-5 tracking-wider">TRINITY</div>
+      {/* <Divider className="bg-white mt-3"/> */}
+
+      <div className="px-3">
+      <List className="" >
         {sideBarElems.map((text, index) => (
-          <ListItem key={text._id} disablePadding>
+          <ListItem className={`hover:bg-slate-500 ${text._id === "Dashboard" && "mb-10"}`} key={text._id} disablePadding>
             <ListItemButton onClick={()=>text.onClick(text._id, text.name)}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText  primary={text.name} />
+              <ListItemText className={``}  primary={text.name} />
             </ListItemButton>
           </ListItem>
         ))}
       </List>
+      </div>
+      </div>
       <Divider />
 
     </Box>

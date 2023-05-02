@@ -7,7 +7,8 @@ export const modalForm = (
   loading: boolean,
   formik: any,
   setOpen: any,
-  closeModal: () => void
+  closeModal: () => void,
+  editButtonClicked: "nothingClicked" | "editImage"
 ) => {
     return (
       <div className="flex flex-col justify-center items-center p-10">
@@ -49,7 +50,7 @@ export const modalForm = (
               onClick={formik.handleSubmit}
               class="px-10 py-3"
             >
-              ADD
+              {editButtonClicked==="nothingClicked" ? "ADD" : "EDIT" }
             </Button>
             <Button
               color="danger"

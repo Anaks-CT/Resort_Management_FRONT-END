@@ -8,19 +8,19 @@ import { useLocation, useNavigate } from "react-router-dom";
 import FormikDataForResortManagement from "../../components/Manager/resort/FormikDataForAdd&EditResort";
 import { useSelector } from "react-redux";
 import { IStore } from "../../interface/slice.interface";
-import {useAdminLogout} from "../../hooks/useLogout";
+import { useAdminLogout } from "../../hooks/useLogout";
 
 function AddResort() {
   //////////////////////////// message passed from other pages //////////////////////////////
   // current resortDetails of the editClicked resort in resort management table
   const location = useLocation();
 
-  const logout = useAdminLogout()
+  const logout = useAdminLogout();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const adminToken = useSelector((state: IStore) => state.adminAuth.token)
+  const adminToken = useSelector((state: IStore) => state.adminAuth.token);
 
   ////////////////////////////// state for loading /////////////////////
 
@@ -31,10 +31,10 @@ function AddResort() {
   const [error, seterror] = useState<string>("");
 
   //////////////////////////////////////////// setting up initial values for formik //////////////////////////
- 
+
   // when navigating from resortmanagement page to edit resort data of
-  // the edit clicked resort is provided for edit resort page to make 
-  // the initial value of formik to this values 
+  // the edit clicked resort is provided for edit resort page to make
+  // the initial value of formik to this values
   const state = location?.state;
   let data:
     | {
@@ -105,7 +105,7 @@ function AddResort() {
               seterror("");
             })
             .catch((err) => {
-              if(err.response.status === 401) logout()
+              if (err.response.status === 401) logout();
               seterror(err.response.data.message);
               setloading(false);
             });
@@ -131,7 +131,12 @@ function AddResort() {
         })
           .then((res) => res.json())
           .then((responseData) => {
-            editResortApi(formValues, responseData?.url, data && data[0]._id, adminToken)
+            editResortApi(
+              formValues,
+              responseData?.url,
+              data && data[0]._id,
+              adminToken
+            )
               .then((res) => {
                 // updating the all resort slice in redux
                 dispatch(updateAllResortDetails(res.data.data));
@@ -142,7 +147,7 @@ function AddResort() {
                 seterror("");
               })
               .catch((err) => {
-                if(err.response.status === 401) logout()
+                if (err.response.status === 401) logout();
                 seterror(err.response.data.message);
                 setloading(false);
               });
@@ -167,7 +172,7 @@ function AddResort() {
             seterror("");
           })
           .catch((err) => {
-            if(err.response.status === 401) logout()
+            if (err.response.status === 401) logout();
             seterror(err.response.data.message);
             setloading(false);
           })
@@ -177,19 +182,26 @@ function AddResort() {
       }
     }
   };
-
+  const style = {
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.7)), url("https://res.cloudinary.com/dhcvbjebj/image/upload/v1683015725/wallpaperflare.com_wallpaper_9_s9z82o.jpg")`,
+  };
   return (
-    <div className="bg-slate-400 flex flex-col items-center w-full min-h-screen  p-10">
+    <>
       <Header />
-      <FormikDataForResortManagement
-        data={data}
-        editInitialValues={editInitialValues}
-        error={error}
-        formikOnSubmit={formikOnSubmit}
-        initialValues={initialValues}
-        loading={loading}
-      />
-    </div>
+      <div
+        className="bg-no-repeat bg-fixed bg-center h-full w-screen pt-[60px] flex justify-center" // doubt in mobile view
+        style={style}
+      >
+        <FormikDataForResortManagement
+          data={data}
+          editInitialValues={editInitialValues}
+          error={error}
+          formikOnSubmit={formikOnSubmit}
+          initialValues={initialValues}
+          loading={loading}
+        />
+      </div>
+    </>
   );
 }
 

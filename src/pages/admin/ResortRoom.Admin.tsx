@@ -1,18 +1,25 @@
-import React from 'react'
-import { Header } from '../../components/Manager/Header'
-import AdminResortSideBar from '../../components/Manager/sidebar/AdminResortSideBar'
-import RoomManagement from '../../components/Manager/room/RoomManagement'
+import React from "react";
+import { Header } from "../../components/Manager/Header";
+import AdminResortSideBar from "../../components/Manager/sidebar/AdminResortSideBar";
+import RoomManagement from "../../components/Manager/room/RoomManagement";
 
 function ResortRoom() {
-
+  const style = {
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.0),rgba(0, 0, 0, 0.7)), url("https://res.cloudinary.com/dhcvbjebj/image/upload/v1683015725/wallpaperflare.com_wallpaper_9_s9z82o.jpg")`,
+  };
 
   return (
-    <div className="bg-slate-400 w-full h-full min-h-screen">
+    <>
       <Header />
-      <AdminResortSideBar />
-      <RoomManagement />
-    </div>
-  )
+      <div
+        className="bg-no-repeat bg-fixed bg-center h-screen w-screen pt-[60px] flex justify-center" // doubt in mobile view
+        style={style}
+      >
+        <AdminResortSideBar />
+        <RoomManagement />
+      </div>
+    </>
+  );
 }
 
-export default ResortRoom
+export default ResortRoom;
