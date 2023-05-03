@@ -218,7 +218,6 @@ function SmallBannerManagement() {
     if (searchInputValue === "") setSearchInput("");
   };
   // const handlePageClick = (pageNumber: number) => {};
-  // console.log(gallaryDetails?.largeBanner.length);
 
   ///////////////////////////////////////////// formik for addimage form validation //////////////////////////
 

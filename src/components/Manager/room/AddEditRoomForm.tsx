@@ -49,7 +49,6 @@ function AddEditRoomForm({
           onSubmit={(values) => formikOnSubmit(values, data?._id)}
         >
           {({ errors, touched, setFieldValue, values }) => {
-            console.log(values);
             return (
               <Form id="forms">
                 <div className="bg-white md:flex md:justify-around  px-10 pt-10">

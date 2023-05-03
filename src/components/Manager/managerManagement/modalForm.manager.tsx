@@ -11,7 +11,6 @@ export const modalForm = (
   resortDetails?: IResort[] | null
 ) => {
 
-    console.log(formik.values);
     const resortNames = resortDetails?.map(item => ({name:item.resortDetails.name, _id: item._id}))
     const renderData = resortNames?.map((item, i) => (
         <option value={item._id}>{item.name}</option>

@@ -26,7 +26,7 @@ function RoomDetails({ highlights, amenities, facilities }: props) {
     </div>
   ));
 
-  console.log(highlights);
+
   return (
     <>
       <div className="flex text-xs justify-between mb-6">

@@ -34,10 +34,7 @@ function AdminRouter() {
     if (adminToken.token) {
       checkAdminCredentialApi(adminToken.token)
         .then((res) => setAuth(res.data.message))
-        .catch((err) => {
-          console.log("admin router catch for removing");
-          dispatch(removeAdminToken());
-        });
+        .catch((err) => dispatch(removeAdminToken()))
     } else {
       setAuth(null);
     }

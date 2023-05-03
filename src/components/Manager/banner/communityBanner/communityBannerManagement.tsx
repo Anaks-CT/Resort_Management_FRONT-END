@@ -103,7 +103,6 @@ function CommunityBannerManagement() {
   );
 
   
-console.log(gallaryDetails);
 
   return (
     <div>

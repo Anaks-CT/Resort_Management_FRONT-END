@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import { 
   BookingConfirmPage,
   BookingDetailsPage,
@@ -21,12 +21,36 @@ import {
   WellnessPage, 
   WishlistPage
 } from "../pages/pages";
-import ProtectedUserRoute from "../helpers/ProtectedUserRoute";
 import CheckAuthRoute from "../helpers/CheckAuthInRoute";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { IStore } from "../interface/slice.interface";
+import { useDispatch } from "react-redux";
+import { checkUserCredentialApi } from "../api/checkAuth";
+import { removeUserToken } from "../store/slices/userTokenSlice";
 
 
 
 function UserRouter() {
+  const userToken = useSelector((state: IStore) => state.userAuth.token)
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const [auth, setAuth] = useState<String | null>(null)
+
+  useEffect(() => {
+    if(userToken){
+      checkUserCredentialApi( userToken) 
+        .then(res => {
+          setAuth(res.data.message)})
+    
+        .catch(err => {
+          navigate('/login')
+          dispatch(removeUserToken())
+        })
+    }
+    // eslint-disable-next-line
+  },[userToken])
+
 
   return (
     <Routes>
@@ -43,14 +67,15 @@ function UserRouter() {
       <Route path="/forgotPassword/otp-verify" element={CheckAuthRoute(<ForgotPasswordOtpVerifyPage />)} />
       <Route path="/forgotPassword/setNewPassword" element={CheckAuthRoute(<NewPasswordPage />)} />
 
-      <Route path="/booking/explore" element={ProtectedUserRoute(<BookingForm1 />)} />
-      <Route path="/booking/stay" element={ProtectedUserRoute(<BookingStayPage />)} />
-      <Route path="/booking/confirm" element={ProtectedUserRoute(<BookingConfirmPage />)} />
-      <Route path="/profile" element={ProtectedUserRoute(<PersonalPage />)} />
-      <Route path="/profile/member" element={ProtectedUserRoute(<MemberPage />)} />
-      <Route path="/profile/bookings" element={(<BookingDetailsPage />)} />
-      <Route path="/profile/wishlist" element={ProtectedUserRoute(<WishlistPage />)} />
-      <Route path="/profile/roomservice" element={ProtectedUserRoute(<RoomServicePage />)} />
+      <Route path="/booking/explore" element={auth ? (<BookingForm1 />) : <Navigate to={'/login'}/>} />
+      <Route path="/booking/stay" element={auth ? (<BookingStayPage />) : <Navigate to={'/login'}/>} />
+      <Route path="/booking/confirm" element={auth ? (<BookingConfirmPage />) : <Navigate to={'/login'}/>} />
+      <Route path="/profile" element={auth ? (<PersonalPage />) : <Navigate to={'/login'}/>} />
+      <Route path="/profile/member" element={auth ? (<MemberPage />) : <Navigate to={'/login'}/>} />
+      <Route path="/profile/bookings" element={auth ? (<BookingDetailsPage />) : <Navigate to={'/login'}/>} />
+      <Route path="/profile/wishlist" element={auth ? (<WishlistPage />) : <Navigate to={'/login'}/>} />
+      <Route path="/profile/roomservice" element={auth ? (<RoomServicePage />) : <Navigate to={'/login'}/>} />
+
       <Route path="/*" element={<NotFoundPage />} />
     </Routes>
   );

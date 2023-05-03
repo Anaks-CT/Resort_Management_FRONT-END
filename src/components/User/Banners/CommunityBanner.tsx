@@ -7,7 +7,6 @@ type props = {
 
 function CommunityBanner({gallaryDetails, communityPics}: props) { 
 
-  console.log(communityPics);
   return (
     <div className='container lg:p-36 px-10 mx-auto'>
       <div className='w-full flex justify-center mb-20'><p className='text-white'>SOCIAL CAPUTRES FROM <br/>OUR GUESTS ADVENTURES</p></div>

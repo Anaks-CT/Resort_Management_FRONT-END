@@ -131,7 +131,6 @@ function RoomCustomize() {
       //////////////////////////////////////////// edit details when image is added ///////////////////////////////
 
       if (formValues.images.length > 0) {
-        console.log("enhfd");
         const uploadImage = (image: any) => {
           const data = new FormData();
           data.append("file", image);
@@ -148,7 +147,6 @@ function RoomCustomize() {
         };
         Promise.all(formValues.images.map((item) => uploadImage(item)))
         .then((data) => {
-          console.log(data);
           let images: any[] = [];
           data.forEach((item) => images.push(item.secure_url));
             updateRoomApi(currentResort.resortId, {...formValues, images}, adminToken, roomId,)

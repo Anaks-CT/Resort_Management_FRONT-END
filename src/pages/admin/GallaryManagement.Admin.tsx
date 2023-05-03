@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { IStore } from "../../interface/slice.interface";
 import { Header } from "../../components/Manager/Header";
 import AdminResortSideBar from "../../components/Manager/sidebar/AdminResortSideBar";
+import { toastMessage } from "../../helpers/toast";
 
 function GallaryManagement() {
   const dispatch = useDispatch();
@@ -18,12 +19,8 @@ function GallaryManagement() {
 
   useEffect(() => {
     getGallaryDetailsbyResortIdApi(resortId)
-      .then((res) => {
-        dispatch(updateGallary(res.data.data));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then((res) => dispatch(updateGallary(res.data.data)))
+      .catch((err) => toastMessage('error', err?.response?.data?.message))
       // eslint-disable-next-line
   }, []);
 

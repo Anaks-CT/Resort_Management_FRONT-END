@@ -5,11 +5,9 @@ const userToken = createSlice({
   initialState: {token: ''},
   reducers: {
     addUserToken(state, action) {
-        console.log(typeof action.payload);
         state.token = action.payload
     },
     removeUserToken(state){
-      
         state.token = ''
     }
   },

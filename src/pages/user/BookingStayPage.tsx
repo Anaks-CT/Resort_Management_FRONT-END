@@ -7,7 +7,6 @@ import SingleRoom from "../../components/User/room/SingleRoom";
 import RoomPackage from "../../components/User/room/RoomPackage";
 import { HiArrowLongLeft } from "react-icons/hi2";
 import { IBookingForm1 } from "../../interface/booking.interface";
-import BookingDetails from "../../components/User/booking/BookingDetails";
 
 function BookingStayPage() {
 
@@ -66,7 +65,6 @@ function BookingStayPage() {
     any[]
   >([]);
 
-  console.log(roomListArrayNumber , form1?.roomDetail?.length);
 
   /////////////////// displaying all the room details according to the order of occupancy /////////////////////
   const rooms = roomList[roomListArrayNumber]?.map((item: any, i: number) => {

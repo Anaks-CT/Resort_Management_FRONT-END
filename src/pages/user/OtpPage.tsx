@@ -49,7 +49,7 @@ function OtpPage() {
                 })
             )
         })
-        .catch((err) => {console.log(err); setError(err?.response?.data?.message)})
+        .catch((err) => setError(err?.response?.data?.message))
         .finally(() => setLoading(false))
     },
   });

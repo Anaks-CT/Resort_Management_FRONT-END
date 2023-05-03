@@ -18,6 +18,7 @@ import managerDataForTable from "../../components/UI/table/dataFunctions/manager
 import { useSelector } from "react-redux";
 import { IStore } from "../../interface/slice.interface";
 import {useAdminLogout} from "../../hooks/useLogout";
+import { toastMessage } from "../../helpers/toast";
 
 
 function ManagerManagement() {
@@ -130,7 +131,7 @@ function ManagerManagement() {
   useEffect(() => {
     getAllManagerDetails(searchInput, sortOrder, sortBy)
     .then((res: any) => setmanagerDetails(res.data.data))
-    .catch((err: any) => console.log(err));
+    .catch((err: any) =>toastMessage('error', err?.response?.data?.message));
   }, [searchInput, sortBy, sortOrder]);
 
 

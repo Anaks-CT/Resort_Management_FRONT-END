@@ -1,14 +1,10 @@
 import { ErrorMessage, Field, Form, Formik, FieldArray, FormikErrors } from 'formik';
-import React, {useEffect, useState} from 'react'
 import { addResort } from '../../../schema/admin/addResortForm';
 import PreviewImage from '../../UI/PreviewImage';
 import Input from '../../UI/Input';
 import Button from '../../UI/Button';
 import { IAddResort } from '../../../interface/resort.interface';
 import { useNavigate } from 'react-router-dom';
-import { getAllManagerDetails, getMangersByResortApi } from '../../../api/manager.api';
-import { toastMessage } from '../../../helpers/toast';
-import { IManager } from '../../../interface/manager.interface';
 
 
 type props = {
@@ -34,7 +30,6 @@ type props = {
 }
 
 function FormikDataForResortManagement({data, editInitialValues, initialValues, formikOnSubmit, loading, error}: props) {
-  console.log(data && data[0]._id);
     const navigate = useNavigate()
   //   const [managerDetails, setManagerDetails] = useState<IManager[]>()
   //   useEffect(() => {

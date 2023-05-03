@@ -31,10 +31,8 @@ function ForgotPasswordOtpVerifyPage() {
         onSubmit: (values) => {
           setLoading(true)
           verifyOTPapi(values.otp, location?.state.phone)
-            .then((res) => {
-              navigate('/forgotPassword/setNewPassword',{state: {email: email}})
-            })
-            .catch((err) => {console.log(err); setError(err?.response?.data?.message)})
+            .then((res) => navigate('/forgotPassword/setNewPassword',{state: {email: email}}))
+            .catch((err) => setError(err?.response?.data?.message))
             .finally(() => setLoading(false))
         },
       });

@@ -31,7 +31,7 @@ function BookingForm1({
   closeAll,
   error,
 }: props) {
-  console.log(errors.roomDetail);
+ 
   // variable for repeating classnames
   const classname =
     "my-select border-0 border-b-2 w-full border-white box-border p-[16px] bg-transparent text-[10px] md:text-[15px] text-white text-opacity-80 tracking-wide lg:font-light";

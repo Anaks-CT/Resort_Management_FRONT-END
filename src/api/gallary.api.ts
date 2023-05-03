@@ -1,12 +1,9 @@
 import {axiosGallary} from "../config/api";
 import { setApiHeader } from "../helpers/apiHeader";
 
-export const getAllGallaryDetailsApi = () => {
-  console.log('sfd');
-  
-  return axiosGallary.get('/getAllGallaryDetails')
-  // return fetch('/getAllGallaryDetails')
-}
+export const getAllGallaryDetailsApi = () => 
+   axiosGallary.get('/getAllGallaryDetails')
+
   
 
   

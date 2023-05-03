@@ -17,6 +17,7 @@ import AdminSideBar from "../../components/Manager/sidebar/AdminSideBar";
 import { useSelector } from "react-redux";
 import { IStore } from "../../interface/slice.interface";
 import {useAdminLogout} from '../../hooks/useLogout'
+import { toastMessage } from "../../helpers/toast";
 
 function FaqManagement() {
   //////////////////////////////////// faq details state ////////////////////////////////
@@ -39,7 +40,7 @@ function FaqManagement() {
   useEffect(() => {
     getFaqApi()
       .then(res => setFaqDetail(res.data.data))
-      .catch(err => console.log(err))
+      .catch(err => toastMessage('error', err?.response?.data?.message))
   }, [])
   
   const logout = useAdminLogout()
@@ -123,7 +124,6 @@ function FaqManagement() {
       return;
     }
 
-    console.log(searchInput, sortBy, sortOrder);
 
     // logic for changing the sort order to its next sort order
     if (sortOrder === null) {

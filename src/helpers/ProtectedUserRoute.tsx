@@ -11,6 +11,8 @@ function ProtectedUserRoute(component: JSX.Element) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [auth, setAuth] = useState<String | null>(null)
+
+
   
 useEffect(() => {
   if(userToken){

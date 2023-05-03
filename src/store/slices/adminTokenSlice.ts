@@ -5,7 +5,6 @@ const adminToken = createSlice({
   initialState: {token: ''},
   reducers: {
     addAdminToken(state, action) {
-        console.log(typeof action.payload);
         state.token = action.payload
     },
     removeAdminToken(state){

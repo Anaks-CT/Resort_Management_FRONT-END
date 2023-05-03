@@ -16,6 +16,7 @@ import { IResort } from "../../interface/resort.interface";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { removeCurrentResort } from "../../store/slices/currentResortUserSlice";
+import { toastMessage } from "../../helpers/toast";
 
 function HomePage() {
   const [width, setWidth]  = useState<number>(window.innerWidth);
@@ -46,15 +47,15 @@ function HomePage() {
       /////////// fetching company details  //////////
     getCompanyDetailsApi()
         .then((res) => setcompanyDetails(res.data.data))
-        .catch((err) => console.log(err))
+        .catch((err) => toastMessage('error', err?.response?.data?.message))
         // /////// fetching resorts details/////////////////
     getAllResortDetailsApi()
         .then((res) => setresortDetails(res.data.data))
-        .catch((err) => console.log(err))
+        .catch((err) => toastMessage('error', err?.response?.data?.message))
         ///////////////////// fetching gallary details /////////
     getAllGallaryDetailsApi()
         .then((res) => setgallaryDetails(res.data.data))
-        .catch((err) => console.log(err))
+        .catch((err) => toastMessage('error', err?.response?.data?.message))
     // removing current resort from slice if any
     dispatch(removeCurrentResort())
     // eslint-disable-next-line

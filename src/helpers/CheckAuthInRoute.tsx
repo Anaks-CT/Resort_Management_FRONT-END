@@ -10,7 +10,6 @@ function CheckAuthRoute(component: JSX.Element) {
   const userToken = useSelector((state: IStore) => state.userAuth.token)
   const dispatch = useDispatch()
   const [auth, setAuth] = useState<String | null>(null)
-  console.log(auth);
   useEffect(() => {
     if (userToken) {
       checkUserCredentialApi(userToken)

@@ -93,7 +93,7 @@ function ResortManagement() {
       .then((res) => {
         dispatch(updateAllResortDetails(res.data.data));
       })
-      .catch((err) => console.log(err));
+      .catch((err) => toastMessage("error", err?.response?.data?.message));
       // eslint-disable-next-line
   }, [searchInput, sortOrder]);
 

@@ -7,6 +7,7 @@ import Sidebar from "../../UI/Sidebar";
 import { updateAllResortDetails } from "../../../store/slices/allResortSlice";
 import { useSelector } from "react-redux";
 import { IStore } from "../../../interface/slice.interface";
+import { toastMessage } from "../../../helpers/toast";
 type resortProp = {
   _id: string;
   name: string;
@@ -32,9 +33,7 @@ function AdminSideBar() {
       .then((res) => {
         dispatch(updateAllResortDetails(res.data.data))
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => toastMessage('error', err?.response?.data?.message))
       // eslint-disable-next-line
   },[])
 

@@ -41,7 +41,6 @@ function ResortHomePage() {
       setNumber(number === 0 ? roomDetails.length - 1 : number - 1);
     }
   };
-  console.log(gallaryDetail);
   const [faqs, setFaqs] = useState();
   const location = useLocation();
   const navigate = useNavigate();
@@ -90,7 +89,6 @@ function ResortHomePage() {
   const style = {
     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3),rgba(0, 0, 0, 0.3)), url(${resortDetails?.resortDetails?.image})`,
   };
-  console.log(roomDetails);
   return (
     <>
       <Header2 />

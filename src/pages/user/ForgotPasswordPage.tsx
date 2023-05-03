@@ -24,7 +24,7 @@ function ForgotPasswordPage() {
           setloading(true)
           forgotPasswordVerifyEmailApi(values.email)
             .then(res => navigate('/forgotPassword/otp-verify',{state: {phone: res?.data?.data, email: values.email}}))
-            .catch(err => {console.log(err); setError(err?.response?.data?.message)})
+            .catch(err =>  setError(err?.response?.data?.message))
             .finally(() => setloading(false))
         },
       });

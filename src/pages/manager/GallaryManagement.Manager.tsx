@@ -5,6 +5,7 @@ import SmallBannerManagement from '../../components/Manager/banner/smallBanner/S
 import { getGallaryDetailsbyResortIdApi } from '../../api/gallary.api';
 import { useDispatch } from 'react-redux';
 import { updateGallary } from '../../store/slices/gallarySlice';
+import { toastMessage } from '../../helpers/toast';
 
 
 function GallaryManagement() {
@@ -16,12 +17,8 @@ function GallaryManagement() {
 
   useEffect(() => {
     getGallaryDetailsbyResortIdApi("64158c7a80aa0bca76b639b5")
-      .then((res) => {
-        dispatch(updateGallary(res.data.data))
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then((res) => dispatch(updateGallary(res.data.data)))
+      .catch((err) => toastMessage('error', err?.response?.data?.message));
       // eslint-disable-next-line
   }, []);
 

@@ -157,7 +157,6 @@ function BookingForm1Page() {
             onSubmit={(values, { resetForm }) => formikSubmit(values)}
           >
             {({ errors, touched, setFieldValue, values }) => {
-              console.log(values);
               return (
                 <BookingForm1
                   allResorts={allResorts}

@@ -8,6 +8,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { IStore } from "../../../interface/slice.interface";
 import { getRoomsByResortIdApi } from "../../../api/room.api";
+import { toastMessage } from "../../../helpers/toast";
 
 function RoomManagement() {
   const navigate = useNavigate();
@@ -20,14 +21,13 @@ function RoomManagement() {
   useEffect(() => {
     getRoomsByResortIdApi(currentResort.resortId)
       .then((res) => setRoomDetails(res.data.data))
-      .catch((err) => console.log(err));
+      .catch((err) => toastMessage('error', err?.response?.data?.message));
     // eslint-disable-next-line
   }, []);
 
   // changing the room Status
   const handleDelete = (roomId: string) => {
     // api call to change room status
-    console.log(roomId);
   };
 
   // editing the resortDetails
@@ -162,7 +162,6 @@ function RoomManagement() {
           (a: any, b: any) => a.cost - b.cost
         );
         const startingPrice = sortedPackagePrice[0].cost;
-        console.log(startingPrice);
         return {
           image: (
             <img
