@@ -1,4 +1,5 @@
 export interface Iuser {
+  image?: string
   name: string;
   email: string;
   phone: string;

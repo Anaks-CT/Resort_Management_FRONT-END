@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { updateResort } from "../../../store/slices/resortSlice";
 import { getAllResortDetailsApi } from "../../../api/resort.api";
-import Sidebar from "./Sidebar";
+import Sidebar from "../../UI/Sidebar";
 import { updateAllResortDetails } from "../../../store/slices/allResortSlice";
 import { useSelector } from "react-redux";
 import { IStore } from "../../../interface/slice.interface";

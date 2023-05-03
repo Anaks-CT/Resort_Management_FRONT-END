@@ -22,6 +22,7 @@ function BookingForm1Page() {
   // state for storing all resort details to show in the destination dropdown
   const [allResorts, setAllResorts] = useState<IResort[] | null>(null);
   
+  const currentResort = useSelector((state: IStore) => state.currentResort)
 
   const logout = useUserLogout()
 
@@ -98,8 +99,8 @@ function BookingForm1Page() {
   // initial value for formik
   const formikInitialValue = {
     destination: {
-      name: "",
-      id: "",
+      name: currentResort?.resortName ? currentResort.resortName : '',
+      id: currentResort?.resortId ? currentResort.resortId : '',
     },
     roomDetail: [""],
     date: date[0]

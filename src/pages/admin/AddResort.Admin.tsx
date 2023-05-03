@@ -75,6 +75,7 @@ function AddResort() {
     location: "",
     email: "",
     customerCareNo: "",
+    // managerId: '',
     features: [""],
   };
 

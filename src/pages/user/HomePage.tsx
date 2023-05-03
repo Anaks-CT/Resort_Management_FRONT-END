@@ -14,12 +14,15 @@ import { ICompany } from "../../interface/company.interface";
 import { IGallary } from "../../interface/gallary.interface";
 import { IResort } from "../../interface/resort.interface";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { removeCurrentResort } from "../../store/slices/currentResortUserSlice";
 
 function HomePage() {
   const [width, setWidth]  = useState<number>(window.innerWidth);
   const [companyDetails, setcompanyDetails] = useState<ICompany>();
   const [resortDetails, setresortDetails] = useState<IResort[]>();
   const [gallaryDetails, setgallaryDetails] = useState<IGallary[]>();
+
 
   const navigate = useNavigate()
   //////////////////////////////////// setting up a random number to generate random background or different resorts/////////////
@@ -37,6 +40,7 @@ function HomePage() {
     return () => window.removeEventListener("resize", handleWindowSizeChange);
   }, []);
 
+  const dispatch = useDispatch()
   
   useEffect(() => {
       /////////// fetching company details  //////////
@@ -51,6 +55,9 @@ function HomePage() {
     getAllGallaryDetailsApi()
         .then((res) => setgallaryDetails(res.data.data))
         .catch((err) => console.log(err))
+    // removing current resort from slice if any
+    dispatch(removeCurrentResort())
+    // eslint-disable-next-line
   }, []);
 
   // style for background image

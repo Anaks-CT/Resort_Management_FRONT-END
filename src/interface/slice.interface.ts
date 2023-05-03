@@ -11,4 +11,8 @@ export interface IStore{
     allResort: IResort[] | null
     adminAuth: {token: string}
     userAuth: {token: string}
+    currentResort: {
+        resortId: string
+        resortName: string
+    }
 }

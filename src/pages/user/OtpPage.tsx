@@ -14,11 +14,11 @@ function OtpPage() {
   const navigate = useNavigate();
   const location = useLocation();
   useEffect(() => {
-    if (!location?.state) navigate("/");
+    if (!location?.state?.phone) navigate("/");
   });
 
-  const phoneNumber = location?.state.phone.toString()
-  const fourDigits = phoneNumber.slice(-4)
+  const phoneNumber = location?.state?.phone.toString()
+  const fourDigits = phoneNumber?.slice(-4)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string>('');
 
@@ -29,7 +29,7 @@ function OtpPage() {
     validationSchema: otpValidationSchema,
     onSubmit: (values) => {
       setLoading(true)
-      verifyOTPapi(values.otp, location?.state.phone)
+      verifyOTPapi(values.otp, location?.state?.phone)
         .then((res) => {
           signupApi(location?.state)
             .then((res) => {

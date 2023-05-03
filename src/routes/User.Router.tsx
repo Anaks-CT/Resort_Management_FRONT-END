@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router";
 import { 
   BookingConfirmPage,
+  BookingDetailsPage,
   BookingForm1,
   BookingStayPage, 
   DIningPage, 
@@ -8,13 +9,17 @@ import {
   ForgotPasswordPage, 
   HomePage, 
   LoginPage, 
+  MemberPage, 
   NewPasswordPage, 
   NotFoundPage, 
   OtpPage, 
+  PersonalPage, 
   ResortHomePage, 
   ResortsListPage, 
+  RoomServicePage, 
   SignupPage, 
-  WellnessPage 
+  WellnessPage, 
+  WishlistPage
 } from "../pages/pages";
 import ProtectedUserRoute from "../helpers/ProtectedUserRoute";
 import CheckAuthRoute from "../helpers/CheckAuthInRoute";
@@ -41,6 +46,11 @@ function UserRouter() {
       <Route path="/booking/explore" element={ProtectedUserRoute(<BookingForm1 />)} />
       <Route path="/booking/stay" element={ProtectedUserRoute(<BookingStayPage />)} />
       <Route path="/booking/confirm" element={ProtectedUserRoute(<BookingConfirmPage />)} />
+      <Route path="/profile" element={ProtectedUserRoute(<PersonalPage />)} />
+      <Route path="/profile/member" element={ProtectedUserRoute(<MemberPage />)} />
+      <Route path="/profile/bookings" element={(<BookingDetailsPage />)} />
+      <Route path="/profile/wishlist" element={ProtectedUserRoute(<WishlistPage />)} />
+      <Route path="/profile/roomservice" element={ProtectedUserRoute(<RoomServicePage />)} />
       <Route path="/*" element={<NotFoundPage />} />
     </Routes>
   );

@@ -240,7 +240,7 @@ function BookingForm1({
           >
             Discover stay
           </Button>
-          <span className="absolute text-[11px] font-sans font-normal top-20 md:top-9 md:tracking-normal md:text-sm text-red-600">{error}</span>
+          <span className="absolute text-[11px] font-sans font-normal top-20 lg:top-9 md:tracking-normal md:text-sm text-red-600">{error}</span>
         </div>
       </div>
     </Form>

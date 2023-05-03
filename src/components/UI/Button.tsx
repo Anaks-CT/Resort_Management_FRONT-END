@@ -29,11 +29,11 @@ function Button({
   function colorType() {
     switch (color) {
       case "premium":
-        return "bg-premium px-3 py-2";
+        return "bg-premium px-3 py-2 text-white";
       case "transparent":
-        return "bg-black bg-opacity-50 px-3 py-2";
+        return "bg-black bg-opacity-50 px-3 py-2 text-white";
       case "white":
-        return "bg-white";
+        return "bg-white text-black";
       case "black":
         return "hover:bg-slate-600 text-white bg-black px-3 py-2";
       case "success":
@@ -48,7 +48,7 @@ function Button({
   }
 
   const classes = className(
-    "d-flex items-center text-white",
+    "d-flex items-center",
     rest.class,
     colorType(),
     {

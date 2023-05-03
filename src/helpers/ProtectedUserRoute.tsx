@@ -31,7 +31,7 @@ useEffect(() => {
   if(auth){
     return component
   }else{
-    <Navigate to="/login" />
+    return <Navigate to="/login" />
   }
 }
 

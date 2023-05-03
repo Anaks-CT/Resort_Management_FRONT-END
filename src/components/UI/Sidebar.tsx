@@ -7,18 +7,16 @@ import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import { AiOutlineMenu } from "react-icons/ai";
+import { AiOutlineDoubleRight, AiOutlineMenu } from "react-icons/ai";
 
 type Anchor = "top" | "left" | "bottom" | "right";
 type props = {
   sideBarElems: {_id: string, name: string, onClick: (resortId: string, resortName: string) => void }[],
+  userSideBar?: boolean
 }
-export default function Sidebar({sideBarElems}: props) {
+export default function Sidebar({sideBarElems, userSideBar}: props) {
   const [state, setState] = React.useState({
-    top: false,
     left: false,
-    bottom: false,
-    right: false,
   });
 
   const toggleDrawer =
@@ -69,9 +67,11 @@ export default function Sidebar({sideBarElems}: props) {
   return (
     <div>
       {(["left"] as const).map((anchor) => (
-        <React.Fragment key={anchor}>
+        <div className="h-0" key={anchor}>
+          
           <Button onClick={toggleDrawer(anchor, true)}>
-          <AiOutlineMenu className="top-[19px] fixed z-20 left-12 text-xl md:text-3xl md:right-5" />
+          {!userSideBar ? <AiOutlineMenu className="top-[19px] fixed z-20 left-12 text-xl md:text-3xl md:right-5" />
+           : <AiOutlineDoubleRight className="text-lg animate-bounce transition-shadow md:hidden text-white top-[105px] cursor-pointer fixed z-20 left-5"/>}
           </Button>
           <Drawer
             anchor={anchor}
@@ -80,7 +80,7 @@ export default function Sidebar({sideBarElems}: props) {
           >
             {list(anchor)}
           </Drawer>
-        </React.Fragment>
+        </div >
       ))}
     </div>
   );

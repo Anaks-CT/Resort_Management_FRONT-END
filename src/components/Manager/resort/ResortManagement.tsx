@@ -41,7 +41,6 @@ function ResortManagement() {
 
   // editing the resortDetails
   const handleEdit = (resortId: string) => {
-    console.log(resortId)
     const currentResort = allResortDetails?.filter(item => item._id === resortId)
     navigate('/admin/addResort', {
       state: {

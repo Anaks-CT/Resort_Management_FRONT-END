@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import Sidebar from './Sidebar'
+import Sidebar from '../../UI/Sidebar'
 import { IStore } from '../../../interface/slice.interface'
 
 function ManagerSideBar() {

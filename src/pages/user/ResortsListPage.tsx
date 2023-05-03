@@ -3,6 +3,8 @@ import { Header2 } from "../../components/User/Header/Header";
 import { IResort } from "../../interface/resort.interface";
 import { getAllResortDetailsApi } from "../../api/resort.api";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { updateCurrentResort } from "../../store/slices/currentResortUserSlice";
 
 function ResortsListPage() {
   // style for background image
@@ -22,16 +24,17 @@ function ResortsListPage() {
   }, []);
 
   const navigate = useNavigate();
-
+  const dispatch = useDispatch()
   const resortList = allResorts?.map((item, i) => (
     <div
       key={i}
       className="flex py-5 justify-between items-center md:px-9 cursor-pointer"
       onMouseEnter={() => setImage(item.resortDetails.image)}
       onClick={() =>
+        {dispatch(updateCurrentResort({resortId: item._id, resortName: item.resortDetails.name}))
         navigate(`/${item.resortDetails.name}`, {
           state: { resortDetails: item },
-        })
+        })}
       }
     >
       <div className="uppercase font-sans tracking-wide px-2">

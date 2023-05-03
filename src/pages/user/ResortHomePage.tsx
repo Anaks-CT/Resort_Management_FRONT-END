@@ -197,15 +197,15 @@ function ResortHomePage() {
         button1Onclick={() => navigate('/booking/explore')}
         heading={
           gallaryDetail &&
-          gallaryDetail.largeBanner[randomNumberForGallary].description1
+          gallaryDetail.largeBanner[randomNumberForGallary]?.description1
         }
         des={
           gallaryDetail &&
-          gallaryDetail.largeBanner[randomNumberForGallary].description2
+          gallaryDetail.largeBanner[randomNumberForGallary]?.description2
         }
         url={
           gallaryDetail &&
-          gallaryDetail.largeBanner[randomNumberForGallary].image
+          gallaryDetail.largeBanner[randomNumberForGallary]?.image
         }
       />
       <CircleBanner data={gallaryDetail?.smallBanner} />

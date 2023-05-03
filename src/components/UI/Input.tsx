@@ -21,7 +21,7 @@ function Input({
   ...rest
 }: props) {
   const classes = classNames(
-    "border-0 border-b-2 border-white box-border p-[16px] block w-full bg-[#1E1E1E] bg-opacity-70 text-white tracking-wide",
+    "border-0 border-b md:border-b-2 border-white box-border p-[16px] block w-full bg-transparent bg-opacity-70 text-white tracking-wide",
     rest.class
   );
   return (

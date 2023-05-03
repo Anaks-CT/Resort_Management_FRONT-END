@@ -1,11 +1,14 @@
 import { ErrorMessage, Field, Form, Formik, FieldArray, FormikErrors } from 'formik';
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { addResort } from '../../../schema/admin/addResortForm';
 import PreviewImage from '../../UI/PreviewImage';
 import Input from '../../UI/Input';
 import Button from '../../UI/Button';
 import { IAddResort } from '../../../interface/resort.interface';
 import { useNavigate } from 'react-router-dom';
+import { getAllManagerDetails, getMangersByResortApi } from '../../../api/manager.api';
+import { toastMessage } from '../../../helpers/toast';
+import { IManager } from '../../../interface/manager.interface';
 
 
 type props = {
@@ -31,7 +34,20 @@ type props = {
 }
 
 function FormikDataForResortManagement({data, editInitialValues, initialValues, formikOnSubmit, loading, error}: props) {
+  console.log(data && data[0]._id);
     const navigate = useNavigate()
+  //   const [managerDetails, setManagerDetails] = useState<IManager[]>()
+  //   useEffect(() => {
+  //     if(data){
+  //       getMangersByResortApi(data[0]._id)
+  //       .then(res => setManagerDetails(res.data.data))
+  //       .catch(err => {console.log(err);toastMessage('error', err?.response?.data?.message)})
+  //     }
+  //   }, [])
+    
+  //   const renderData = managerDetails?.map((item, i) => (
+  //     <option value={item._id}>{item.name}</option>
+  // ))
   return (
     <Formik
         initialValues={
@@ -42,24 +58,15 @@ function FormikDataForResortManagement({data, editInitialValues, initialValues, 
             : initialValues
         }
         validationSchema={addResort}
-        onSubmit={(values, { resetForm }) => {
+        onSubmit={(values) => {
           formikOnSubmit(values);
           // resetForm();
         }}
       >
-        {({ errors, touched, setFieldValue, values }) => (
+        {({ errors, touched, setFieldValue, values, handleChange }) => (
           <Form>
-            <div className="p-12 bg-[#1E1E1E] mt-32 w-[780px] text-center">
-              {loading && (
-                <div className="flex justify-center">
-                  <img
-                    width={50}
-                    src="https://res.cloudinary.com/dhcvbjebj/image/upload/v1680669482/Spinner-1s-200px_4_ontbds.gif"
-                    alt=""
-                  />
-                </div>
-              )}
-              {error && <div className="text-red-500">{error}</div>}
+            <div className="p-12 bg-[#1E1E1E] mt-32 mb-20 w-[780px] text-center">
+              
               <h1 className="text-center mb-10">ADD RESORT</h1>
               {!values.image && data && (
                 <div className="flex justify-center">
@@ -73,7 +80,7 @@ function FormikDataForResortManagement({data, editInitialValues, initialValues, 
               {values.image && <PreviewImage file={values.image} />}
               <Input
                 type="file"
-                class="bg-black mt-10"
+                class="bg-transparent mt-10"
                 onChange={(event) => {
                   event.target.files &&
                     setFieldValue("image", event.target.files[0]);
@@ -160,6 +167,10 @@ function FormikDataForResortManagement({data, editInitialValues, initialValues, 
                 </div>
               )}
               </div>
+              {/* {data && <select name='resortId' value={values.managerId} onChange={handleChange} className='my-select border-0 border-b-2 w-full border-white box-border block bg-opacity-70 pt-[30px] text-white tracking-wide bg-transparent'>
+                <option value="" selected disabled>--select Manager--</option>
+                {renderData}
+              </select>} */}
               <div className='text-white text-xl tracking-wider my-5'>Features</div>
               <FieldArray name="features">
                 {(fieldArrayProps) => {
@@ -214,6 +225,18 @@ function FormikDataForResortManagement({data, editInitialValues, initialValues, 
                   );
                 }}
               </FieldArray>
+              <div className='mt-10'>
+              {loading && (
+                <div className="flex justify-center">
+                  <img
+                    width={50}
+                    src="https://res.cloudinary.com/dhcvbjebj/image/upload/v1680669482/Spinner-1s-200px_4_ontbds.gif"
+                    alt=""
+                  />
+                </div>
+              )}
+              {error && <div className="text-red-500 text-center">{error}</div>}
+              </div>
               <Button
                 type="submit"
                 class="py-3 px-4 rounded mt-8 mx-10"

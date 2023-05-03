@@ -16,3 +16,6 @@ export const getAllManagerDetails = (searchInput: string, sortOrder: string | nu
 
 export const ChangeManagerStatusApi = (managerId: string, token: string) => 
   axiosManager.delete(`/${managerId}`, setApiHeader(token))
+
+export const getMangersByResortApi = (resortId: string) =>
+  axiosManager.get(`/resortMangers:${resortId}`); 

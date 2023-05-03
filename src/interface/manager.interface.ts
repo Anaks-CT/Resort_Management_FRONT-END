@@ -1,4 +1,5 @@
 export interface IManager {
+    _id?: string 
     name: string
     phone: number | string
     email: string

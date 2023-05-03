@@ -60,7 +60,7 @@ export function Header2() {
           <p className="text-white md:text-md text-[12px]">RETRIVE BOOKING</p>
           <div className="flex gap-3">
           {userToken ? (
-            <Link to={"/login"}>
+            <Link to={"/profile"}>
             <p className="text-blue-200 md:text-md text-[12px]">PROFILE</p>
           </Link>
           ) : (
