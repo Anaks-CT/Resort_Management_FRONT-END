@@ -1,6 +1,10 @@
 module.exports = {
-  plugins: {
+  plugins: [{
+    
     tailwindcss: {},
     autoprefixer: {},
+    
   },
+  require('tailwind-scrollbar-hide')
+]
 }
