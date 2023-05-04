@@ -32,7 +32,7 @@
     display: none;
   }
   h1{
-    @apply font-bold md:text-6xl text-4xl text-white
+    @apply font-bold md:text-6xl text-3xl text-white
   }
   html {
     scroll-behavior: smooth;

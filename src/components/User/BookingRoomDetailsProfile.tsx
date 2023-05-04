@@ -1,8 +1,6 @@
-import React, { useState } from "react";
-import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 
 function BookingRoomDetailsProfile() {
-  const [showRoomDetails, setRoomDetails] = useState(false);
+  // const [showRoomDetails, setRoomDetails] = useState(false);
   return (
     <>
 

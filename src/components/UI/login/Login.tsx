@@ -41,7 +41,7 @@ function Login({ onSubmit, message, loading }: props) {
         required
         placeholder="EMAIL ADDRESS"
         name="email"
-        class="mt-8 text-sm"
+        class="mt-8 text-xs md:text-sm"
         value={formik.values.email}
         type="text"
       />
@@ -53,7 +53,7 @@ function Login({ onSubmit, message, loading }: props) {
         required
         placeholder="PASSWORD"
         name="password"
-        class="mt-2 text-sm"
+        class="mt-2 text-xs md:text-sm"
         value={formik.values.password}
         type="password"
       />
@@ -91,7 +91,7 @@ function Login({ onSubmit, message, loading }: props) {
       </div>
       <div
         className="text-white cursor-pointer pt-3"
-        onClick={() => navigate("/profile/bookings")}
+        onClick={() => navigate("/profile/roomservice")}
       >
        profile
       </div>

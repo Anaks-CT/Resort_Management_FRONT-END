@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { AiOutlineCaretDown } from 'react-icons/ai'
 import { BsPeopleFill } from 'react-icons/bs'
-import { TbArrowsMove, TbSquareRounded } from 'react-icons/tb'
+import { TbArrowsMove } from 'react-icons/tb'
 import RoomDetails from './RoomDetails'
 import Button from '../../UI/Button'
 import TransitionsModal from '../../UI/Modal'

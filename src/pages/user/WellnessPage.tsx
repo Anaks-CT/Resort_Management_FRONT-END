@@ -8,41 +8,41 @@ import { Header2 } from "../../components/User/Header/Header";
 function WellnessPage() {
     const circleBannerCarouselData1 = [
         {
-            heading: "Never stop your daily routine",
+          description1: "Never stop your daily routine",
             miniHeading: "gym",
-            description: "The latest fitness machines and professional trainers to help you tone muscles and improve flexibility",
+            description2: "The latest fitness machines and professional trainers to help you tone muscles and improve flexibility",
             image: "https://res.cloudinary.com/dhcvbjebj/image/upload/v1679373812/jet-main-banner_tvz0is.jpg"
         },
         {
-            heading: "Capri Fitness",
+          description1: "Capri Fitness",
             miniHeading: "CAPRI gym",
-            description: "Combining the best of fitness, leisure, dining, spa, and wellness, The J-Club is a membership lifestyle and wellness destination, designed with you in mind.",
+            description2: "Combining the best of fitness, leisure, dining, spa, and wellness, The J-Club is a membership lifestyle and wellness destination, designed with you in mind.",
             image: "https://res.cloudinary.com/dhcvbjebj/image/upload/v1679373811/capripalace004445103_chdf7a.jpg"
         },
         {
-            heading: "Talise Fitness at Trinity centre",
+          description1: "Talise Fitness at Trinity centre",
             miniHeading: "gym",
-            description: "A fully equipped gymnasium with state-of-the-art equipment offering an indoor and outdoor functional training zone",
+            description2: "A fully equipped gymnasium with state-of-the-art equipment offering an indoor and outdoor functional training zone",
             image: "https://res.cloudinary.com/dhcvbjebj/image/upload/v1679373810/brooklyn-gym-generic-file-covidjpg_hjrcsa.jpg"
         },
     ]
     const circleBannerCarouselData2 = [
         {
-            heading: "Capri Medical Spa",
+          description1: "Capri Medical Spa",
             miniHeading: "wellness",
-            description: "Holistic spa experience which combines the best of western and eastern traditions",
+            description2: "Holistic spa experience which combines the best of western and eastern traditions",
             image: "https://res.cloudinary.com/dhcvbjebj/image/upload/v1679382614/madinatjumeirahtalisespalifestyle50__square_afevfc.avif"
         },
         {
-            heading: "Jumeirah Zabeel Saray",
+          description1: "Jumeirah Zabeel Saray",
             miniHeading: "wellness",
-            description: "Explore an indulgent selection of spa experiences inspired by the Ottoman heritage.",
+            description2: "Explore an indulgent selection of spa experiences inspired by the Ottoman heritage.",
             image: "https://res.cloudinary.com/dhcvbjebj/image/upload/v1679382614/burj-al-arab-talise-spa-8_6-4_landscape__square_riledi.avif"
         },
         {
-            heading: "Talise Fitness at Jumeirah Beach Hotel",
+          description1: "Talise Fitness at Jumeirah Beach Hotel",
             miniHeading: "wellness",
-            description: "A sensory journey from land to sea, at Jumeirah Beach Hotel.",
+            description2: "A sensory journey from land to sea, at Jumeirah Beach Hotel.",
             image: "https://res.cloudinary.com/dhcvbjebj/image/upload/v1679382615/thepeakfitnessclubandspaswimmingpool_web__square_1_qivazp.avif"
         },
     ]

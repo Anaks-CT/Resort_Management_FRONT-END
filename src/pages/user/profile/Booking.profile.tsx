@@ -4,12 +4,14 @@ import { Header2 } from "../../../components/User/Header/Header";
 import ProfileNavbar from "../../../components/User/ProfileNavbar";
 import BookingDetailsProfile from "../../../components/User/BookingDetailsProfile";
 import Button from "../../../components/UI/Button";
+import { useNavigate } from "react-router-dom";
 
 function BookingDetailsPage() {
   // background image style
   const style = {
     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.0),rgba(0, 0, 0, 0.5)), url("https://res.cloudinary.com/dhcvbjebj/image/upload/v1683088154/wallpaperflare.com_wallpaper_1_txni0h.jpg")`,
   };
+  const navigate = useNavigate()
   return (
     <>
       <ProfileSidebar />
@@ -30,9 +32,11 @@ function BookingDetailsPage() {
                 YOUR BOOKINGS
               </div>
               <div className="text-white grid gap-6 mt-10 p-2 max-h-[440px] overflow-y-auto scroll-0 rounded">
-                <BookingDetailsProfile />
-                <BookingDetailsProfile />
                 
+                {/* <div className="text-center text-sm">You don't have any bookings !!</div>
+                <div className="text-center"><Button class="text-sm md:w-44 w-full" onClick={navigate} OnClickItem={'/booking/explore'} color="premium">BOOK ROOMS</Button></div> */}
+                
+                <BookingDetailsProfile />
               </div>
             </div>
           </div>

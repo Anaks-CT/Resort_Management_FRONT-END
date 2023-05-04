@@ -10,7 +10,7 @@ type props = {
     bookingOverViewRoomDetails: any[];
   };
 
-function BookingDetails({form1Values, bookingOverViewRoomDetails}: props) {
+function BookingSummary({form1Values, bookingOverViewRoomDetails}: props) {
 
   const userToken = useSelector((state: IStore) => state.userAuth.token)
     const totalGuests = form1Values?.roomDetail.reduce(
@@ -33,7 +33,7 @@ function BookingDetails({form1Values, bookingOverViewRoomDetails}: props) {
     <div className=" px-7 self-center  w-full  my-5">
             <div className="bg-white p-5 lg:p-10 font-sans text-sm rounded shadow divide-y lg:justify-between lg:divide-x lg:divide-y-0 flex flex-col gap-3 lg:flex-row">
                 <div className='lg:w-2/5'>
-                  <h2 className="text-center text-2xl mb-10 font-sans tracking-wide font-semibold uppercase ">Booking Details</h2>
+                  <h2 className="text-center text-2xl mb-10 font-sans tracking-wide font-semibold uppercase ">Booking Summary</h2>
                   <div className="flex justify-between">
                     <span>Resort Name :</span>
                     <span className="w-1/2">{form1Values?.destination.name}</span>
@@ -95,4 +95,4 @@ function BookingDetails({form1Values, bookingOverViewRoomDetails}: props) {
   )
 }
 
-export default BookingDetails
+export default BookingSummary

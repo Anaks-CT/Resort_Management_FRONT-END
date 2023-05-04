@@ -18,7 +18,6 @@ import NewPasswordPage from "./user/NewPasswordPage";
 import BookingDetailsPage from "./user/profile/Booking.profile";
 import MemberPage from "./user/profile/Member.profile";
 import PersonalPage from "./user/profile/Personal.profile";
-import RoomServicePage from "./user/profile/RoomService.profile";
 import WishlistPage from "./user/profile/Wishlist.profile";
 
 ////////////////////////////////// manager //////////////////////////////
@@ -62,7 +61,6 @@ export {
   BookingDetailsPage,
   MemberPage,
   PersonalPage,
-  RoomServicePage,
   WishlistPage
 };
 

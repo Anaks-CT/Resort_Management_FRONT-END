@@ -43,7 +43,7 @@ function CircleBanner({ data, invert }: props) {
         onClick={previousCarousel}
       />
       <div
-        className="rounded-full bg-red-200 lg:w-[470px] lg:h-[470px] mt-10 md:mt-0 w-[350px] h-[350px] bg-cover"
+        className="rounded-full bg-red-200 lg:w-[470px] lg:h-[470px] mt-10 md:mt-0 w-[325px] h-[325px] bg-cover"
         style={style}
       ></div>
       <HiChevronRight

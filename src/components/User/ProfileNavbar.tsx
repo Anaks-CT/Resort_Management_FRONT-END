@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
-type currentNav = "profile" | "member" | "booking" | "service" | "wishlist"
+type currentNav = "profile" | "member" | "booking" | "wishlist"
 
 type props = {
     currentNav: currentNav
@@ -15,7 +15,6 @@ function ProfileNavbar({currentNav}: props) {
         <div className={`${currentNav==='profile' && className} cursor-pointer`} onClick={() => navigate('/profile')}>Personal</div>
         <div className={`${currentNav==='member' && className} cursor-pointer`} onClick={() => navigate('/profile/member')}>Member</div>
         <div className={`${currentNav==='booking' && className} cursor-pointer`} onClick={() => navigate('/profile/bookings')}>Booking</div>
-        <div className={`${currentNav==='service' && className} cursor-pointer`} onClick={() => navigate('/profile/roomservice')}>Room Service</div>
         <div className={`${currentNav==='wishlist' && className} cursor-pointer`} onClick={() => navigate('/profile/wishlist')}>Wishlist</div>
     </div>
   )

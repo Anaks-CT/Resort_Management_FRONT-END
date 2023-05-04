@@ -16,7 +16,6 @@ import {
   PersonalPage, 
   ResortHomePage, 
   ResortsListPage, 
-  RoomServicePage, 
   SignupPage, 
   WellnessPage, 
   WishlistPage
@@ -40,9 +39,7 @@ function UserRouter() {
   useEffect(() => {
     if(userToken){
       checkUserCredentialApi( userToken) 
-        .then(res => {
-          setAuth(res.data.message)})
-    
+        .then(res => setAuth(res.data.message))
         .catch(err => {
           navigate('/login')
           dispatch(removeUserToken())
@@ -67,14 +64,13 @@ function UserRouter() {
       <Route path="/forgotPassword/otp-verify" element={CheckAuthRoute(<ForgotPasswordOtpVerifyPage />)} />
       <Route path="/forgotPassword/setNewPassword" element={CheckAuthRoute(<NewPasswordPage />)} />
 
-      <Route path="/booking/explore" element={auth ? (<BookingForm1 />) : <Navigate to={'/login'}/>} />
-      <Route path="/booking/stay" element={auth ? (<BookingStayPage />) : <Navigate to={'/login'}/>} />
-      <Route path="/booking/confirm" element={auth ? (<BookingConfirmPage />) : <Navigate to={'/login'}/>} />
-      <Route path="/profile" element={auth ? (<PersonalPage />) : <Navigate to={'/login'}/>} />
-      <Route path="/profile/member" element={auth ? (<MemberPage />) : <Navigate to={'/login'}/>} />
-      <Route path="/profile/bookings" element={auth ? (<BookingDetailsPage />) : <Navigate to={'/login'}/>} />
-      <Route path="/profile/wishlist" element={auth ? (<WishlistPage />) : <Navigate to={'/login'}/>} />
-      <Route path="/profile/roomservice" element={auth ? (<RoomServicePage />) : <Navigate to={'/login'}/>} />
+      <Route path="/booking/explore" element={!auth ? (<BookingForm1 />) : <Navigate to={'/login'}/>} />
+      <Route path="/booking/stay" element={!auth ? (<BookingStayPage />) : <Navigate to={'/login'}/>} />
+      <Route path="/booking/confirm" element={!auth ? (<BookingConfirmPage />) : <Navigate to={'/login'}/>} />
+      <Route path="/profile" element={!auth ? (<PersonalPage />) : <Navigate to={'/login'}/>} />
+      <Route path="/profile/member" element={!auth ? (<MemberPage />) : <Navigate to={'/login'}/>} />
+      <Route path="/profile/bookings" element={!auth ? (<BookingDetailsPage />) : <Navigate to={'/login'}/>} />
+      <Route path="/profile/wishlist" element={!auth ? (<WishlistPage />) : <Navigate to={'/login'}/>} />
 
       <Route path="/*" element={<NotFoundPage />} />
     </Routes>

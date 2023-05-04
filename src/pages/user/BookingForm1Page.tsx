@@ -113,14 +113,14 @@ function BookingForm1Page() {
     setLoading(true)
     setTimeout(() => {
       getAvailableRoomsApi(values, userToken)
-      .then(res => {
+      .then(res => 
         navigate('/booking/stay',{
           state: {
             data: res.data.data,
             bookingForm1: values
           }
         })
-      })
+      )
       .catch(err => {
         if(err.response.status === 401) {
           logout()

@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import BookingDetails from '../../components/User/booking/BookingDetails'
 import MiniHeader from '../../components/User/Header/MiniHeader'
 import BookingProgress from '../../components/User/BookingProgress'
+import BookingSummary from '../../components/User/booking/BookingSummary'
 
 function BookingConfirmPage() {
   useEffect(() => {
@@ -32,7 +32,7 @@ function BookingConfirmPage() {
           </div>
           
         </div>
-    <BookingDetails bookingOverViewRoomDetails={bookingOverViewRoomDetails} form1Values={form1} />
+    <BookingSummary bookingOverViewRoomDetails={bookingOverViewRoomDetails} form1Values={form1} />
 
 
     </div>

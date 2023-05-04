@@ -13,7 +13,7 @@ type props = {
 
 function ProfileDetails({formik, user}: props) {
   return (
-    <div className="border border-premium md:border-2 my-5 max-w-[900px] lg:w-[900px] min-w-[600px]">
+    <div className="border border-premium md:border-2 my-5 max-w-[900px] lg:w-[900px] md:min-w-[600px]">
             <div className="p-5 bg-white bg-opacity-25">
               <div className="text-white md:flex justify-between md:divide-x gap-10">
                 <div className="w-full">

@@ -2,7 +2,7 @@ import className from "classnames";
 
 type props = {
   children: React.ReactNode;
-  color: "transparent" | "white" | "premium" | "black" | "success" | "danger" | "primary";
+  color: "transparent" | "white" | "premium" | "black" | "success" | "danger" | "primary" | "grey";
   outline?: boolean;
   rounded?: boolean;
   disable?: boolean;
@@ -30,6 +30,8 @@ function Button({
     switch (color) {
       case "premium":
         return "bg-premium px-3 py-2 text-white";
+      case "grey":
+        return "bg-black bg-opacity-20"
       case "transparent":
         return "bg-black bg-opacity-50 px-3 py-2 text-white";
       case "white":

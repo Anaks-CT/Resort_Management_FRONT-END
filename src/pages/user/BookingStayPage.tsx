@@ -54,11 +54,13 @@ function BookingStayPage() {
   const roomList: any = [];
   form1?.roomDetail?.forEach((item: any) => {
     availableRoomTypes.forEach((roomType: any) => {
-      if (item === roomType[0].maxPeople || item === roomType[0].maxPeople+1 ) {
+      if (item === roomType[0].maxPeople || item === roomType[0].maxPeople-1 ) {
         roomList.push(roomType);
       }
     });
   });
+
+  console.log(roomList, availableRoomTypes, form1.roomDetail);
 
   // state for accessing the Selected room details by the user
   const [bookingOverViewRoomDetails, setBookingOverViewRoomDetails] = useState<

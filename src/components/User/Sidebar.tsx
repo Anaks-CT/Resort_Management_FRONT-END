@@ -23,11 +23,6 @@ function ProfileSidebar() {
       },
       {
         _id: "4",
-        name: "Room Service",
-        onClick: () => navigate('/profile/roomservice'),
-      },
-      {
-        _id: "5",
         name: "Wishlist",
         onClick: () => navigate('/profile/wishlist'),
       },
