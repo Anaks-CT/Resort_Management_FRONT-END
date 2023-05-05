@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { AiOutlineCaretDown, AiOutlineCaretUp } from "react-icons/ai";
 import { HiArrowLongLeft } from "react-icons/hi2";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Button from "../../UI/Button";
 import { IBookingForm1 } from "../../../interface/booking.interface";
 import { getDateInRange } from "../../../helpers/getDatesInRange";
+import { addToWishlistApi } from "../../../api/user.api";
+import { useSelector } from "react-redux";
+import { IStore } from "../../../interface/slice.interface";
+import { toastMessage } from "../../../helpers/toast";
 
 type props = {
   viewOverView: boolean;
@@ -14,9 +18,9 @@ type props = {
   toggleViewRate: boolean;
   handleViewRateToggle: () => void;
   bookingOverViewRoomDetails: any[];
-  setRoomListArrayNumber: React.Dispatch<React.SetStateAction<number>>
-  setBookingOverViewRoomDetails: React.Dispatch<React.SetStateAction<any[]>>
-  setToggleViewRate:  React.Dispatch<React.SetStateAction<boolean>>
+  setRoomListArrayNumber: React.Dispatch<React.SetStateAction<number>>;
+  setBookingOverViewRoomDetails: React.Dispatch<React.SetStateAction<any[]>>;
+  setToggleViewRate: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 function BookingOverview({
@@ -28,9 +32,8 @@ function BookingOverview({
   bookingOverViewRoomDetails,
   setRoomListArrayNumber,
   setBookingOverViewRoomDetails,
-  setToggleViewRate
+  setToggleViewRate,
 }: props) {
-
   const navigate = useNavigate();
   const totalRooms = form1Values?.roomDetail.length;
   const totalGuests = form1Values?.roomDetail.reduce(
@@ -43,28 +46,48 @@ function BookingOverview({
     form1Values?.date.endDate as any
   );
 
-  
+  const location = useLocation()
+
   const handleEditSelectedRoom = () => {
     // initializing the room selection
 
     // roomlist 1 details
-    setRoomListArrayNumber(0)
+    setRoomListArrayNumber(0);
     // initializing the booking overview with empty array
-    setBookingOverViewRoomDetails([])
+    setBookingOverViewRoomDetails([]);
     // toggling the showrates button to false if the user clicked edit room when showing the rates of the rooom
-    setToggleViewRate(false)
-  }
+    setToggleViewRate(false);
+  };
 
-  // rendering the selected room details in the overview 
+  // rendering the selected room details in the overview
   const selectedRoomDetails = bookingOverViewRoomDetails?.map((item, i) => (
-    <div key={item} className="text-xs border-b tracking-wide p-2  lg:py-5  font-sans flex justify-between">
+    <div
+      key={item}
+      className="text-xs border-b tracking-wide p-2  lg:py-5  font-sans flex justify-between"
+    >
       <div className="font-black lg:font-medium flex md:gap-3 flex-col">
         <span>{item.roomName.toUpperCase()}</span>
         <span>{item.packageName.toUpperCase()}</span>
-        <span>COST - {item.packageCost.toLocaleString('en-IN')} INR</span>
+        <span>COST - {item.packageCost.toLocaleString("en-IN")} INR</span>
       </div>
     </div>
   ));
+
+  const [loading, setLoading] = useState(false);
+  const userToken = useSelector((state: IStore) => state.userAuth.token);
+  const addToWishlist = () => {
+    if(!location.state.wishlist){
+      setLoading(true);
+      addToWishlistApi(userToken, form1Values)
+        .then((res) =>
+          navigate("/profile/wishlist", { state: { message: res.data.message } })
+        )
+        .catch((err) => toastMessage("error", err?.response?.data?.message))
+        .finally(() => setLoading(false));
+    }else{
+      toastMessage('warning', "Dates already in your wishlist")
+    }
+  };
 
   return (
     <div className="px-7 py-3 overflow-y-auto fixed top-0 lg:max-w-xs lg:h-screen right-0 pt-8 text-white lg:opacity-90 bg-[#323232] border border-r-0 border-b-0 border-l-0 border-t-white w-screen ">
@@ -136,14 +159,32 @@ function BookingOverview({
             </Link>
           </div>
           {selectedRoomDetails}
-          {bookingOverViewRoomDetails.length !== 0 && <div onClick={handleEditSelectedRoom} className="text-blue-400 text-center p-3 cursor-pointer">EDIT ROOM</div>}
+          {bookingOverViewRoomDetails.length !== 0 && (
+            <div
+              onClick={handleEditSelectedRoom}
+              className="text-blue-400 text-center p-3 cursor-pointer"
+            >
+              EDIT ROOM
+            </div>
+          )}
+          {loading && (
+            <div className="flex justify-center">
+              <img
+                width={50}
+                src="https://res.cloudinary.com/dhcvbjebj/image/upload/v1680669482/Spinner-1s-200px_4_ontbds.gif"
+                alt=""
+              />
+            </div>
+          )}
           <div className="w-full">
             <Button
+              onClick={addToWishlist}
               class="w-full mt-5 lg:mt-8 mb-2 text-sm"
               color="transparent"
               outline
+              disable={!!loading}
             >
-              SAVE FOR LATER
+              SAVE THE DATES
             </Button>
           </div>
         </div>

@@ -1,10 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from '../../UI/Button'
 import { IBookingForm1 } from '../../../interface/booking.interface';
-import { bookingForm1APi } from '../../../api/booking.api';
+import { bookingForm1APi, verifyBookingAPi } from '../../../api/booking.api';
 import { useSelector } from 'react-redux';
 import { IStore } from '../../../interface/slice.interface';
-
+import { useNavigate } from 'react-router-dom';
+import { useUserLogout } from '../../../hooks/useLogout';
+import { toastMessage } from '../../../helpers/toast';
+declare global {
+  interface Window {
+    Razorpay: any;
+  }
+}
 type props = {
     form1Values: IBookingForm1;
     bookingOverViewRoomDetails: any[];
@@ -12,18 +19,92 @@ type props = {
 
 function BookingSummary({form1Values, bookingOverViewRoomDetails}: props) {
 
+  const [error, setError] = useState('')
   const userToken = useSelector((state: IStore) => state.userAuth.token)
     const totalGuests = form1Values?.roomDetail.reduce(
         (acc, cur) => (acc += +cur),
         0
       );
 
-    const handleSubmitBooking = () => {
-        bookingForm1APi(form1Values, bookingOverViewRoomDetails, userToken)
-        .then(res => console.log(res))
-        .catch(err => console.log(err))
+        // razorpay payment
+  async function loadScript(src: string) {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+      document.body.appendChild(script);
+    });
+  }
 
+  const logout = useUserLogout()
+  const navigate = useNavigate()
+
+  const handleSubmitBooking = async() => {
+  
+    try {
+      await loadScript("https://checkout.razorpay.com/v1/checkout.js");
+  
+      try {
+        const { data } = await bookingForm1APi(form1Values, bookingOverViewRoomDetails, userToken)
+        const {data: razorPayOrderDetails, bookingId} = data
+        console.log(data);
+        const options = {
+          key: "rzp_test_LW8S6IZVTSmO7B",
+          currency: razorPayOrderDetails.currency,
+          amount: razorPayOrderDetails.amount.toString(),
+          order_id: razorPayOrderDetails.id,
+          name: "TRINITY",
+  
+          handler: async function (response: any) {
+            const paymentData = {
+              orderCreationId: razorPayOrderDetails.id,
+              razorpayPaymentId: response.razorpay_payment_id,
+              razorpayOrderId: response.razorpay_order_id,
+              razorpaySignature: response.razorpay_signature,
+              bookingId: bookingId,
+            };
+  
+            verifyBookingAPi(paymentData)
+              .then(res => {console.log('go to prfofie'); navigate('/profile/booking')})
+              .catch(err => console.log(err))
+  
+          },
+          prefill: {
+            name: "Anaks CT",
+            email: "anyEmail",
+            phone_number: "user?.mobile",
+          },
+        };
+  
+        const paymentObject = new window.Razorpay(options);
+  
+        // set the timeout for 10 minutes (600,000 milliseconds)
+        // setTimeout(() => {
+        //   paymentObject.close(); // close the Razorpay payment modal
+        //   paymentObject.destroy(); 
+        //   setError("Your payment session has timed out due to inactivity. Please try again.")
+        // }, 10000);
+  
+        paymentObject.open();
+      } catch (error: any) {
+        console.log(error);
+        if(error?.response?.status === 401) {
+          logout()
+          toastMessage("error", error?.response?.data.message)
+        }
+        setError(error.response.data.message)
+      }
+    } catch (error: any) {
+      setError(error)
     }
+  };
+
+    
 
     const totalRoomCost = bookingOverViewRoomDetails?.reduce((acc,cur) => (acc+=cur.packageCost),0)
     const taxCost = Math.floor(totalRoomCost*22/100)
@@ -88,6 +169,7 @@ function BookingSummary({form1Values, bookingOverViewRoomDetails}: props) {
                 <div className="mx-auto w-1/2 mt-5">
                   <Button onClick={handleSubmitBooking} class="w-full" outline color="premium" >BOOK NOW</Button>
                   <div className='text-[9px]'>*I will present a valid ID during CHECK-IN. I also agree to the terms & conditions.</div>
+                  <div className='text-center text-red-500'>{error}</div>
                 </div>
               </div>
             </div>

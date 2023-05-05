@@ -1,4 +1,6 @@
 import axios from "../config/api";
+import { setApiHeader } from "../helpers/apiHeader";
+import { IBookingForm1 } from "../interface/booking.interface";
 import { Iuser, ILoginInterface } from "../interface/user.interface";
 
 
@@ -23,3 +25,12 @@ export const forgotPasswordVerifyOtpApi = (otp: string, phoneNumber: string) =>
 
 export const setNewPasswordApi = (email: string, passwordDetails: {password: string, cPassword: string}) => 
   axios.put(`/forgotPassword?email=${email}`,passwordDetails)
+
+export const addToWishlistApi = (token: string, wishlistDetails: IBookingForm1) => 
+  axios.post(`/wishlist`,{wishlistDetails: wishlistDetails}, setApiHeader(token))
+
+export const getWishlistOfUserApi = (token: string) => 
+  axios.get(`/wishlist`, setApiHeader(token))
+
+export const deleteWishlistApi = (token: string, wishlistId: string) => 
+  axios.delete(`/wishlist/${wishlistId}`, setApiHeader(token))

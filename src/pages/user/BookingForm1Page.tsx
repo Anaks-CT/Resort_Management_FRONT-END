@@ -58,12 +58,14 @@ function BookingForm1Page() {
   const [openDate, setOpenDate] = useState<boolean>(false);
   // initialzing the date with start date today and end date tomoro
   const today = new Date();
-  const tomorrow = new Date(today);
-  tomorrow.setDate(tomorrow.getDate() + 1);
+  today.setUTCHours(18);
+today.setUTCMinutes(30);
+today.setUTCSeconds(0);
+today.setUTCMilliseconds(0);
   const [date, setDate] = useState([
     {
-      startDate: tomorrow,
-      endDate: tomorrow,
+      startDate: today,
+      endDate: today,
       key: "selection",
     },
   ]);
@@ -110,6 +112,7 @@ function BookingForm1Page() {
 
   // formik submit function
   const formikSubmit = (values: IBookingForm1) => {
+    console.log(values);
     setLoading(true)
     setTimeout(() => {
       getAvailableRoomsApi(values, userToken)

@@ -60,7 +60,6 @@ function BookingStayPage() {
     });
   });
 
-  console.log(roomList, availableRoomTypes, form1.roomDetail);
 
   // state for accessing the Selected room details by the user
   const [bookingOverViewRoomDetails, setBookingOverViewRoomDetails] = useState<

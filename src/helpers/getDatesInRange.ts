@@ -1,4 +1,4 @@
-export const getDateInRange = (startDate: number, endDate: number) => {
+export const getDateInRange = (startDate: any, endDate: any) => {
     const start = new Date(startDate)
     const end = new Date(endDate)
     start.setDate(start.getDate() + 1)

@@ -1,16 +1,33 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import ProfileSidebar from "../../../components/User/Sidebar";
 import { Header2 } from "../../../components/User/Header/Header";
 import ProfileNavbar from "../../../components/User/ProfileNavbar";
 import BookingDetailsProfile from "../../../components/User/BookingDetailsProfile";
 import Button from "../../../components/UI/Button";
 import { useNavigate } from "react-router-dom";
+import { getUserBookingDetailsApi } from "../../../api/booking.api";
+import { useSelector } from "react-redux";
+import { IStore } from "../../../interface/slice.interface";
+import { IBooking } from "../../../interface/booking.interface";
 
 function BookingDetailsPage() {
   // background image style
   const style = {
     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.0),rgba(0, 0, 0, 0.5)), url("https://res.cloudinary.com/dhcvbjebj/image/upload/v1683088154/wallpaperflare.com_wallpaper_1_txni0h.jpg")`,
   };
+
+  const [bookingDetails, setBookingDetails] = useState<IBooking>()
+  const userToken = useSelector((state: IStore) => state.userAuth.token)
+
+  console.log(bookingDetails);
+
+  useEffect(() => {
+    getUserBookingDetailsApi(userToken)
+      .then(res => setBookingDetails(res.data.data))
+    
+  }, [])
+  
+  
   const navigate = useNavigate()
   return (
     <>
