@@ -34,7 +34,36 @@ export interface IBooking{
         pointsUsed: number,
         totalCost: number,
     },
-    status?: boolean
-    paymentSuccess?: boolean
 
+}
+
+export interface IBookingDetail{
+    BookingDate: string
+    amount:IAmountDetail
+    checkInDate: string
+    checkOutDate: string
+    createdAt: string
+    email: string
+    name: string
+    phone: number
+    resortName: string
+    roomDetail: IRoomDetails[]
+    _id: string
+}
+
+export interface IAmountDetail {
+    pointsUsed: number
+    taxCost: number
+    totalCost: number
+    totalRoomCost: number
+}
+
+export interface IRoomDetails{
+    packageCost: number
+    packagename: string
+    roomId: string
+    roomName: string
+    roomNumber: string
+    roomTypeId: string
+    _id: string
 }

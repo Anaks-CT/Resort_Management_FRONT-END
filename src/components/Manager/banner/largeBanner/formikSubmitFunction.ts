@@ -60,12 +60,8 @@ import { toastMessage } from "../../../../helpers/toast";
               seterror("Image not stored in the database");
             });
         })
-        .catch((err) => {
-          seterror("Image not uploaded to cloudinary");
-        })
-        .finally(() => {
-          setloading(false);
-        });
+        .catch((err) => seterror("Image not uploaded to cloudinary"))
+        .finally(() => setloading(false));
     } else if (type === "editDes") {
       editLargeBannerDetailsApi(
         resortId,
@@ -92,9 +88,7 @@ import { toastMessage } from "../../../../helpers/toast";
           if(err.response.status === 401) logout()
           seterror("Image not stored in the database");
         })
-        .finally(() => {
-          setloading(false);
-        });
+        .finally(() => setloading(false));
     } else if (type === "editImage") {
       // putting the loading button
       setloading(true);
@@ -129,11 +123,7 @@ import { toastMessage } from "../../../../helpers/toast";
               seterror("Image not stored in the database");
             });
         })
-        .catch((err) => {
-          seterror("Image not uploaded to cloudinary");
-        })
-        .finally(() => {
-          setloading(false);
-        });
+        .catch((err) => seterror("Image not uploaded to cloudinary"))
+        .finally(() => setloading(false));
     }
   }

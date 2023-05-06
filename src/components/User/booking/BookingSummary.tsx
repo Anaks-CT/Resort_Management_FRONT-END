@@ -52,7 +52,6 @@ function BookingSummary({form1Values, bookingOverViewRoomDetails}: props) {
       try {
         const { data } = await bookingForm1APi(form1Values, bookingOverViewRoomDetails, userToken)
         const {data: razorPayOrderDetails, bookingId} = data
-        console.log(data);
         const options = {
           key: "rzp_test_LW8S6IZVTSmO7B",
           currency: razorPayOrderDetails.currency,
@@ -70,7 +69,7 @@ function BookingSummary({form1Values, bookingOverViewRoomDetails}: props) {
             };
   
             verifyBookingAPi(paymentData)
-              .then(res => {console.log('go to prfofie'); navigate('/profile/booking')})
+              .then(res => navigate('/profile/bookings'))
               .catch(err => console.log(err))
   
           },
@@ -92,7 +91,6 @@ function BookingSummary({form1Values, bookingOverViewRoomDetails}: props) {
   
         paymentObject.open();
       } catch (error: any) {
-        console.log(error);
         if(error?.response?.status === 401) {
           logout()
           toastMessage("error", error?.response?.data.message)

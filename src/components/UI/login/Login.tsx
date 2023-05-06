@@ -89,12 +89,6 @@ function Login({ onSubmit, message, loading }: props) {
       >
         Forgot Password ?
       </div>
-      <div
-        className="text-white cursor-pointer pt-3"
-        onClick={() => navigate("/profile/roomservice")}
-      >
-       profile
-      </div>
     </div>
   );
 }

@@ -34,3 +34,9 @@ export const getWishlistOfUserApi = (token: string) =>
 
 export const deleteWishlistApi = (token: string, wishlistId: string) => 
   axios.delete(`/wishlist/${wishlistId}`, setApiHeader(token))
+
+export const getUserDetailsApi = (token: string) =>
+  axios.get('/',setApiHeader(token))
+
+export const updateUserDetailsApi = (token: string,  name: string, image?: string,) => 
+  axios.patch('/',{updateDetails: {image, name}},setApiHeader(token))
