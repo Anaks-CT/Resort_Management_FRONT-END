@@ -1,20 +1,23 @@
 import React, { useEffect, useState, useRef } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { IStore } from "../../../interface/slice.interface";
+import { useUserLogout } from "../../../hooks/useLogout";
 
 export function Header2() {
-
+  const location = useLocation();
   const userToken = useSelector((state: IStore) => state.userAuth.token);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [menuToggler, setToggle] = useState(false);
   const [scrolldown, setscrolldown] = useState(false);
   const handleToggle = () => {
     setToggle(!menuToggler);
   };
-  ////////////////////////////////////// togging the meny toggle according to window size//////////////////////////////////////
 
+  // logout hook
+  const logout = useUserLogout()
+  ////////////////////////////////////// togging the meny toggle according to window size//////////////////////////////////////
   useEffect(() => {
     window.innerWidth > 768 && setToggle(true);
     window.addEventListener("resize", () => {
@@ -57,22 +60,33 @@ export function Header2() {
       >
         <div className="w-96 flex justify-between items-center md:mr-10">
           {/* link tag */}{" "}
-          <p className="text-white md:text-md text-[12px]">RETRIVE BOOKING</p>
+          <p className="text-white md:text-md text-[12px] cursor-pointer" onClick={()=>navigate('/profile/bookings')}>RETRIVE BOOKING</p>
           <div className="flex gap-3">
-          {userToken ? (
-            <Link to={"/profile"}>
-            <p className="text-blue-200 md:text-md text-[12px]">PROFILE</p>
-          </Link>
-          ) : (
-            <>
-              <Link to={"/login"}>
-                <p className="text-blue-200 md:text-md text-[12px]">LOGIN</p>
-              </Link>
-              <Link to={"/signup"}>
-                <p className="text-blue-200 md:text-md text-[12px]">JOIN NOW</p>
-              </Link>
-            </>
-          )}
+            {userToken ? (
+              <>
+                {location.pathname === "/profile" ||
+                location.pathname.startsWith("/profile/") ? (
+                  <p className="text-blue-200 md:text-md text-[12px] cursor-pointer" onClick={() => logout()}>LOGOUT</p>
+                ) : (
+                  <Link to={"/profile"}>
+                    <p className="text-blue-200 md:text-md text-[12px]">
+                      PROFILE
+                    </p>
+                  </Link>
+                )}
+              </>
+            ) : (
+              <>
+                <Link to={"/login"}>
+                  <p className="text-blue-200 md:text-md text-[12px]">LOGIN</p>
+                </Link>
+                <Link to={"/signup"}>
+                  <p className="text-blue-200 md:text-md text-[12px]">
+                    JOIN NOW
+                  </p>
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -95,7 +109,7 @@ export function Header2() {
             <>
               <div
                 className={`md:w-1/5 w-screen pb-5 md:pb-0 items-center flex justify-start md:justify-end text-white text-md md:text-lg tracking-wide cursor-pointer`}
-                onClick={() => navigate('/resorts')}
+                onClick={() => navigate("/resorts")}
               >
                 RESORTS
               </div>
@@ -116,7 +130,10 @@ export function Header2() {
             </>
           )}
           <div className="absolute top-5 right-20">
-            <Link to={userToken ? '/booking/explore' : "/login"} className="text-white md:text-lg text-sm bg-premium p-2 rounded-lg" >
+            <Link
+              to={userToken ? "/booking/explore" : "/login"}
+              className="text-white md:text-lg text-sm bg-premium p-2 rounded-lg"
+            >
               BOOKING
             </Link>
           </div>

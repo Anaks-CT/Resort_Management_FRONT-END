@@ -40,3 +40,4 @@ export const getUserDetailsApi = (token: string) =>
 
 export const updateUserDetailsApi = (token: string,  name: string, image?: string,) => 
   axios.patch('/',{updateDetails: {image, name}},setApiHeader(token))
+

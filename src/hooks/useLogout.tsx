@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { removeAdminToken } from '../store/slices/adminTokenSlice'
 import { removeUserToken } from '../store/slices/userTokenSlice'
+import { toastMessage } from '../helpers/toast'
 
 export function useAdminLogout() {
   const navigate = useNavigate()
@@ -22,6 +23,7 @@ export function useUserLogout() {
   const logout = () => {
     dispatch(removeUserToken())
     navigate('/login')
+    toastMessage("success", "You have been logged out")
   }
 
   return logout

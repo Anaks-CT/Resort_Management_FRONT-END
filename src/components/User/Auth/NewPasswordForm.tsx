@@ -69,7 +69,7 @@ function NewPasswordForm({ email }: props) {
         outline
         color="transparent"
       >
-        LOG IN
+        SAVE CHANGES
       </Button>
       {loading && (
         <div className="flex justify-center">
