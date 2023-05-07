@@ -19,6 +19,11 @@ type props = {
 
 function BookingSummary({form1Values, bookingOverViewRoomDetails}: props) {
 
+
+  // navigating to booking/explore page if someone clicked browser back after payment
+
+
+
   const [error, setError] = useState('')
   const userToken = useSelector((state: IStore) => state.userAuth.token)
     const totalGuests = form1Values?.roomDetail.reduce(
@@ -43,10 +48,11 @@ function BookingSummary({form1Values, bookingOverViewRoomDetails}: props) {
 
   const logout = useUserLogout()
   const navigate = useNavigate()
-
+  const [loading, setLoading] = useState(false)
   const handleSubmitBooking = async() => {
   
     try {
+      setLoading(true)
       await loadScript("https://checkout.razorpay.com/v1/checkout.js");
   
       try {
@@ -69,8 +75,9 @@ function BookingSummary({form1Values, bookingOverViewRoomDetails}: props) {
             };
   
             verifyBookingAPi(paymentData)
-              .then(res => navigate('/profile/bookings'))
+              .then(res => navigate('/profile/bookings', {state: {prevPath: "booking"}}))
               .catch(err => console.log(err))
+              .finally(()=>setLoading(false))
   
           },
           prefill: {
@@ -78,6 +85,11 @@ function BookingSummary({form1Values, bookingOverViewRoomDetails}: props) {
             email: "anyEmail",
             phone_number: "user?.mobile",
           },
+          modal: {
+            "ondismiss": function(){
+                 setLoading(false)
+             }
+        }
         };
   
         const paymentObject = new window.Razorpay(options);
@@ -165,7 +177,7 @@ function BookingSummary({form1Values, bookingOverViewRoomDetails}: props) {
                   <div className='text-4xl font-bold text-center mb-2'><span className='text-lg font-normal'>INR</span> {payableAmount.toLocaleString('en-IN')}</div>
                 </div>
                 <div className="mx-auto w-1/2 mt-5">
-                  <Button onClick={handleSubmitBooking} class="w-full" outline color="premium" >BOOK NOW</Button>
+                  <Button onClick={handleSubmitBooking} class="w-full" outline color="premium" disable={loading}>BOOK NOW</Button>
                   <div className='text-[9px]'>*I will present a valid ID during CHECK-IN. I also agree to the terms & conditions.</div>
                   <div className='text-center text-red-500'>{error}</div>
                 </div>

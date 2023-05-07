@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import Button from "../UI/Button";
-import { IWishlist } from "../../interface/wishlist.interface";
-import { getDateInRange } from "../../helpers/getDatesInRange";
+import Button from "../../UI/Button";
+import { IWishlist } from "../../../interface/wishlist.interface";
+import { getDateInRange } from "../../../helpers/getDatesInRange";
 import { BsTrash } from "react-icons/bs";
-import { deleteWishlistApi } from "../../api/user.api";
+import { deleteWishlistApi } from "../../../api/user.api";
 import { useSelector } from "react-redux";
-import { IStore } from "../../interface/slice.interface";
-import { toastMessage } from "../../helpers/toast";
-import { getAvailableRoomsApi } from "../../api/room.api";
+import { IStore } from "../../../interface/slice.interface";
+import { toastMessage } from "../../../helpers/toast";
+import { getAvailableRoomsApi } from "../../../api/room.api";
 import { useNavigate } from "react-router-dom";
-import { useUserLogout } from "../../hooks/useLogout";
+import { useUserLogout } from "../../../hooks/useLogout";
 
 type props = {
   singleWishlist: IWishlist;

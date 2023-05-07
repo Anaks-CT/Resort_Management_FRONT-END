@@ -88,6 +88,7 @@ function HomePage() {
       <div className="flex justify-center items-center gap-10 p-7">
         {width > 1046 && (
           <Cards
+            resortDetails={resortDetails && resortDetails[0]}
             image={resortDetails && resortDetails[0].resortDetails.image}
             heading={resortDetails && resortDetails[0].resortDetails.heading}
             description={
@@ -97,13 +98,14 @@ function HomePage() {
           />
         )}
         <div className="pt-36">
-          <div className="flex flex-col gap-3 mb-28">
+          <div className="flex flex-col gap-3 mb-10 lg:mb-28">
             <h4 className="text-white text-center tracking-wide">OFFERS</h4>
             <h4 className="text-white text-center tracking-wide">
               For Our Valued Guests
             </h4>
           </div>
           <Cards
+          resortDetails={resortDetails && resortDetails[1]}
             image={resortDetails && resortDetails[1].resortDetails.image}
             heading={resortDetails && resortDetails[1].resortDetails.heading}
             description={
@@ -114,6 +116,7 @@ function HomePage() {
         </div>
         {width > 1046 && (
           <Cards
+          resortDetails={resortDetails && resortDetails[2]}
             image={resortDetails && resortDetails[2].resortDetails.image}
             heading={resortDetails && resortDetails[2].resortDetails.heading}
             description={

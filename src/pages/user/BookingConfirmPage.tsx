@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import MiniHeader from '../../components/User/Header/MiniHeader'
-import BookingProgress from '../../components/User/BookingProgress'
 import BookingSummary from '../../components/User/booking/BookingSummary'
+import BookingProgress from '../../components/User/booking/BookingProgress'
 
 function BookingConfirmPage() {
   useEffect(() => {

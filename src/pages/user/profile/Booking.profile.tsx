@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import BookingDetailsProfile from "../../../components/User/BookingDetailsProfile";
+import BookingDetailsProfile from "../../../components/User/profile/BookingDetailsProfile";
 import Button from "../../../components/UI/Button";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getUserBookingDetailsApi } from "../../../api/booking.api";
 import { useSelector } from "react-redux";
 import { IStore } from "../../../interface/slice.interface";
@@ -15,14 +15,25 @@ function BookingDetailsPage() {
     <BookingDetailsProfile bookingDetail={item} />
   ));
 
+  const location = useLocation()
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     setLoading(true);
     getUserBookingDetailsApi(userToken)
       .then((res) => setBookingDetails(res.data.data))
       .finally(() => setLoading(false));
+
+
       // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    window.onpopstate = e => {
+      if(location?.state?.prevPath === "booking"){
+        navigate('/booking/explore')
+      }
+    };
+  });
 
   const navigate = useNavigate();
   return (

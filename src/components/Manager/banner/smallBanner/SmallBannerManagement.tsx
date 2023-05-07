@@ -1,8 +1,6 @@
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
-import {
-  IBannerDetails,
-} from "../../../../interface/gallary.interface";
+import { IBannerDetails } from "../../../../interface/gallary.interface";
 import {
   addBanner,
   editBanner,
@@ -20,19 +18,17 @@ import smallBannerDataforTable from "../../../UI/table/dataFunctions/smallBanner
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { IStore } from "../../../../interface/slice.interface";
-import {useAdminLogout} from "../../../../hooks/useLogout";
-
+import { useAdminLogout } from "../../../../hooks/useLogout";
 
 function SmallBannerManagement() {
   // const [gallaryDetails, setgallaryDetails] = useState<IGallary>();
-  const gallaryDetails = useSelector((state: IStore) => state.gallary)
-  const adminToken = useSelector((state: IStore) => state.adminAuth.token)
-  const dispatch = useDispatch()
-
+  const gallaryDetails = useSelector((state: IStore) => state.gallary);
+  const adminToken = useSelector((state: IStore) => state.adminAuth.token);
+  const dispatch = useDispatch();
 
   const resortId = useSelector((state: IStore) => state.resort.resortId);
 
-  const logout = useAdminLogout()
+  const logout = useAdminLogout();
 
   ////////////////////////////// state for loading /////////////////////
   const [loading, setloading] = useState(false);
@@ -84,7 +80,6 @@ function SmallBannerManagement() {
       description2: "",
     });
   };
-
 
   ///////////////////////////////////////changing the data according to the search input and sortby  API ///////////////////////////////
   // state which is given to the table after searching and sorting
@@ -272,7 +267,9 @@ function SmallBannerManagement() {
   return (
     <div>
       <div className="mt-5 p-10 text-center">
-        <h1 className="text-center mb-10 font-normal tracking-wide text-5xl">SMALL BANNER</h1>
+        <h1 className="text-center mb-10 font-normal tracking-wide text-5xl">
+          SMALL BANNER
+        </h1>
         <TransitionsModal
           buttonMessage="ADD BANNER"
           modalForm={() =>
@@ -290,13 +287,15 @@ function SmallBannerManagement() {
           openModal={openModal}
           closeModal={closeModal}
         />
-        <TableService
-          inputOnchange={handleChangeSearch}
-          buttonOnclick={handleClickSearch}
-          // searchInput={searchInput}
-          // pages={gallaryDetails?.largeBanner.length!}
-        />
-        <DataTable rows={renderingData} headers={headerDiv} />
+        <div className="w-[900px] mx-auto">
+          <TableService
+            inputOnchange={handleChangeSearch}
+            buttonOnclick={handleClickSearch}
+            // searchInput={searchInput}
+            // pages={gallaryDetails?.largeBanner.length!}
+          />
+          <DataTable rows={renderingData} headers={headerDiv} />
+        </div>
       </div>
     </div>
   );

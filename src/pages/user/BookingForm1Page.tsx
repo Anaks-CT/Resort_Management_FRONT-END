@@ -6,7 +6,6 @@ import { getAllResortDetailsApi } from "../../api/resort.api";
 import { Formik } from "formik";
 import { bookingForm1 } from "../../schema/user/bookingForm1";
 import MiniHeader from "../../components/User/Header/MiniHeader";
-import BookingProgress from "../../components/User/BookingProgress";
 import BookingForm1 from "../../components/User/formikForms/BookingForm1";
 import { getAvailableRoomsApi } from "../../api/room.api";
 import { IBookingForm1 } from "../../interface/booking.interface";
@@ -17,6 +16,7 @@ import { useSelector } from "react-redux";
 import { IStore } from "../../interface/slice.interface";
 import { useUserLogout } from "../../hooks/useLogout";
 import { toastMessage } from "../../helpers/toast";
+import BookingProgress from "../../components/User/booking/BookingProgress";
 
 function BookingForm1Page() {
   // state for storing all resort details to show in the destination dropdown

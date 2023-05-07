@@ -1,10 +1,10 @@
 import React from "react";
-import { Iuser } from "../../interface/user.interface";
-import PreviewImage from "../UI/PreviewImage";
+import { Iuser } from "../../../interface/user.interface";
+import PreviewImage from "../../UI/PreviewImage";
 import { AiFillEdit } from "react-icons/ai";
-import Input from "../UI/Input";
+import Input from "../../UI/Input";
 import { FormikErrors } from "formik";
-import Button from "../UI/Button";
+import Button from "../../UI/Button";
 
 type props = {
   user?: Iuser;
@@ -129,7 +129,7 @@ function ProfileDetails({ formik, user, saveButtonClicked, error }: props) {
             />
           </div>
         )}
-        <Button
+        {(formik.values.name!== user?.name || formik.values.image) && <Button
           type="submit"
           outline
           onClick={formik.handleSubmit}
@@ -138,7 +138,7 @@ function ProfileDetails({ formik, user, saveButtonClicked, error }: props) {
           disable={saveButtonClicked}
         >
           Save Changes
-        </Button>
+        </Button>}
         <div className="text-red-500 text-center text-sm">{error}</div>
       </div>
     </>

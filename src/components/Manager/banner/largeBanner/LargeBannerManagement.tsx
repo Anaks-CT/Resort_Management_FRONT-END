@@ -284,7 +284,7 @@ function LargeBannerManagement() {
           openModal={openModal}
           closeModal={closeModal}
         />
-        <div className="w-[900px]">
+        <div className="w-[900px] mx-auto">
         <TableService
           inputOnchange={handleChangeSearch}
           buttonOnclick={handleClickSearch}

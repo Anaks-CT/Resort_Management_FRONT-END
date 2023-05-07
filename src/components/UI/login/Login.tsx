@@ -4,7 +4,7 @@ import Input from "../Input";
 import { useFormik } from "formik";
 import { loginSchema } from "../../../schema/user/auth";
 import { ILoginInterface } from "../../../interface/user.interface";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 type props = {
   message?: string;
@@ -28,7 +28,7 @@ function Login({ onSubmit, message, loading }: props) {
       onSubmit(values, setError, resetForm);
     },
   });
-
+  const location = useLocation()
   const navigate = useNavigate();
   return (
     <div className="bg-[#1E1E1E] p-16 self-center z-10 w-[300px] md:w-[350px] flex flex-col justify-center rounded-lg items-center opacity-70">
@@ -83,12 +83,12 @@ function Login({ onSubmit, message, loading }: props) {
       >
         LOG IN
       </Button>
-      <div
+      {location.pathname!=="/admin/login" && <div
         className="text-white cursor-pointer pt-3"
         onClick={() => navigate("/forgotPassword")}
       >
         Forgot Password ?
-      </div>
+      </div>}
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import SingleWishlist from "../../../components/User/SingleWishlist";
+import SingleWishlist from "../../../components/User/profile/SingleWishlist";
 import Button from "../../../components/UI/Button";
 import { useNavigate } from "react-router-dom";
 import { getWishlistOfUserApi } from "../../../api/user.api";

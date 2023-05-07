@@ -1,8 +1,8 @@
 import React from 'react'
 import { IoMdClose } from 'react-icons/io'
 import { useNavigate } from 'react-router-dom'
-import { IBookingForm1 } from '../../interface/booking.interface'
 import { HiArrowLongLeft } from 'react-icons/hi2'
+import { IBookingForm1 } from '../../../interface/booking.interface'
 
 type props = {
   number : 1 | 2 | 3

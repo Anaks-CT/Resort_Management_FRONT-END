@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import MiniHeader from "../../components/User/Header/MiniHeader";
-import BookingProgress from "../../components/User/BookingProgress";
 import BookingOverview from "../../components/User/booking/BookingOverview";
 import SingleRoom from "../../components/User/room/SingleRoom";
 import RoomPackage from "../../components/User/room/RoomPackage";
 import { HiArrowLongLeft } from "react-icons/hi2";
 import { IBookingForm1 } from "../../interface/booking.interface";
+import BookingProgress from "../../components/User/booking/BookingProgress";
 
 function BookingStayPage() {
 

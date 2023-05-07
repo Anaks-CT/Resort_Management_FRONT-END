@@ -22,7 +22,7 @@ function CircleBanner({ data, invert }: props) {
 
   //////////////////////////////// setting the carousel back to initail after reaching maximum and vice versa ///////////////////
 
-  // carouselNumber === (data?.length && data?.length > 0) && setcarouselNumber(0);
+  (carouselNumber === data?.length && data?.length > 0) && setcarouselNumber(0);
   carouselNumber === -1 && setcarouselNumber(data.length - 1);
 
   //////////////////////////////// next and previous carousel set up ////////////////////////

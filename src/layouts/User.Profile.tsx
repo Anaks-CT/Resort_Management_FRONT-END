@@ -1,7 +1,7 @@
 import { Outlet, useLocation } from "react-router-dom";
 import ProfileSidebar from "../components/User/Sidebar";
 import { Header2 } from "../components/User/Header/Header";
-import ProfileNavbar from "../components/User/ProfileNavbar";
+import ProfileNavbar from "../components/User/profile/ProfileNavbar";
 import { Iuser } from "../interface/user.interface";
 import {useState, useEffect} from "react"
 import { useSelector } from "react-redux";

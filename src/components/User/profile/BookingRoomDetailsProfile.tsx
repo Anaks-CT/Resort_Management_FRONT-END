@@ -1,4 +1,4 @@
-import { IRoomDetails } from "../../interface/booking.interface";
+import { IRoomDetails } from "../../../interface/booking.interface";
 
 type props = {
   roomDetail: IRoomDetails

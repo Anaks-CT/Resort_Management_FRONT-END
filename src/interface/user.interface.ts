@@ -5,6 +5,8 @@ export interface Iuser {
   email: string;
   phone: string;
   password: string;
+  type: "member" | "platinum" | "diamond"
+  totalmoneySpent: number
   cPassword: string;
   bookings: string[]
 }
