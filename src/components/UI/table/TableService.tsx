@@ -22,8 +22,9 @@ function TableService({ inputOnchange, buttonOnclick, pages, handlePageClick }: 
   return (
     <div className=" flex items-center justify-between">
       <div className="flex gap-4 h-10">
-        <Input
+        <input
           name="search"
+          className="bg-black rounded"
           onChange={inputOnchange}
           placeholder="Search"
           type="text"

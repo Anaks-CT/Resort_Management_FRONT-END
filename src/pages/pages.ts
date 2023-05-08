@@ -31,14 +31,15 @@ import GallaryManagement from "./manager/GallaryManagement.Manager";
 import AdminLoginPage from "./admin/LoginPage.Admin";
 import PageNotFoundAdmin from "./admin/404Page.Admin";
 import AdminDashboard from "./admin/Dashboard.Admin";
-import GallaryManagementAdmin from "./admin/GallaryManagement.Admin";
-import ResortDashboard from "./admin/ResortDashboard.Admin";
-import ResortRoom from "./admin/ResortRoom.Admin";
+import GallaryManagementAdmin from "./admin/resort/GallaryManagement.Admin";
+import ResortDashboard from "./admin/resort/ResortDashboard.Admin";
+import ResortRoom from "./admin/resort/ResortRoom.Admin";
 import ResortManagement from "./admin/ResortManagement.Admin";
 import AddResort from "./admin/AddResort.Admin";
 import FaqManagementPage from "./admin/FaqManagement.Admin";
-import RoomCustomize from "./admin/RoomCustomize.Admin";
+import RoomCustomize from "./admin/resort/RoomCustomize.Admin";
 import MangerManagement from "./admin/MangerManagement";
+import BookingManagement from "./admin/resort/BookingManagement.Admin";
 
 ///////////////////////////////// user export ///////////////////////////
 
@@ -82,4 +83,5 @@ export {
   FaqManagementPage,
   RoomCustomize,
   MangerManagement,
+  BookingManagement
 };

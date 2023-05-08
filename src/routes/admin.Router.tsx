@@ -11,6 +11,7 @@ import {
   FaqManagementPage,
   RoomCustomize,
   MangerManagement,
+  BookingManagement,
 } from "../pages/pages";
 import { useSelector } from "react-redux";
 import { IStore } from "../interface/slice.interface";
@@ -19,6 +20,7 @@ import { useEffect, useState } from "react";
 import { checkAdminCredentialApi } from "../api/checkAuth";
 import { useDispatch } from "react-redux";
 import { removeAdminToken } from "../store/slices/adminTokenSlice";
+import ResortAdmin from "../layouts/Resort.Admin";
 
 type routers = {
   path: string;
@@ -34,13 +36,13 @@ function AdminRouter() {
     if (adminToken.token) {
       checkAdminCredentialApi(adminToken.token)
         .then((res) => setAuth(res.data.message))
-        .catch((err) => dispatch(removeAdminToken()))
+        .catch((err) => dispatch(removeAdminToken()));
     } else {
       setAuth(null);
     }
     // eslint-disable-next-line
   }, [adminToken]);
-  const publicRoutes: routers[] = [
+  const adminRoutes: routers[] = [
     {
       path: "/adminDashboard",
       component: <AdminDashboard />,
@@ -61,8 +63,11 @@ function AdminRouter() {
       path: "/addResort",
       component: <AddResort />,
     },
+  ];
+
+  const resortRoutes: routers[] = [
     {
-      path: `/:resort/dashboard`, // path parameters(for middle), router state, router object
+      path: `/:resort/dashboard`,
       component: <ResortDashboard />,
     },
     {
@@ -78,9 +83,9 @@ function AdminRouter() {
       component: <RoomCustomize />,
     },
     {
-      path: "/*",
-      component: <PageNotFoundAdmin />,
-    },
+      path: `/:resort/booking`,
+      component: <BookingManagement />
+    }
   ];
   return (
     <Routes>
@@ -90,13 +95,25 @@ function AdminRouter() {
           !auth ? <AdminLoginPage /> : <Navigate to="/admin/adminDashboard" />
         }
       />
-      {publicRoutes.map(({ path, component }) => (
+      {adminRoutes.map(({ path, component }) => (
         <Route
           key={path}
           path={path}
           element={ProtectedAdminRoute(component)}
         /> // warning
       ))}
+
+      <Route element={<ResortAdmin />}>
+        {resortRoutes.map(({ path, component }) => (
+          <Route
+            key={path}
+            path={path}
+            element={ProtectedAdminRoute(component)}
+          />
+        ))}
+      </Route>
+
+      <Route path={"/*"} element={ProtectedAdminRoute(<PageNotFoundAdmin />)} />
     </Routes>
   );
 }
