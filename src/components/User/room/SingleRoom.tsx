@@ -6,21 +6,25 @@ import RoomDetails from './RoomDetails'
 import Button from '../../UI/Button'
 import TransitionsModal from '../../UI/Modal'
 import ModalImages from '../../UI/ModalImages'
+import { useLocation } from 'react-router-dom'
 
 type props = {
     roomDetail: any
     startingPrice: number
     handleViewRateToggle: () => void
     setCurrentRoomDetails: React.Dispatch<any>
+    newStartingPrice: number
 }
 
-function SingleRoomType({ roomDetail, startingPrice, handleViewRateToggle, setCurrentRoomDetails}:props) {
+function SingleRoomType({ roomDetail, startingPrice, handleViewRateToggle, setCurrentRoomDetails, newStartingPrice}:props) {
   const [viewDetails, setViewDetails] = useState(false);
   const toggleRoomDetails = () => setViewDetails(!viewDetails)
-
+  // const presentRoomDetail = 
   const [open, setOpen] = useState(false)
   const openModal = () => setOpen(true)
   const closeModal = () => setOpen(false)
+  const location = useLocation()
+  
   return (
     <div className="p-6 bg-white mb-14">
         <TransitionsModal
@@ -75,16 +79,17 @@ function SingleRoomType({ roomDetail, startingPrice, handleViewRateToggle, setCu
               </div>
               <div className="">
                 <div className="flex p-2 flex-col items-center gap-2 md:p-7">
-                  <p className="text-premium font-sans tracking-wide whitespace-nowrap">
-                    STARTING FROM
+                  <p className="text-premium font-sans tracking-wide whitespace-nowrap uppercase text-center">
+                    {location?.state?.userType !== "member" && <span>{`${location?.state?.userType} member offers`} <br /></span>} STARTING FROM
                   </p>
                   <div className="flex gap-4 items-center">
                     <div className="font-sans">INR</div>
-                    <div className="text-4xl">{startingPrice.toLocaleString('en-IN')}</div>
+                    <div className={`${newStartingPrice<startingPrice ? "text-2xl line-through" : "text-4xl"}`}>{Math.floor(startingPrice).toLocaleString('en-IN')}</div>
+                    {newStartingPrice<startingPrice && <div className='text-4xl'>{Math.floor(newStartingPrice).toLocaleString('en-IN')}</div>}
                   </div>
                   <div className="text-xs">exc. taxes and fees</div>
                 </div>
-                <Button class="w-full  my-5 text-sm" color="premium" onClick={() => {handleViewRateToggle(); setCurrentRoomDetails(roomDetail)}}>
+                <Button class="w-full  my-5 text-sm" color="premium" onClick={() => {handleViewRateToggle(); setCurrentRoomDetails({...roomDetail, startingPrice})}}>
                   SHOW RATES
                 </Button>
               </div>

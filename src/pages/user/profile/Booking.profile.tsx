@@ -12,7 +12,7 @@ function BookingDetailsPage() {
   const userToken = useSelector((state: IStore) => state.userAuth.token);
 
   const bookings = bookingDetails?.map((item) => (
-    <BookingDetailsProfile bookingDetail={item} />
+  <BookingDetailsProfile bookingDetail={item} setBookingDetails={setBookingDetails}/>
   ));
 
   const location = useLocation()

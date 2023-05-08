@@ -9,7 +9,7 @@ import MiniHeader from "../../components/User/Header/MiniHeader";
 import BookingForm1 from "../../components/User/formikForms/BookingForm1";
 import { getAvailableRoomsApi } from "../../api/room.api";
 import { IBookingForm1 } from "../../interface/booking.interface";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { IoMdClose } from "react-icons/io";
 import { useSelector } from "react-redux";
@@ -21,18 +21,18 @@ import BookingProgress from "../../components/User/booking/BookingProgress";
 function BookingForm1Page() {
   // state for storing all resort details to show in the destination dropdown
   const [allResorts, setAllResorts] = useState<IResort[] | null>(null);
-  
-  const currentResort = useSelector((state: IStore) => state.currentResort)
 
-  const logout = useUserLogout()
+  const currentResort = useSelector((state: IStore) => state.currentResort);
 
-  const navigate = useNavigate()
+  const logout = useUserLogout();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   // state for error if any error occured from the backed
   const [error, setError] = useState<string>("");
 
   // state for loading
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false);
 
   //state for toggling the destination dropdown
   const [destinationOpen, setDestinationOpen] = useState(false);
@@ -59,13 +59,17 @@ function BookingForm1Page() {
   // initialzing the date with start date today and end date tomoro
   const today = new Date();
   today.setUTCHours(18);
-today.setUTCMinutes(30);
-today.setUTCSeconds(0);
-today.setUTCMilliseconds(0);
+  today.setUTCMinutes(30);
+  today.setUTCSeconds(0);
+  today.setUTCMilliseconds(0);
   const [date, setDate] = useState([
     {
-      startDate: today,
-      endDate: today,
+      startDate: location.state?.form1Values
+        ? location.state?.form1Values.date.startDate
+        : today,
+      endDate: location.state?.form1Values
+        ? location.state?.form1Values.date.endDate
+        : today,
       key: "selection",
     },
   ]);
@@ -101,39 +105,51 @@ today.setUTCMilliseconds(0);
   // initial value for formik
   const formikInitialValue = {
     destination: {
-      name: currentResort?.resortName ? currentResort.resortName : '',
-      id: currentResort?.resortId ? currentResort.resortId : '',
+      name: currentResort?.resortName ? currentResort.resortName : "",
+      id: currentResort?.resortId ? currentResort.resortId : "",
     },
     roomDetail: [""],
-    date: date[0]
+    date: date[0],
   };
 
-  const userToken = useSelector((state: IStore) => state.userAuth.token)
+  const userToken = useSelector((state: IStore) => state.userAuth.token);
 
   // formik submit function
   const formikSubmit = (values: IBookingForm1) => {
-    console.log(values);
-    setLoading(true)
+    setLoading(true);
     setTimeout(() => {
       getAvailableRoomsApi(values, userToken)
-      .then(res => 
-        navigate('/booking/stay',{
-          state: {
-            data: res.data.data,
-            bookingForm1: values
+        .then((res) =>
+          navigate("/booking/stay", {
+            state: {
+              data: res.data.data,
+              userType: res.data.type,
+              points: res.data.points,
+              bookingForm1: values,
+            },
+          })
+        )
+        .catch((err) => {
+          if (err.response.status === 401) {
+            logout();
+            toastMessage("error", err.response.data.message);
           }
+          setError(err.response.data.message);
         })
-      )
-      .catch(err => {
-        if(err.response.status === 401) {
-          logout()
-          toastMessage("error", err.response.data.message)
-        }
-        setError(err.response.data.message)
-      })
-      .finally(() => setLoading(false))
+        .finally(() => setLoading(false));
     }, 3000);
   };
+  // checking if any states are there
+  console.log(location.state?.form1Values);
+  useEffect(() => {
+    if (location?.state?.value === "destination") {
+      destinationClick();
+    } else if (location?.state?.value === "room") {
+      handleRoomDetailsClick();
+    } else if (location?.state?.value === "date") {
+      handleDateClick();
+    }
+  }, []);
   return (
     <>
       <MiniHeader />
@@ -142,20 +158,25 @@ today.setUTCMilliseconds(0);
         style={style}
       >
         <div className={`mt-14 w-full ${loading && "hidden"}`}>
-        <div className="px-11 text-white lg:hidden">
-          <span className='p-3 flex self-start lg:self-center '>
-            <Link
-              to={"/"}
-              className="tracking-wide text-[12px] lg:text-lg self-start flex items-center gap-2 lg:self-center "
-            >
-              <IoMdClose />
-              CANCEL
-            </Link>
+          <div className="px-11 text-white lg:hidden">
+            <span className="p-3 flex self-start lg:self-center ">
+              <Link
+                to={"/"}
+                className="tracking-wide text-[12px] lg:text-lg self-start flex items-center gap-2 lg:self-center "
+              >
+                <IoMdClose />
+                CANCEL
+              </Link>
             </span>
-        </div>
+          </div>
           <BookingProgress number={1} />
           <Formik
-            initialValues={formikInitialValue}
+            // cheking if anyone clicked edit search details
+            initialValues={
+              location?.state?.form1Values
+                ? location.state.form1Values
+                : formikInitialValue
+            }
             validationSchema={bookingForm1}
             onSubmit={(values, { resetForm }) => formikSubmit(values)}
           >
@@ -182,13 +203,27 @@ today.setUTCMilliseconds(0);
               );
             }}
           </Formik>
-        </div> 
-          <div className={`w-screen h-screen flex justify-center items-center flex-col ${!loading && "hidden"}`}>
-            <img width={"70px"} height={"70px"} src="https://res.cloudinary.com/dhcvbjebj/image/upload/v1682346232/Eclipse-0.9s-210px_lwbe3z.gif" alt="" />
-            <div className="text-white md:text-4xl text-2xl px-10 py-5 text-center">An unforgettable stay awaits...</div>
-            <div className="text-white text-[12px] md:text-lg px-10 text-center">One moment while we find the best publicly available rate for your booking.</div>
+        </div>
+        <div
+          className={`w-screen h-screen flex justify-center items-center flex-col ${
+            !loading && "hidden"
+          }`}
+        >
+          <img
+            width={"70px"}
+            height={"70px"}
+            src="https://res.cloudinary.com/dhcvbjebj/image/upload/v1682346232/Eclipse-0.9s-210px_lwbe3z.gif"
+            alt=""
+          />
+          <div className="text-white md:text-4xl text-2xl px-10 py-5 text-center">
+            An unforgettable stay awaits...
           </div>
-        
+          <div className="text-white text-[12px] md:text-lg px-10 text-center">
+            One moment while we find the best publicly available rate for your
+            booking.
+          </div>
+        </div>
+
         <div className="bg-gradient-to-b from-transparent to-black absolute w-full bottom-0 h-24"></div>
       </div>
     </>

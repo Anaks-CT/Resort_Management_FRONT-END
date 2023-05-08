@@ -28,7 +28,7 @@ function BookingConfirmPage() {
     >
       <div className={`lg:w-3/4 `}>
           <div className="mt-12 lg:max-w-[250px]">
-            <BookingProgress number={3} bookingForm1Detais={form1} availableRoomTypes={availableRoomTypes}/>
+            <BookingProgress number={3} bookingForm1Detais={form1} availableRoomTypes={availableRoomTypes} userType={location.state.userType}/>
           </div>
           
         </div>

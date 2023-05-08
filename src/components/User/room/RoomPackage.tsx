@@ -6,6 +6,7 @@ type props = {
   handleViewRateToggle: () => void;
   setBookingOverViewRoomDetails: React.Dispatch<any>;
   setRoomListArrayNumber: React.Dispatch<React.SetStateAction<number>>;
+  userType: "member" | "platinum" | "diamond"
 };
 
 function RoomPackage({
@@ -14,8 +15,9 @@ function RoomPackage({
   roomDetail,
   handleViewRateToggle,
   setBookingOverViewRoomDetails,
+  userType
 }: props) {
-
+  
   const features = singlePackage.features.map((feature: string, i: number) => (
     <div className="flex" key={feature}>
       <span>{i + 1}.</span>
@@ -23,6 +25,16 @@ function RoomPackage({
     </div>
   ));
 
+  let packageCost: number
+  if(userType==="member"){
+    packageCost = singlePackage.cost
+  }else if(userType === "platinum"){
+    packageCost = Math.floor(singlePackage.cost - singlePackage.cost*5/100)
+  }else if(userType === "diamond"){
+    packageCost = Math.floor(singlePackage.cost - singlePackage.cost*15/100)
+  }else{
+    packageCost = 0
+  }
   const handleSelectRate = () => {
     handleViewRateToggle();
     setBookingOverViewRoomDetails((state: any) => [
@@ -32,7 +44,7 @@ function RoomPackage({
         roomId: roomDetail._id,
         packageName: singlePackage.packageName,
         packageId: singlePackage._id,
-        packageCost: singlePackage.cost,
+        packageCost: packageCost,
       },
     ]);
     setRoomListArrayNumber((state) => state + 1);
@@ -50,8 +62,11 @@ function RoomPackage({
         <div className="text-center lg:w-2/5">
           <div className="flex gap-4 justify-center items-center">
             <div className="font-sans">INR</div>
-            <div className="text-4xl">
-              {singlePackage.cost.toLocaleString("en-IN")}
+            <div className="text-4xl flex gap-4 items-center">
+              <span className={`${packageCost < singlePackage.cost && "line-through text-2xl "}`}>
+                {singlePackage.cost.toLocaleString("en-IN")}
+              </span>
+              {packageCost < singlePackage.cost && <span>{packageCost.toLocaleString("en-IN")}</span>}
             </div>
           </div>
           <div className="text-xs">exc. taxes and fees</div>

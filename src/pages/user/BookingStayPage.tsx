@@ -9,13 +9,12 @@ import { IBookingForm1 } from "../../interface/booking.interface";
 import BookingProgress from "../../components/User/booking/BookingProgress";
 
 function BookingStayPage() {
-
   // navigating the page to booking/explore if anyone tries to access this page and there is not Booking form 1 details
   useEffect(() => {
-    if(!availableRoomTypes || !form1){
-      navigate('/booking/explore')
+    if (!availableRoomTypes || !form1) {
+      navigate("/booking/explore");
     }
-  })
+  });
 
   // toggle state for OverView
   const [viewOverView, setViewOverView] = useState(false);
@@ -27,6 +26,7 @@ function BookingStayPage() {
   const availableRoomTypes = location?.state?.data;
   const form1: IBookingForm1 = location?.state?.bookingForm1;
 
+  console.log(location.state);
 
   // state for storing the current package details from the room
   const [currentRoomPackageDetails, setCurrentRoomDetails] =
@@ -54,29 +54,37 @@ function BookingStayPage() {
   const roomList: any = [];
   form1?.roomDetail?.forEach((item: any) => {
     availableRoomTypes.forEach((roomType: any) => {
-      if (item === roomType[0].maxPeople || item === roomType[0].maxPeople-1 ) {
+      if (
+        item === roomType[0].maxPeople ||
+        item === roomType[0].maxPeople - 1
+      ) {
         roomList.push(roomType);
       }
     });
   });
-
 
   // state for accessing the Selected room details by the user
   const [bookingOverViewRoomDetails, setBookingOverViewRoomDetails] = useState<
     any[]
   >([]);
 
-
   /////////////////// displaying all the room details according to the order of occupancy /////////////////////
   const rooms = roomList[roomListArrayNumber]?.map((item: any, i: number) => {
-
     // getting the starting price from the packages insider room details
     const packagePrice = item.packages;
     const sortedPackagePrice = packagePrice.sort(
       (a: any, b: any) => a.cost - b.cost
     );
-    const startingPrice = sortedPackagePrice[0].cost;
 
+    const startingPrice = sortedPackagePrice[0].cost;
+    let newStartingPrice;
+    if (location.state.userType === "platinum") {
+      newStartingPrice = startingPrice - (startingPrice * 5) / 100;
+    } else if (location.state.userType === "diamond") {
+      newStartingPrice = startingPrice - (startingPrice * 15) / 100;
+    } else {
+      newStartingPrice = startingPrice;
+    }
     return (
       <SingleRoom
         key={i}
@@ -84,6 +92,7 @@ function BookingStayPage() {
         handleViewRateToggle={handleViewRateToggle}
         roomDetail={item}
         startingPrice={startingPrice}
+        newStartingPrice={newStartingPrice}
       />
     );
   });
@@ -93,6 +102,7 @@ function BookingStayPage() {
     (singlePackage: any, i: number) => (
       <RoomPackage
         key={i}
+        userType={location?.state?.userType}
         singlePackage={singlePackage}
         setRoomListArrayNumber={setRoomListArrayNumber}
         roomDetail={currentRoomPackageDetails}
@@ -114,12 +124,13 @@ function BookingStayPage() {
             <BookingProgress number={2} bookingForm1Detais={location?.state} />
           </div>
           {roomListArrayNumber === roomList.length ? (
-          <div className="text-white text-2xl md:text-4xl py-3 mb-5 px-8">
-            Book your rooms
-          </div>) : (
             <div className="text-white text-2xl md:text-4xl py-3 mb-5 px-8">
-            Choose your room
-          </div>
+              Book your rooms
+            </div>
+          ) : (
+            <div className="text-white text-2xl md:text-4xl py-3 mb-5 px-8">
+              Choose your room
+            </div>
           )}
           {rooms}
         </div>
@@ -150,7 +161,16 @@ function BookingStayPage() {
           <div className="p-5 lg:p-14 rounded bg-white">{roomPackages}</div>
         </div>
         {roomListArrayNumber === form1?.roomDetail?.length && (
-          <Navigate to={'/booking/confirm'} state={{form1, bookingOverViewRoomDetails, data: availableRoomTypes} }/>
+          <Navigate
+            to={"/booking/confirm"}
+            state={{
+              form1,
+              bookingOverViewRoomDetails,
+              data: availableRoomTypes,
+              userType: location?.state?.userType,
+              userPoints: location?.state?.points,
+            }}
+          />
         )}
       </div>
       <BookingOverview

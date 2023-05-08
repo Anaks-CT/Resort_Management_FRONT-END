@@ -47,6 +47,7 @@ export interface IBookingDetail{
     name: string
     phone: number
     resortName: string
+    status: boolean
     roomDetail: IRoomDetails[]
     _id: string
 }

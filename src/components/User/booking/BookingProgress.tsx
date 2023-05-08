@@ -8,9 +8,10 @@ type props = {
   number : 1 | 2 | 3
   bookingForm1Detais?: IBookingForm1
   availableRoomTypes?: any
+  userType?: "member" | "platinum" | "diamond"
 }
 
-function BookingProgress({number, bookingForm1Detais, availableRoomTypes}:props) {
+function BookingProgress({number, bookingForm1Detais, availableRoomTypes, userType}:props) {
   const navigate = useNavigate()
   const handleProgressCancel = () => {
     if(number === 1){
@@ -18,7 +19,7 @@ function BookingProgress({number, bookingForm1Detais, availableRoomTypes}:props)
     }else if(number === 2){
       navigate('/booking/explore')
     }else if(number === 3){
-      navigate('/booking/stay',{state:{bookingForm1:bookingForm1Detais, data: availableRoomTypes}})
+      navigate('/booking/stay',{state:{bookingForm1:bookingForm1Detais, data: availableRoomTypes, userType: userType}})
     }
   }
   return (

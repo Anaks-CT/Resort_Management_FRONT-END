@@ -25,7 +25,6 @@ function SingleWishlist({ singleWishlist, setWishlistDetails }: props) {
   ).length;
   const [loading, setLoading] = useState(false);
   const [checkAvailLoading, setAvailLoading] = useState(false);
-  console.log(singleWishlist);
   const userToken = useSelector((state: IStore) => state.userAuth.token);
   const deleteWishlist = () => {
     setLoading(true);
@@ -71,6 +70,8 @@ endDate.setUTCMilliseconds(0);
           state: {
             data: res.data.data,
             bookingForm1: roomAvailabilityDetails,
+            userType: res.data.type,
+            points: res.data.points,
             wishlist: true
           },
         })

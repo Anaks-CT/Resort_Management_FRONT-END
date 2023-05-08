@@ -134,7 +134,7 @@ function BookingOverview({
             <div className="font-black lg:font-medium">
               {form1Values?.destination.name.toUpperCase()}
             </div>
-            <Link className="text-blue-400" to={"/booking/explore"}>
+            <Link className="text-blue-400" to={"/booking/explore"} state={{form1Values, value:"destination"}}>
               EDIT
             </Link>
           </div>
@@ -142,7 +142,7 @@ function BookingOverview({
             <div className="font-black lg:font-medium">
               {totalRooms} ROOM(S) - {totalGuests} GUESTS(S)
             </div>
-            <Link className="text-blue-400" to={"/booking/explore"}>
+            <Link className="text-blue-400" to={"/booking/explore"} state={{form1Values, value:"room"}}>
               EDIT
             </Link>
           </div>
@@ -154,7 +154,7 @@ function BookingOverview({
                 {form1Values?.date.endDate.toLocaleDateString()}
               </span>
             </div>
-            <Link className="text-blue-400" to={"/booking/explore"}>
+            <Link className="text-blue-400" to={"/booking/explore"} state={{form1Values, value:"date"}}>
               EDIT
             </Link>
           </div>
