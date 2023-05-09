@@ -41,3 +41,11 @@ export const getUserDetailsApi = (token: string) =>
 export const updateUserDetailsApi = (token: string,  name: string, image?: string,) => 
   axios.patch('/',{updateDetails: {image, name}},setApiHeader(token))
 
+export const getAllUserDetailsApi = (adminToken: string) => 
+  axios.get('/fetchAll',setApiHeader(adminToken))
+
+export const getSearchSortUserDetailsApi = (adminToken: string, searchInput: string, sortBy: string | null, sortOrder: string | null) =>
+  axios.get(`/service?searchInput=${searchInput}&sortBy=${sortBy}&sortOrder=${sortOrder}`, setApiHeader(adminToken))
+
+export const updateUserStatusApi = (userId: string, token: string) =>
+  axios.delete(`/${userId}`, setApiHeader(token))

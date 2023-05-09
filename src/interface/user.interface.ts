@@ -1,4 +1,5 @@
 export interface Iuser {
+  _id: string
   points: number
   image?: string
   name: string;
@@ -9,6 +10,8 @@ export interface Iuser {
   totalmoneySpent: number
   cPassword: string;
   bookings: string[]
+  createdAt: Date
+  status: boolean
 }
 
 export interface ILoginInterface{ // not preferable personl  capital I  can be exteneed

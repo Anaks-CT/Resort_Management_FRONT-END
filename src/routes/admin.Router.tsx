@@ -12,6 +12,7 @@ import {
   RoomCustomize,
   MangerManagement,
   BookingManagement,
+  UserManagement,
 } from "../pages/pages";
 import { useSelector } from "react-redux";
 import { IStore } from "../interface/slice.interface";
@@ -85,6 +86,10 @@ function AdminRouter() {
     {
       path: `/:resort/booking`,
       component: <BookingManagement />
+    },
+    {
+      path: `/:resort/users`,
+      component: <UserManagement />
     }
   ];
   return (

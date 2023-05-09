@@ -18,7 +18,7 @@ function GallaryManagement() {
   useEffect(() => {
     getGallaryDetailsbyResortIdApi("64158c7a80aa0bca76b639b5")
       .then((res) => dispatch(updateGallary(res.data.data)))
-      .catch((err) => toastMessage('error', err?.response?.data?.message));
+      .catch((err) => toastMessage('error', err?.response?.data?.message)); 
       // eslint-disable-next-line
   }, []);
 

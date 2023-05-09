@@ -1,63 +1,69 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { useAdminLogout } from '../../../hooks/useLogout'
+import { useAdminLogout } from '../../hooks/useLogout'
 import { useSelector } from 'react-redux'
-import { IBookingDetail } from '../../../interface/booking.interface'
+import { IStore } from '../../interface/slice.interface'
+import { useDispatch } from 'react-redux'
+import { Iuser } from '../../interface/user.interface'
 import { TbArrowsDownUp } from 'react-icons/tb'
 import { CgArrowLongDown, CgArrowLongUp } from 'react-icons/cg'
-import Button from '../../UI/Button'
-import TableService from '../../UI/table/TableService'
-import DataTable from "../../UI/table/DataTable";
-import { IStore } from '../../../interface/slice.interface'
-import { getResortBookingDetailsApi, searchSortBookingResultApi } from '../../../api/booking.api'
-import { toastMessage } from '../../../helpers/toast'
+import Button from '../UI/Button'
+import TableService from '../UI/table/TableService'
+import DataTable from "../UI/table/DataTable";
+import { getAllUserDetailsApi, getSearchSortUserDetailsApi, updateUserStatusApi } from '../../api/user.api'
+import { toastMessage } from '../../helpers/toast'
 
 
-function ManageBooking() {
+function ManageUsers() {
     
+      const navigate = useNavigate()
     
+      const location = useLocation()
     
       const logout = useAdminLogout()
     
+      const [allUserDetails, setAllUserDetails] = useState<Iuser[]>()
       const adminToken = useSelector((state: IStore) => state.adminAuth.token)
-      const currentResortId = useSelector((state: IStore) => state.resort.resortId)
-      const [bookingDetails, setBookingDetails] = useState<IBookingDetail[]>()
       
+      const [loading, setLoading] = useState(false)
+
+    //   // fetching user information
       useEffect(() => {
-        getResortBookingDetailsApi(currentResortId, adminToken)
-            .then(res => setBookingDetails(res.data.data))
+        getAllUserDetailsApi(adminToken)
+            .then(res => setAllUserDetails(res.data.data))
             .catch(err => {
-              if(err.response.status === 401) logout()
-              toastMessage('error',err?.response?.data?.message)})
+                if(err.response.status === 401) logout()
+                toastMessage('error', err?.response?.data?.message)})
       }, [])
-       
+      
+      
+      // changing the resort Status
+      const handleDelete = (userId: string) => {
+        setLoading(true)
+        updateUserStatusApi(userId, adminToken)
+            .then(res => setAllUserDetails(res.data.data))
+            .catch(err => {
+                console.log(err);
+                if(err.response.status === 401) logout()
+                toastMessage('error', err.response?.data?.message)})
+            .finally(() => setLoading(false))
+      }
+    
     
     ///////////////////////////////////////////////// row data for table /////////////////////////////
     
       let renderData: any[] = [];
-      if (bookingDetails) {
-        bookingDetails.forEach((item, i) => {
-            let status
-            if(!item.status){
-                status= "Cancelled"
-            }else{
-              if (new Date(item.checkInDate) > new Date()) {
-                status = "Booked";
-            } else if (new Date(item.checkOutDate) < new Date()) {
-                status = "Checked Out";
-            } else {
-                status = "Checked In";
-            }
-            }
-          let singelBookingDetail = {
-            userEmail: item.email,
-            bookingDate: new Date(item.BookingDate).toLocaleDateString(),
-            checkInDate: new Date(item.checkInDate).toLocaleDateString(),
-            chekcOutDate: new Date(item.checkOutDate).toLocaleDateString(),
-            amount: <span>₹ {item.amount.totalRoomCost}</span>,
-            status
+      if (allUserDetails) {
+        allUserDetails.forEach((item, i) => {
+          let singleUserDetail = {
+            name: item.name,
+            email: item.email,
+            type: item.type,
+            totalInvest: item.totalmoneySpent,
+            joinedAt: new Date(item.createdAt).toDateString(),
+            makeChanges: { _id: item._id, active: item.status, handleDelete},
           };
-          renderData.push(singelBookingDetail);
+          renderData.push(singleUserDetail);
         });
       }
     
@@ -73,25 +79,24 @@ function ManageBooking() {
       ///////////////////////////////////////changing the data according to the search input and sortby  API ///////////////////////////////
       // state which is given to the table after searching and sorting
       useEffect(() => {
-        searchSortBookingResultApi(currentResortId, adminToken, searchInput, sortOrder, sortBy)
-          .then(res => setBookingDetails(res.data.data))
-          .catch(err => {
-            if(err.response.status === 401) logout()
-            toastMessage('error', err?.response?.data?.message)})
+        getSearchSortUserDetailsApi(adminToken, searchInput, sortBy, sortOrder)
+            .then(res => setAllUserDetails(res.data.data))
+            .catch(err => toastMessage('error', err?.response?.data?.message))
           // eslint-disable-next-line
       }, [searchInput, sortOrder, sortBy]);
     
       //////////////////////////////////////// defining the headers for my table data ///////////////////////////
     
       // will use this headers and change them into sortable buttons or labels according the to the table data
-      const headers = ["Email", "Booking Date", "CheckIn Date", "CheckOut Date", "Amount", "Status",];
+      const headers = ["Name", "Email", "Member Type", "Total investment", "Joined At", "Status"];
+
+      
     
       /////////////////////////////////////////// sorting logic //////////////////////////////////////
     
       // i will call the API when there is a change in the state
       const handleHeaderClick = async (headingLabel: string) => {
         // logic for changing the sort arrows to asc when clicked a new header
-
         if (sortBy && headingLabel !== sortBy) {
           setsortBy(headingLabel);
           setSortOrder("asc");
@@ -118,7 +123,7 @@ function ManageBooking() {
         sortBy: string | null
       ): JSX.Element => {
         // not showing the sorting arrows for non sortable table head
-        if (headingLabel === "Email") {
+        if (headingLabel === "Image") {
           return <></>;
         } else if (headingLabel !== sortBy) {
           return <TbArrowsDownUp />;
@@ -138,22 +143,17 @@ function ManageBooking() {
     
       // logic for showing the sort buttons for table head if sortable
       const headerDiv = headers.map((item) => {
-        if (item === "Email") {
-            return (
-              <span key={item}>{item}</span>
-           
-          );
-        }
-        return (
+          return (
             <Button
-            key={item}
-            class="flex mx-auto gap-3"
-            onClick={handleHeaderClick}
-            OnClickItem={item}
-            color="black"
-          >
-            {item} {showSortIcons(item, sortOrder, sortBy)}
-          </Button>);
+              key={item}
+              class="flex mx-auto gap-3"
+              onClick={handleHeaderClick}
+              OnClickItem={item}
+              color="black"
+            >
+              {item} {showSortIcons(item, sortOrder, sortBy)}
+            </Button>
+          );
       });
     
       //////////////////////////////////////////// search////////////////////////////////////
@@ -166,26 +166,33 @@ function ManageBooking() {
         if (searchInputValue) setSearchInput(searchInputValue);
         if (searchInputValue === "") setSearchInput("");
       };
-
     
     
       return (
         <>
         <div className="mt-5 text-center">
-          <h1 className="text-center mb-8 font-normal tracking-wide text-5xl">BOOKINGS</h1>
-          <div className='max-w-[1100px]'>
-            <TableService
-              inputOnchange={handleChangeSearch}
-              buttonOnclick={handleClickSearch}
-              // pages={gallaryDetails?.largeBanner.length!}
-            />
-            <DataTable rows={renderData}  headers={headerDiv} />
+          <h1 className="text-center mb-8 font-normal tracking-wide text-5xl">USERS</h1>
+          <div className='md:w-[950px]'>
+          {loading && (
+        <div className="flex justify-center">
+          <img
+            width={50}
+            src="https://res.cloudinary.com/dhcvbjebj/image/upload/v1680669482/Spinner-1s-200px_4_ontbds.gif"
+            alt=""
+          />
+        </div>
+      )}
+          <TableService
+            inputOnchange={handleChangeSearch}
+            buttonOnclick={handleClickSearch}
+            // pages={gallaryDetails?.largeBanner.length!}
+          />
+          <DataTable rows={renderData} editImage={true} deleteButtonValue={true} headers={headerDiv} />
           </div>
-          <div></div>
         </div>
         </>
       );
     }
     
 
-export default ManageBooking
+export default ManageUsers

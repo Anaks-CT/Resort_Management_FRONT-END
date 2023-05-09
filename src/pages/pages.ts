@@ -40,6 +40,7 @@ import FaqManagementPage from "./admin/FaqManagement.Admin";
 import RoomCustomize from "./admin/resort/RoomCustomize.Admin";
 import MangerManagement from "./admin/MangerManagement";
 import BookingManagement from "./admin/resort/BookingManagement.Admin";
+import UserManagement from "./admin/resort/UserManagement.Admin";
 
 ///////////////////////////////// user export ///////////////////////////
 
@@ -83,5 +84,6 @@ export {
   FaqManagementPage,
   RoomCustomize,
   MangerManagement,
-  BookingManagement
+  BookingManagement,
+  UserManagement
 };

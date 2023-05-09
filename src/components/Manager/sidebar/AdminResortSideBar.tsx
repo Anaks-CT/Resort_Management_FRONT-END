@@ -27,16 +27,21 @@ function AdminResortSideBar() {
     },
     {
       _id: "3",
-      name: "Booking",
+      name: "Users",
       onClick: handleSideBarHeadingClick,
     },
     {
       _id: "4",
-      name: "Room",
+      name: "Booking",
       onClick: handleSideBarHeadingClick,
     },
     {
       _id: "5",
+      name: "Room",
+      onClick: handleSideBarHeadingClick,
+    },
+    {
+      _id: "6",
       name: "Admin DashBoard",
       onClick: handleAdminDashboardClick,
     },

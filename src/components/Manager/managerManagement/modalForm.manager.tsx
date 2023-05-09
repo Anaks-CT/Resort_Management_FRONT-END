@@ -19,12 +19,14 @@ export const modalForm = (
       <div className="flex flex-col justify-center items-center p-5 rounded">
         {error && <div className="text-red-500">{error}</div>}
         {loading && (
+        <div className="flex justify-center">
           <img
             width={50}
-            src="https://res.cloudinary.com/dhcvbjebj/image/upload/v1679738426/Spinner-1s-200px_1_twv42p.gif"
+            src="https://res.cloudinary.com/dhcvbjebj/image/upload/v1680669482/Spinner-1s-200px_4_ontbds.gif"
             alt=""
           />
-        )}
+        </div>
+      )}
           <h2 className="text-center mb-10 text-white text-3xl tracking-wide ">ADD MANAGER</h2>
         <form className="w-full bg-black bg-opacity-70 px-28">
           <div className="relative py-2">

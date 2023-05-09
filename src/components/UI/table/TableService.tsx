@@ -24,7 +24,7 @@ function TableService({ inputOnchange, buttonOnclick, pages, handlePageClick }: 
       <div className="flex gap-4 h-10">
         <input
           name="search"
-          className="bg-black rounded"
+          className="bg-black rounded text-white"
           onChange={inputOnchange}
           placeholder="Search"
           type="text"
