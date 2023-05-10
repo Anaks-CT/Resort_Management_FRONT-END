@@ -20,3 +20,9 @@ export const deleteFaqApi = (id: string, token: string) =>
 
 export const editApi = (id: string, question: string, answer: string, token: string) => 
   axiosCompany.put(`/faq/${id}`,{question, answer}, setApiHeader(token))
+
+export const getAdminDashboardDetailsApi = (adminToken: string) => 
+  axiosCompany.get('/adminDashboardDetails', setApiHeader(adminToken))
+
+export const getResortDashoboardDetailsApi = (adminToken: string, resortId: string) => 
+  axiosCompany.get(`resortDashboard/${resortId}`, setApiHeader(adminToken))

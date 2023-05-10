@@ -7,8 +7,6 @@ import TableService from "../../components/UI/table/TableService";
 import DataTable from "../../components/UI/table/DataTable";
 import { getAllManagerDetails } from "../../api/manager.api";
 import { IManager } from "../../interface/manager.interface";
-import { Header } from "../../components/Manager/Header";
-import AdminSideBar from "../../components/Manager/sidebar/AdminSideBar";
 import { useFormik } from "formik";
 import TransitionsModal from "../../components/UI/Modal";
 import { modalForm } from "../../components/Manager/managerManagement/modalForm.manager";
@@ -205,17 +203,10 @@ function ManagerManagement() {
     if (searchInputValue === "") setSearchInput("");
   };
 
-  const style = {
-    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.7)), url("https://res.cloudinary.com/dhcvbjebj/image/upload/v1683015725/wallpaperflare.com_wallpaper_9_s9z82o.jpg")`,
-  };
+
   return (
       <>
-      <Header />
-      <div
-        className="bg-no-repeat bg-fixed bg-center h-screen w-screen pt-[60px] flex justify-center" // doubt in mobile view
-        style={style}
-      >
-        <AdminSideBar />
+     
         <div className="mt-5 w-full text-center">
         <h1 className="text-center mb-8 font-normal tracking-wide text-5xl">MANAGER</h1>
         <TransitionsModal
@@ -239,7 +230,6 @@ function ManagerManagement() {
           headers={headerDiv}
         />
         </div>
-      </div>
       </div>
     </>
   );

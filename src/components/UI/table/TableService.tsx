@@ -1,6 +1,5 @@
 import React from "react";
 import Button from "../Button";
-import Input from "../Input";
 
 type props = {
   inputOnchange: (e: React.ChangeEvent<HTMLInputElement>) => void;

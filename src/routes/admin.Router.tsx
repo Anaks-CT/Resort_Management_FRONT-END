@@ -22,6 +22,7 @@ import { checkAdminCredentialApi } from "../api/checkAuth";
 import { useDispatch } from "react-redux";
 import { removeAdminToken } from "../store/slices/adminTokenSlice";
 import ResortAdmin from "../layouts/Resort.Admin";
+import AdminLayout from "../layouts/AdminLayout";
 
 type routers = {
   path: string;
@@ -100,20 +101,23 @@ function AdminRouter() {
           !auth ? <AdminLoginPage /> : <Navigate to="/admin/adminDashboard" />
         }
       />
-      {adminRoutes.map(({ path, component }) => (
-        <Route
-          key={path}
-          path={path}
-          element={ProtectedAdminRoute(component)}
-        /> // warning
-      ))}
+      
+      <Route element={<AdminLayout />}>
+        {adminRoutes.map(({ path, component }) => (
+          <Route
+            key={path}
+            path={path}
+            element={ProtectedAdminRoute(component)}
+          /> // warning
+        ))}
+      </Route>
 
       <Route element={<ResortAdmin />}>
         {resortRoutes.map(({ path, component }) => (
           <Route
             key={path}
             path={path}
-            element={ProtectedAdminRoute(component)}
+            element={ProtectedAdminRoute(component)} 
           />
         ))}
       </Route>

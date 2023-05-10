@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
 import { useAdminLogout } from '../../../hooks/useLogout'
 import { useSelector } from 'react-redux'
 import { IBookingDetail } from '../../../interface/booking.interface'
@@ -29,6 +28,7 @@ function ManageBooking() {
             .catch(err => {
               if(err.response.status === 401) logout()
               toastMessage('error',err?.response?.data?.message)})
+              // eslint-disable-next-line 
       }, [])
        
     

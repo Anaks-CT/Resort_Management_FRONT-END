@@ -25,7 +25,7 @@ type props = {
 }
 
 function BarChart({datas, labels}: props) {
-    let barThickness = 60;
+    let barThickness = 50;
   if (window.innerWidth <= 768) {
     barThickness = 20; // set bar thickness to 10 pixels for mobile devices
   }

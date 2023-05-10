@@ -28,7 +28,7 @@ function Login({ onSubmit, message, loading }: props) {
       onSubmit(values, setError, resetForm);
     },
   });
-  const location = useLocation()
+  const location = useLocation();
   const navigate = useNavigate();
   return (
     <div className="bg-[#1E1E1E] p-16 self-center z-10 w-[300px] md:w-[350px] flex flex-col justify-center rounded-lg items-center opacity-70">
@@ -83,12 +83,15 @@ function Login({ onSubmit, message, loading }: props) {
       >
         LOG IN
       </Button>
-      {location.pathname!=="/admin/login" && <div
-        className="text-white cursor-pointer pt-3"
-        onClick={() => navigate("/forgotPassword")}
-      >
-        Forgot Password ?
-      </div>}
+      {location.pathname !== "/admin/login" &&
+        location.pathname !== "/manager/login" && (
+          <div
+            className="text-white cursor-pointer pt-3"
+            onClick={() => navigate("/forgotPassword")}
+          >
+            Forgot Password ?
+          </div>
+        )}
     </div>
   );
 }

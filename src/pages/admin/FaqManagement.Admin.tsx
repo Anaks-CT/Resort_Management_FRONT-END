@@ -1,6 +1,5 @@
 import { useFormik } from "formik";
 import { useState, useEffect } from "react";
-import { Header } from "../../components/Manager/Header";
 import TransitionsModal from "../../components/UI/Modal";
 import faqsDataforTable from "../../components/UI/table/dataFunctions/faqsDataforTable";
 import { modalForm } from "../../components/Manager/faq/modalForm.Faq";
@@ -13,7 +12,6 @@ import TableService from "../../components/UI/table/TableService";
 import Button from "../../components/UI/Button";
 import { TbArrowsDownUp } from "react-icons/tb";
 import { CgArrowLongDown, CgArrowLongUp } from "react-icons/cg";
-import AdminSideBar from "../../components/Manager/sidebar/AdminSideBar";
 import { useSelector } from "react-redux";
 import { IStore } from "../../interface/slice.interface";
 import {useAdminLogout} from '../../hooks/useLogout'
@@ -233,19 +231,10 @@ const [formikInitialValue, setformikInitialValues] = useState<{question: string,
     if (searchInputValue) setSearchInput(searchInputValue);
     if (searchInputValue === "") setSearchInput("");
   };
-  const style = {
-    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.7)), url("https://res.cloudinary.com/dhcvbjebj/image/upload/v1683015725/wallpaperflare.com_wallpaper_9_s9z82o.jpg")`,
-  };
+
 
   return (
       <>
-      <Header />
-      <div
-        className="bg-no-repeat bg-fixed bg-center h-screen w-screen pt-[60px] flex justify-center" // doubt in mobile view
-        style={style}
-      >
-        <AdminSideBar />
-
         <div className="mt-5 text-center">
         <h1 className="text-center mb-8 font-normal tracking-wide text-5xl">F A Q s</h1>
         <TransitionsModal
@@ -263,7 +252,6 @@ const [formikInitialValue, setformikInitialValues] = useState<{question: string,
         
         <DataTable rows={renderingData} headers={headerDiv} />
         </div>
-      </div>
       </div>
     </>
   );

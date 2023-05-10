@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import BookingRoomDetailsProfile from "./BookingRoomDetailsProfile";
 import Button from "../../UI/Button";
 import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
-import { IBooking, IBookingDetail } from "../../../interface/booking.interface";
+import { IBookingDetail } from "../../../interface/booking.interface";
 import { cancelBookingApi } from "../../../api/booking.api";
 import { useSelector } from "react-redux";
 import { IStore } from "../../../interface/slice.interface";

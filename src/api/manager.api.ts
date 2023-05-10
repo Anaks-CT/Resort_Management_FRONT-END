@@ -8,7 +8,7 @@ import { ILoginInterface } from "../interface/user.interface";
 export const addManager = ({ name, phone, email, password, cPassword, resortId }: IManager, token: string) =>
   axiosManager.post("/signup", { name, phone, email, password, cPassword, resortId }, setApiHeader(token)); 
 
-export const loginApi = ({ email, password }:ILoginInterface) =>
+export const managerLoginApi = ({ email, password }:ILoginInterface) =>
     axiosManager.post("/login", { email, password }); 
   
 export const getAllManagerDetails = (searchInput: string, sortOrder: string | null, sortBy: string | null) =>

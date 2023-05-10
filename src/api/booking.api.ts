@@ -24,6 +24,5 @@ export const getResortBookingDetailsApi = (resortId: string, adminToken: string)
 export const searchSortBookingResultApi = (resortId: string, adminToken: string, searchInput: string, sortOrder: string | null, sortBy: string | null) => 
     axiosBooking.post(`/resortBookingDetails/${resortId}`,{sortBy, searchInput, sortOrder}, setApiHeader(adminToken))
 
-export const getAdminDashboardDetailsApi = (adminToken: string) => 
-    axiosBooking.get('/dashboardDetails', setApiHeader(adminToken))
+
 

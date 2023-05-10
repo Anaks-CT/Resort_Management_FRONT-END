@@ -149,6 +149,7 @@ function BookingForm1Page() {
     } else if (location?.state?.value === "date") {
       handleDateClick();
     }
+    // eslint-disable-next-line 
   }, []);
   return (
     <>

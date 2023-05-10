@@ -11,7 +11,7 @@ function ResortAdmin() {
     <>
       <Header />
       <div
-        className="bg-no-repeat bg-fixed bg-center min-h-screen h-full w-screen pt-[60px] flex justify-center" // doubt in mobile view
+        className="bg-no-repeat bg-fixed bg-center min-h-screen h-full w-screen pt-[60px] flex flex-col items-center" // doubt in mobile view
         style={style}
       >
         <AdminResortSideBar />

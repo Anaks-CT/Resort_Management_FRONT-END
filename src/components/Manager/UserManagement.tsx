@@ -1,9 +1,7 @@
 import React, {useState, useEffect} from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
 import { useAdminLogout } from '../../hooks/useLogout'
 import { useSelector } from 'react-redux'
 import { IStore } from '../../interface/slice.interface'
-import { useDispatch } from 'react-redux'
 import { Iuser } from '../../interface/user.interface'
 import { TbArrowsDownUp } from 'react-icons/tb'
 import { CgArrowLongDown, CgArrowLongUp } from 'react-icons/cg'
@@ -16,9 +14,6 @@ import { toastMessage } from '../../helpers/toast'
 
 function ManageUsers() {
     
-      const navigate = useNavigate()
-    
-      const location = useLocation()
     
       const logout = useAdminLogout()
     
@@ -34,6 +29,7 @@ function ManageUsers() {
             .catch(err => {
                 if(err.response.status === 401) logout()
                 toastMessage('error', err?.response?.data?.message)})
+                // eslint-disable-next-line
       }, [])
       
       
