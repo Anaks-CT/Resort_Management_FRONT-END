@@ -8,6 +8,7 @@ import { updateAllResortDetails } from "../../../store/slices/allResortSlice";
 import { useSelector } from "react-redux";
 import { IStore } from "../../../interface/slice.interface";
 import { toastMessage } from "../../../helpers/toast";
+import { removeAdminToken } from "../../../store/slices/adminTokenSlice";
 type resortProp = {
   _id: string;
   name: string;
@@ -44,7 +45,8 @@ function AdminSideBar() {
   const handleManagerClick = () => navigate("/admin/managerManagement");
   
   const handleDashBoardClick = () => navigate("/admin/adminDashboard");
-  
+
+  const handleLogoutClick = () => dispatch(removeAdminToken())
   
   useEffect(() => {
     let arr: resortProp[] = [];
@@ -68,6 +70,7 @@ function AdminSideBar() {
       name: "Dashboard",
       onClick: handleDashBoardClick,
     });
+
     resortDetails?.forEach(item => {
       arr.push({
         _id: item._id,
@@ -76,6 +79,12 @@ function AdminSideBar() {
       })
     })
     setResortNames(arr)
+
+    arr.push({
+      _id: "Logout",
+      name: "Logout",
+      onClick: handleLogoutClick,
+    });
     // eslint-disable-next-line
   }, [resortDetails]);
 

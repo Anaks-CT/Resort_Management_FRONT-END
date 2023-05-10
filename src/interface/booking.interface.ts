@@ -68,3 +68,9 @@ export interface IRoomDetails{
     roomTypeId: string
     _id: string
 }
+
+export interface RevenueReport {
+    _id: string;
+    totalBookings: number;
+    totalRevenue: number;
+  }

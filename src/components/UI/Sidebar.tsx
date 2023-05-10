@@ -37,7 +37,7 @@ export default function Sidebar({sideBarElems, userSideBar}: props) {
     <Box
       color={'white'}
       // bgcolor={"black"}
-      className="h-full border-r bg-black"
+      className="h-full border-r bg-black relative"
       sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
@@ -50,7 +50,7 @@ export default function Sidebar({sideBarElems, userSideBar}: props) {
       <div className="px-3">
       <List className="" >
         {sideBarElems.map((text, index) => (
-          <ListItem className={`hover:bg-slate-500 ${text._id === "Dashboard" && "mb-10"}`} key={text._id} disablePadding>
+          <ListItem className={`hover:bg-slate-500 ${text._id === "Dashboard" && "mb-10"} ${text._id === "Logout" && "text-red-500 mt-56 uppercase"}`} key={text._id} disablePadding>
             <ListItemButton onClick={()=>text.onClick(text._id, text.name)}>
               <ListItemText className={``}  primary={text.name} />
             </ListItemButton>

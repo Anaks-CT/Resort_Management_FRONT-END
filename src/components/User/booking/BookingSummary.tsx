@@ -7,6 +7,11 @@ import { IStore } from "../../../interface/slice.interface";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useUserLogout } from "../../../hooks/useLogout";
 import { toastMessage } from "../../../helpers/toast";
+interface RazorpayResponse {
+  razorpay_payment_id: string;
+  razorpay_order_id: string;
+  razorpay_signature: string;
+}
 declare global {
   interface Window {
     Razorpay: any;
@@ -94,7 +99,7 @@ function BookingSummary({ form1Values, bookingOverViewRoomDetails }: props) {
           name: "TRINITY",
 
           
-          handler: async function (response: any) {
+          handler: async function (response: RazorpayResponse) {
             const paymentData = {
               orderCreationId: razorPayOrderDetails.id,
               razorpayPaymentId: response.razorpay_payment_id,
