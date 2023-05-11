@@ -14,3 +14,6 @@ export const updateRoomApi = (resortId: string, formValues: any , token: string,
 
 export const getAvailableRoomsApi = (formValues: IBookingForm1, token: string) => 
   axiosRoom.post('/availableRooms',{formValues}, setApiHeader(token))
+
+export const changeRoomStatusApi = (roomId: string, token: string) => 
+  axiosRoom.patch(`/block/${roomId}`, {}, setApiHeader(token))

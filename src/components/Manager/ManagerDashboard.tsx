@@ -1,38 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
-import { useAdminLogout } from '../../hooks/useLogout';
-import { getResortDashoboardDetailsApi } from '../../api/company.api';
-import { IStore } from '../../interface/slice.interface';
-import { toastMessage } from '../../helpers/toast';
 import BarChart from '../UI/BarChart';
 
-function ManagerDashboard() {
-    const adminToken = useSelector((state: IStore) => state.adminAuth.token);
-    const currentResortId = useSelector((state: IStore) => state.resort.resortId)
-    const logout = useAdminLogout()
+type props = {
+  resortRevenue?: number
+  totalUsers?: number
+  totalBooking?: number
+  roomOccupancy?: number
+  monthlyRevenue?: { totalRevenue?: number }[]
+}
 
-    // const [monthlyRevenueDetails, setDetails] = useState<RevenueReport[]>();
-    const [resortRevenue, setResortRevenue] = useState<number>()
-    const [totalUsers, setTotalUsers] = useState<number>()
-    const [totalBooking, setTotalBooking] = useState<number>()
-    const [roomOccupancy, setroomOccupancy] = useState<number>();
-    const [monthlyRevenue, setmonthlyRevenue] = useState<
-    { totalRevenue: number }[] | null
-  >();
-      // fetching all the required details from the backend
-  useEffect(() => {
-    getResortDashoboardDetailsApi(adminToken, currentResortId)
-      .then(res => {
-        setTotalBooking(res.data.totalBooking)
-        setTotalUsers(res.data.totalUser)
-        setResortRevenue(res.data.resortRevenue)
-        setmonthlyRevenue(res.data.monthlyRevenue)
-        setroomOccupancy(res.data.roomOccupancy)})
-      .catch( err => {
-        if(err.response.status === 401) logout()
-        toastMessage("error", err.response?.data?.message)});
-      // eslint-disable-next-line
-  }, []);
+function ManagerDashboard({monthlyRevenue, resortRevenue, roomOccupancy, totalBooking, totalUsers}: props) {
+
 
   const labels = [
     "Jan",

@@ -25,6 +25,11 @@ import WishlistPage from "./user/profile/Wishlist.profile";
 import ManagerLoginPage from "./manager/LoginPage.Manager";
 import ManagerPageNotFound from "./manager/404Page.Manager";
 import GallaryManagement from "./manager/GallaryManagement.Manager";
+import DashboardManager from "./manager/Dashboard.Manager";
+import UserManagementManager from "./manager/UserManagement.Manager";
+import BookingManagementManager from "./manager/BookingManagement.Manager";
+import RoomManagementManager from "./manager/RoomManagement.Manager";
+import CustomizeRoomManager from "./manager/CustomizeRoom.Manager";
 
 ///////////////////////////////// admin /////////////////////////////////
 
@@ -63,12 +68,21 @@ export {
   BookingDetailsPage,
   MemberPage,
   PersonalPage,
-  WishlistPage
+  WishlistPage,
 };
 
 ///////////////////////////////////manager export /////////////////////////////////
 
-export { ManagerLoginPage, ManagerPageNotFound, GallaryManagement };
+export {
+  ManagerLoginPage,
+  ManagerPageNotFound,
+  GallaryManagement,
+  DashboardManager,
+  UserManagementManager,
+  BookingManagementManager,
+  RoomManagementManager,
+  CustomizeRoomManager
+};
 
 /////////////////////////////////// admin export /////////////////////////////////
 
@@ -85,5 +99,5 @@ export {
   RoomCustomize,
   MangerManagement,
   BookingManagement,
-  UserManagement
+  UserManagement,
 };

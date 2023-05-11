@@ -1,36 +1,34 @@
-import { useEffect } from 'react';
-import CommunityBannerManagement from '../../components/Manager/banner/communityBanner/communityBannerManagement';
-import LargeBanneManagement from '../../components/Manager/banner/largeBanner/LargeBannerManagement';
-import SmallBannerManagement from '../../components/Manager/banner/smallBanner/SmallBannerManagement';
-import { getGallaryDetailsbyResortIdApi } from '../../api/gallary.api';
-import { useDispatch } from 'react-redux';
-import { updateGallary } from '../../store/slices/gallarySlice';
-import { toastMessage } from '../../helpers/toast';
-
+import { useEffect } from "react";
+import CommunityBannerManagement from "../../components/Manager/banner/communityBanner/communityBannerManagement";
+import LargeBanneManagement from "../../components/Manager/banner/largeBanner/LargeBannerManagement";
+import SmallBannerManagement from "../../components/Manager/banner/smallBanner/SmallBannerManagement";
+import { getGallaryByManagerIdApi, getGallaryDetailsbyResortIdApi } from "../../api/gallary.api";
+import { useDispatch } from "react-redux";
+import { updateGallary } from "../../store/slices/gallarySlice";
+import { toastMessage } from "../../helpers/toast";
+import { IStore } from "../../interface/slice.interface";
+import { useSelector } from "react-redux";
 
 function GallaryManagement() {
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   // const resortId
   //******************** const resortId will be changed to redux when a manager logged in
   ///////////////////////////////////// fetching gallary details by corrresponding resortId ///////////////////
-
+  const managerToken = useSelector((state: IStore) => state.managerAuth.token) 
   useEffect(() => {
-    getGallaryDetailsbyResortIdApi("64158c7a80aa0bca76b639b5")
+    getGallaryByManagerIdApi(managerToken)
       .then((res) => dispatch(updateGallary(res.data.data)))
-      .catch((err) => toastMessage('error', err?.response?.data?.message)); 
-      // eslint-disable-next-line
+      .catch((err) => toastMessage("error", err?.response?.data?.message));
+    // eslint-disable-next-line
   }, []);
 
-  
   return (
-    <div className='bg-slate-400'>
+    <>
       <LargeBanneManagement />
       <SmallBannerManagement />
-      <CommunityBannerManagement /> 
-      {/* <SmallBanneManagement /> */}
-    </div>
-  )
+      <CommunityBannerManagement />
+    </>
+  );
 }
 
-export default GallaryManagement
+export default GallaryManagement;

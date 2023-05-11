@@ -7,12 +7,16 @@ import { CgArrowLongDown, CgArrowLongUp } from "react-icons/cg";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { IStore } from "../../../interface/slice.interface";
-import { getRoomsByResortIdApi } from "../../../api/room.api";
+import { changeRoomStatusApi, getRoomsByResortIdApi } from "../../../api/room.api";
 import { toastMessage } from "../../../helpers/toast";
 
-function RoomManagement() {
-  const navigate = useNavigate();
+type props = {
+  token: string
+  logout: () => void
+}
 
+function RoomManagement({token, logout}: props) {
+  const navigate = useNavigate();
   const location = useLocation();
   const [roomDetails, setRoomDetails] = useState<any>(); //******************will change later to IRoom interface */
 
@@ -28,16 +32,31 @@ function RoomManagement() {
   // changing the room Status
   const handleDelete = (roomId: string) => {
     // api call to change room status
+    changeRoomStatusApi(roomId, token)
+      .then(res => {toastMessage("success", res.data.message); setRoomDetails(res.data.data)})
+      .catch(err => {
+        if(err.response.status === 401) logout()
+        toastMessage("error", err.response?.data?.message)})
+
+
   };
 
   // editing the resortDetails
   const handleEdit = (roomId: string) => {
     const currentRoom = roomDetails?.filter((item: any) => item._id === roomId);
-    navigate(`/admin/${currentResort.resortName}/room/customizeRoom`, {
-      state: {
-        data: currentRoom,
-      },
-    });
+    if(location.pathname === `/admin/${currentResort.resortName}/room`){
+      navigate(`/admin/${currentResort.resortName}/room/customizeRoom`, {
+        state: {
+          data: currentRoom,
+        },
+      })
+    }else if(location.pathname === "/manager/room" || location.pathname === "/manager/Room"){
+      navigate('/manager/room/customize', {
+        state: {
+          data: currentRoom,
+        },
+      })
+    }
   };
 
 
@@ -219,17 +238,22 @@ function RoomManagement() {
   };
 
   //////////////////////////////////////// add resort ///////////////////////////////
-  // const handleAddRoomClick = () => {
-  //   navigate(`/admin/${currentResort.resortName}/room/customizeRoom`, {
-  //     state: { roomDetails: setRoomDetails },
-  //   });
-  // };
+  const handleAddRoomClick = () => {
+    console.log(location.pathname);
+    if(location.pathname === `/admin/${currentResort.resortName}/Room` ||location.pathname === `/admin/${currentResort.resortName}/room`){
+      navigate(`/admin/${currentResort.resortName}/room/customizeRoom`)
+    }else if(location.pathname === "/manager/Room" || location.pathname === "/manager/room"){
+      navigate('/manager/room/customize')
+    }
+  };
+
+
 
   return (
     <>
       <div className="pt-5 w-full h-full text-center">
         <h1 className="text-center mb-5 font-normal tracking-wide text-5xl">ROOM</h1>
-        <Button   onClick={() => navigate(`/admin/${currentResort.resortName}/room/customizeRoom`)} class="mb-10" color="black">
+        <Button   onClick={handleAddRoomClick} class="mb-10" color="black">
         {/* //  onClick={handleAddRoomClick} */}
           ADD ROOM
         </Button>

@@ -1,7 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import { useAdminLogout } from '../../hooks/useLogout'
-import { useSelector } from 'react-redux'
-import { IStore } from '../../interface/slice.interface'
 import { Iuser } from '../../interface/user.interface'
 import { TbArrowsDownUp } from 'react-icons/tb'
 import { CgArrowLongDown, CgArrowLongUp } from 'react-icons/cg'
@@ -11,20 +9,22 @@ import DataTable from "../UI/table/DataTable";
 import { getAllUserDetailsApi, getSearchSortUserDetailsApi, updateUserStatusApi } from '../../api/user.api'
 import { toastMessage } from '../../helpers/toast'
 
-
-function ManageUsers() {
+type props ={ 
+  token: string
+  logout: () => void
+  role: string
+}
+function ManageUsers({token, logout, role}: props) {
     
     
-      const logout = useAdminLogout()
     
       const [allUserDetails, setAllUserDetails] = useState<Iuser[]>()
-      const adminToken = useSelector((state: IStore) => state.adminAuth.token)
       
       const [loading, setLoading] = useState(false)
 
     //   // fetching user information
       useEffect(() => {
-        getAllUserDetailsApi(adminToken)
+        getAllUserDetailsApi(token)
             .then(res => setAllUserDetails(res.data.data))
             .catch(err => {
                 if(err.response.status === 401) logout()
@@ -35,14 +35,20 @@ function ManageUsers() {
       
       // changing the resort Status
       const handleDelete = (userId: string) => {
-        setLoading(true)
-        updateUserStatusApi(userId, adminToken)
-            .then(res => setAllUserDetails(res.data.data))
-            .catch(err => {
-                console.log(err);
-                if(err.response.status === 401) logout()
-                toastMessage('error', err.response?.data?.message)})
-            .finally(() => setLoading(false))
+        const user = allUserDetails?.find((item) => item._id === userId)
+        if(!user?.blockedBy && role === "manager" && !user?.status){
+          toastMessage("warning", "This user is blocked by administrator")
+        }else{
+          setLoading(true)
+          updateUserStatusApi(userId, token)
+              .then(res => setAllUserDetails(res.data.data))
+              .catch(err => {
+                  console.log(err);
+                  if(err.response.status === 401) logout()
+                  toastMessage('error', err.response?.data?.message)})
+              .finally(() => setLoading(false))
+        }
+
       }
     
     
@@ -51,7 +57,7 @@ function ManageUsers() {
       let renderData: any[] = [];
       if (allUserDetails) {
         allUserDetails.forEach((item, i) => {
-          let singleUserDetail = {
+          let singleUserDetail: UserDetail = {
             name: item.name,
             email: item.email,
             type: item.type,
@@ -59,6 +65,9 @@ function ManageUsers() {
             joinedAt: new Date(item.createdAt).toDateString(),
             makeChanges: { _id: item._id, active: item.status, handleDelete},
           };
+          if (role === "admin" && !item.status) {
+            singleUserDetail.blockedBy = item.blockedBy?.name;
+          }
           renderData.push(singleUserDetail);
         });
       }
@@ -75,7 +84,7 @@ function ManageUsers() {
       ///////////////////////////////////////changing the data according to the search input and sortby  API ///////////////////////////////
       // state which is given to the table after searching and sorting
       useEffect(() => {
-        getSearchSortUserDetailsApi(adminToken, searchInput, sortBy, sortOrder)
+        getSearchSortUserDetailsApi(token, searchInput, sortBy, sortOrder)
             .then(res => setAllUserDetails(res.data.data))
             .catch(err => toastMessage('error', err?.response?.data?.message))
           // eslint-disable-next-line
@@ -85,6 +94,9 @@ function ManageUsers() {
     
       // will use this headers and change them into sortable buttons or labels according the to the table data
       const headers = ["Name", "Email", "Member Type", "Total investment", "Joined At", "Status"];
+      if (role === "admin") {
+        headers.push("Blocked By");
+      }
 
       
     
@@ -168,7 +180,7 @@ function ManageUsers() {
         <>
         <div className="mt-5 text-center">
           <h1 className="text-center mb-8 font-normal tracking-wide text-5xl">USERS</h1>
-          <div className='md:w-[950px]'>
+          <div className={`${role === "admin" ? "md:w-[1100px]" : "md:w-[950px]"}`}>
           {loading && (
         <div className="flex justify-center">
           <img
@@ -192,3 +204,17 @@ function ManageUsers() {
     
 
 export default ManageUsers
+
+type UserDetail = {
+  name: string;
+  email: string;
+  type: "member" | "platinum" | "diamond";
+  totalInvest: number;
+  joinedAt: string;
+  makeChanges: {
+    _id: string;
+    active: boolean;
+    handleDelete: (userId: string) => void;
+  };
+  blockedBy?: any; 
+};

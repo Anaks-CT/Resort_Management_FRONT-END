@@ -1,37 +1,53 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Sidebar from '../../UI/Sidebar'
-import { IStore } from '../../../interface/slice.interface'
+import { useManagerLogout } from '../../../hooks/useLogout';
+import { useDispatch } from 'react-redux';
+import { removeManagerToken } from '../../../store/slices/managerTokenSlice';
 
 function ManagerSideBar() {
 
-  const navigate = useNavigate()
-  const resortName = useSelector((state: IStore) => state.resort.resortName)
-
-    const handleSideBarHeadingClick = (_: string, sidebarHeading:string) => {
-        navigate(`/admin/${resortName}/${sidebarHeading}`)
-      }
-      const sideBarHeadings = [
-        {
-          _id: '1',
-          name: "Gallary",
-          onClick: handleSideBarHeadingClick
-        },
-        {
-          _id: '2',
-          name: "Booking",
-          onClick: handleSideBarHeadingClick
-        },
-        {
-          _id: '3',
-          name: "Room",
-          onClick: handleSideBarHeadingClick
-        },
-      ]
-  return (
-    <Sidebar sideBarElems={sideBarHeadings}/>
-  )
+  const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const handleSideBarHeadingClick = (_: string, sidebarHeading: string) => {
+    navigate(`/manager/${sidebarHeading}`);
+  };
+  const handleLogoutClick = () => {
+    dispatch(removeManagerToken())
+  };
+  const sideBarHeadings = [
+    {
+      _id: "1",
+      name: "Dashboard",
+      onClick: handleSideBarHeadingClick,
+    },
+    {
+      _id: "2",
+      name: "Gallary",
+      onClick: handleSideBarHeadingClick,
+    },
+    {
+      _id: "3",
+      name: "Users",
+      onClick: handleSideBarHeadingClick,
+    },
+    {
+      _id: "4",
+      name: "Booking",
+      onClick: handleSideBarHeadingClick,
+    },
+    {
+      _id: "5",
+      name: "Room",
+      onClick: handleSideBarHeadingClick,
+    },
+    {
+      _id: "Logout",
+      name: "Logout",
+      onClick: handleLogoutClick,
+    },
+  ];
+  return <Sidebar sideBarElems={sideBarHeadings} />;
 }
 
 export default ManagerSideBar

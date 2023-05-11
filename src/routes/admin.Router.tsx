@@ -21,7 +21,7 @@ import { useEffect, useState } from "react";
 import { checkAdminCredentialApi } from "../api/checkAuth";
 import { useDispatch } from "react-redux";
 import { removeAdminToken } from "../store/slices/adminTokenSlice";
-import ResortAdmin from "../layouts/Resort.Admin";
+import ManagerLayout from "../layouts/ManagerLayout";
 import AdminLayout from "../layouts/AdminLayout";
 
 type routers = {
@@ -112,7 +112,7 @@ function AdminRouter() {
         ))}
       </Route>
 
-      <Route element={<ResortAdmin />}>
+      <Route element={<ManagerLayout />}>
         {resortRoutes.map(({ path, component }) => (
           <Route
             key={path}

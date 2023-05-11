@@ -12,6 +12,7 @@ export interface Iuser {
   bookings: string[]
   createdAt: Date
   status: boolean
+  blockedBy: any
 }
 
 export interface ILoginInterface{ // not preferable personl  capital I  can be exteneed

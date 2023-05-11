@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const managerToken = createSlice({
-  name: "token",
+  name: "managerToken",
   initialState: {token: ''},
   reducers: {
     addManagerToken(state, action) {

@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   ErrorMessage,
   Field,
@@ -31,8 +31,18 @@ function AddEditRoomForm({
   loading,
   error,
 }: props) {
-  const navigate = useNavigate();
-  const currentResort = useSelector((state: IStore) => state.resort);
+  const navigate = useNavigate()
+  const location = useLocation()
+  const currentResort = useSelector((state: IStore) => state.resort.resortName);
+
+  const navigateBack = (message?: string) => {
+    console.log(location.pathname, currentResort);
+    if(location.pathname === `/admin/${currentResort}/room/customizeRoom`||location.pathname === `/admin/${currentResort}/Room/customizeRoom`){
+      navigate(`/admin/${currentResort}/room`);
+    }else if(location.pathname === '/manager/room/customize'||location.pathname === '/manager/Room/customize'){
+      navigate(`/manager/room`);
+    }
+  }
   return (
     <>
       <div className="md:p-20 p-10">
@@ -61,7 +71,7 @@ function AddEditRoomForm({
                       ></img>
                     )}
                     {values.images[0] && (
-                      <PreviewImage freeStyle={true} file={values.images[0]} />
+                      <PreviewImage roomCustomize={true}  file={values.images[0]} />
                     )}
                   </div>
 
@@ -74,7 +84,7 @@ function AddEditRoomForm({
                       ></img>
                     )}
                     {values.images[1] && (
-                      <PreviewImage freeStyle={true} file={values.images[1]} />
+                      <PreviewImage roomCustomize={true}  file={values.images[1]} />
                     )}
                   </div>
                   <div className=" lg:h-60 md:w-72 w-52 md:h-32 mx-auto h-32 border">
@@ -86,7 +96,7 @@ function AddEditRoomForm({
                       ></img>
                     )}
                     {values.images[2] && (
-                      <PreviewImage freeStyle={true} file={values.images[2]} />
+                      <PreviewImage roomCustomize={true}  file={values.images[2]} />
                     )}
                   </div>
                   <div className=" lg:h-60 md:w-72 w-52 md:h-32 mx-auto h-32 border">
@@ -98,7 +108,7 @@ function AddEditRoomForm({
                       ></img>
                     )}
                     {values.images[3] && (
-                      <PreviewImage freeStyle={true} file={values.images[3]} />
+                      <PreviewImage roomCustomize={true}  file={values.images[3]} />
                     )}
                   </div>
                 </div>
@@ -582,9 +592,7 @@ function AddEditRoomForm({
                       class="py-3 px-4 rounded mt-8 mx-10"
                       color="danger"
                       disable={loading ? true : false}
-                      onClick={() =>
-                        navigate(`/admin/${currentResort.resortName}/room`)
-                      }
+                      onClick={() => navigateBack()}
                     >
                       CANCEL
                     </Button>

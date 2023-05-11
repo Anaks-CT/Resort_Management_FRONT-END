@@ -5,7 +5,7 @@ import { CgArrowLongDown, CgArrowLongUp } from "react-icons/cg";
 import Button from "../../components/UI/Button";
 import TableService from "../../components/UI/table/TableService";
 import DataTable from "../../components/UI/table/DataTable";
-import { getAllManagerDetails } from "../../api/manager.api";
+import { getAllManagerDetailsApi } from "../../api/manager.api";
 import { IManager } from "../../interface/manager.interface";
 import { useFormik } from "formik";
 import TransitionsModal from "../../components/UI/Modal";
@@ -127,7 +127,7 @@ function ManagerManagement() {
 
 
   useEffect(() => {
-    getAllManagerDetails(searchInput, sortOrder, sortBy)
+    getAllManagerDetailsApi(searchInput, sortOrder, sortBy, adminToken)
     .then((res: any) => setmanagerDetails(res.data.data))
     .catch((err: any) =>toastMessage('error', err?.response?.data?.message));
   }, [searchInput, sortBy, sortOrder]);

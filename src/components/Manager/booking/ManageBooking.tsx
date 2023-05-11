@@ -11,19 +11,20 @@ import { IStore } from '../../../interface/slice.interface'
 import { getResortBookingDetailsApi, searchSortBookingResultApi } from '../../../api/booking.api'
 import { toastMessage } from '../../../helpers/toast'
 
-
-function ManageBooking() {
+type props = {
+  token: string
+  logout: () => void
+}
+function ManageBooking({token, logout}: props) {
     
     
     
-      const logout = useAdminLogout()
     
-      const adminToken = useSelector((state: IStore) => state.adminAuth.token)
       const currentResortId = useSelector((state: IStore) => state.resort.resortId)
       const [bookingDetails, setBookingDetails] = useState<IBookingDetail[]>()
       
       useEffect(() => {
-        getResortBookingDetailsApi(currentResortId, adminToken)
+        getResortBookingDetailsApi(currentResortId, token)
             .then(res => setBookingDetails(res.data.data))
             .catch(err => {
               if(err.response.status === 401) logout()
@@ -73,7 +74,7 @@ function ManageBooking() {
       ///////////////////////////////////////changing the data according to the search input and sortby  API ///////////////////////////////
       // state which is given to the table after searching and sorting
       useEffect(() => {
-        searchSortBookingResultApi(currentResortId, adminToken, searchInput, sortOrder, sortBy)
+        searchSortBookingResultApi(currentResortId, token, searchInput, sortOrder, sortBy)
           .then(res => setBookingDetails(res.data.data))
           .catch(err => {
             if(err.response.status === 401) logout()

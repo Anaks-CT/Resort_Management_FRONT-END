@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { ILoginInterface } from '../../interface/user.interface';
 import Login from '../UI/login/Login'
 import { useDispatch } from 'react-redux';
-import { addAdminToken } from '../../store/slices/adminTokenSlice';
 import { managerLoginApi } from '../../api/manager.api';
 import { addManagerToken } from '../../store/slices/managerTokenSlice';
+import { updateResort } from '../../store/slices/resortSlice';
 
 function ManagerLogin() {
     const navigate = useNavigate();
@@ -16,7 +16,9 @@ function ManagerLogin() {
       setloading(true)
       managerLoginApi(values)
           .then((res) => {
+            console.log(res);
             dispatch(addManagerToken(res.data.token))
+            dispatch(updateResort(res.data.resortDetails))
             setError("");
             resetForm();
             navigate("/manager/dashboard");

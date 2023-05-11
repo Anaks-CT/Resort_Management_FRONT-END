@@ -10,6 +10,9 @@ export const getAllGallaryDetailsApi = () =>
 export const getGallaryDetailsbyResortIdApi = (resortId: string) => 
   axiosGallary.get(`/getGallaryByResortId/${resortId}`)
 
+export const getGallaryByManagerIdApi = (managerToken: string) => 
+  axiosGallary.get('/getGallaryDetailsByManager', setApiHeader(managerToken))
+
   
 export const addLargeBannerApi = (resortId: string, image: string, description1: string, description2: string, token: string) => 
   axiosGallary.post(`/largeBanner/${resortId}`,{resortId, image, description1, description2, banner: "largeBanner"}, setApiHeader(token))

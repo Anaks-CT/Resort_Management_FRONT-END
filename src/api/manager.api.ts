@@ -11,11 +11,14 @@ export const addManager = ({ name, phone, email, password, cPassword, resortId }
 export const managerLoginApi = ({ email, password }:ILoginInterface) =>
     axiosManager.post("/login", { email, password }); 
   
-export const getAllManagerDetails = (searchInput: string, sortOrder: string | null, sortBy: string | null) =>
-  axiosManager.get(`/?searchInput=${searchInput}&sortOrder=${sortOrder}&sortBy=${sortBy}`)
+export const getAllManagerDetailsApi = (searchInput: string, sortOrder: string | null, sortBy: string | null, adminToken: string) =>
+  axiosManager.get(`/?searchInput=${searchInput}&sortOrder=${sortOrder}&sortBy=${sortBy}`, setApiHeader(adminToken))
 
 export const ChangeManagerStatusApi = (managerId: string, token: string) => 
   axiosManager.delete(`/${managerId}`, setApiHeader(token))
 
 export const getMangersByResortApi = (resortId: string) =>
   axiosManager.get(`/resortMangers:${resortId}`); 
+
+export const getManagerdashboardDetailsAPi = (managerToken: string) => 
+  axiosManager.get('/dashboardDetails', setApiHeader(managerToken))
