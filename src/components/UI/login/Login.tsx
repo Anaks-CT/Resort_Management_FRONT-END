@@ -5,6 +5,8 @@ import { useFormik } from "formik";
 import { loginSchema } from "../../../schema/user/auth";
 import { ILoginInterface } from "../../../interface/user.interface";
 import { useLocation, useNavigate } from "react-router-dom";
+import { RiEyeCloseFill } from "react-icons/ri";
+import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 
 type props = {
   message?: string;
@@ -18,6 +20,7 @@ type props = {
 
 function Login({ onSubmit, message, loading }: props) {
   const [error, setError] = useState("");
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -60,6 +63,7 @@ function Login({ onSubmit, message, loading }: props) {
       {formik.touched.password && formik.errors.password && (
         <div className="text-red-500">{formik.errors.password}</div>
       )}
+
       <p className="text-slate-500 text-[10px] md:text-sm mt-10">
         By signing in you accept the Terms and Conditions of Trinity
       </p>

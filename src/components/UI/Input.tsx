@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import classNames from "classnames";
+import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 
 type props = {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
@@ -24,20 +25,38 @@ function Input({
     "border-0 border-b md:border-b-2 border-white box-border p-[16px] block w-full bg-transparent bg-opacity-70 text-white tracking-wide",
     rest.class
   );
-  return (
-    //  <div className="relative mb-3">
-    //     {/* {value && <label htmlFor={name} className="text-white absolute bottom-10 font-sans text-[10px] uppercase">{placeholder}</label>} */}
-    //     <input
-    //       type={type}
-    //       className={classes}
-    //       required={required}
-    //       onChange={(e)=>onChange(e)}
-    //       placeholder={placeholder}
-    //       value={value}
-    //       name={name}
-    //     />
-    //  </div>
+  const [seePassword, setSeePassword] = useState(false);
+  const handleSeePassword = () => {
+    setSeePassword(!seePassword);
+  };
 
+  if (type === "password") {
+    return (
+      <div className="w-full relative">
+        <input
+          type={seePassword ? "text" : "password"}
+          className={classes}
+          required={required}
+          onChange={(e) => onChange(e)}
+          placeholder={placeholder}
+          value={value}
+          name={name}
+        />
+        {seePassword ? (
+          <BsEyeFill
+            onClick={handleSeePassword}
+            className="cursor-pointer absolute top-1/2 right-3 text-white"
+          />
+        ) : (
+          <BsEyeSlashFill
+            onClick={handleSeePassword}
+            className="cursor-pointer absolute top-1/2 right-3 text-white"
+          />
+        )}
+      </div>
+    );
+  }
+  return (
     <input
       type={type}
       className={classes}
