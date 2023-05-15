@@ -14,7 +14,7 @@ function ManagerLayout() {
     <>
       <Header />
       <div
-        className="bg-no-repeat bg-fixed bg-center min-h-screen h-full w-screen pt-[60px] flex flex-col items-center" // doubt in mobile view
+        className="bg-no-repeat bg-fixed bg-center min-h-screen h-full w-screen pt-[60px] flex flex-col items-center justify-center" // doubt in mobile view
         style={style}
       >
         {location.pathname.startsWith('/manager') ? <ManagerSideBar /> :  <AdminResortSideBar />}

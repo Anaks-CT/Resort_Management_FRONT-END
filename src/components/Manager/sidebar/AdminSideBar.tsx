@@ -44,7 +44,7 @@ function AdminSideBar() {
 
   const handleManagerClick = () => navigate("/admin/managerManagement");
   
-  const handleDashBoardClick = () => navigate("/admin/adminDashboard");
+  const handleDashBoardClick = () => navigate("/admin/dashboard");
 
   const handleLogoutClick = () => dispatch(removeAdminToken())
   

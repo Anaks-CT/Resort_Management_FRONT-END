@@ -12,7 +12,7 @@ function AdminResortSideBar() {
     navigate(`/admin/${resortName}/${sidebarHeading}`);
   };
   const handleAdminDashboardClick = () => {
-    navigate("/admin/adminDashboard");
+    navigate("/admin/dashboard");
   };
   const sideBarHeadings = [
     {

@@ -77,12 +77,12 @@ function ManagerRouter() {
         {publicRoutes.map(({ path, component }) => (
           <Route key={path} path={path} element={component} /> // warning
         ))}
+        <Route
+          path={"/*"}
+          element={ProtectedManagerRoute(<ManagerPageNotFound />)}
+        />
       </Route>
 
-      <Route
-        path={"/*"}
-        element={ProtectedManagerRoute(<ManagerPageNotFound />)}
-      />
     </Routes>
   );
 }

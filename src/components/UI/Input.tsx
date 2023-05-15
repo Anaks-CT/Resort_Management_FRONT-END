@@ -45,12 +45,12 @@ function Input({
         {seePassword ? (
           <BsEyeFill
             onClick={handleSeePassword}
-            className="cursor-pointer absolute top-1/2 right-3 text-white"
+            className="cursor-pointer absolute top-6 right-3 text-white"
           />
         ) : (
           <BsEyeSlashFill
             onClick={handleSeePassword}
-            className="cursor-pointer absolute top-1/2 right-3 text-white"
+            className="cursor-pointer absolute top-6 right-3 text-white"
           />
         )}
       </div>

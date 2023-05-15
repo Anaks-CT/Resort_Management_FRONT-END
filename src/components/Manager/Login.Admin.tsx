@@ -18,7 +18,7 @@ function AdminLogin() {
             dispatch(addAdminToken(res.data.token))
             setError("");
             resetForm();
-            navigate("/admin/adminDashboard");
+            navigate("/admin/dashboard");
           })
           .catch((err) => setError(err?.response?.data?.message))
           .finally(() => setloading(false))

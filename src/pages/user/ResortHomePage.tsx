@@ -47,29 +47,31 @@ function ResortHomePage() {
   const resortDetails: IResort = location?.state?.resortDetails;
   useEffect(() => {
     if (!location?.state?.resortDetails) {
-      navigate("/");
+      navigate("/page/not/found", {state: location.pathname});
     }
     // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-    getGallaryDetailsbyResortIdApi(resortDetails?._id)
-      .then((res) => setGallaryDetail(res.data.data))
-      .catch((err) => {
-        toastMessage("error", err?.response?.data?.message);
-      });
-
-    getCompanyDetailsApi()
-      .then((res) => setFaqs(res.data.data.faqs))
-      .catch((err) => {
-        toastMessage("error", err?.response?.data?.message);
-      });
-
-    getRoomsByResortIdApi(resortDetails?._id)
-      .then((res) => setRoomDetails(res.data.data))
-      .catch((err) => {
-        toastMessage("error", err?.response?.data?.message);
-      });
+    if(location?.state?.resortDetails){
+      getGallaryDetailsbyResortIdApi(resortDetails?._id)
+        .then((res) => setGallaryDetail(res.data.data))
+        .catch((err) => {
+          toastMessage("error", err?.response?.data?.message);
+        });
+  
+      getCompanyDetailsApi()
+        .then((res) => setFaqs(res.data.data.faqs))
+        .catch((err) => {
+          toastMessage("error", err?.response?.data?.message);
+        });
+  
+      getRoomsByResortIdApi(resortDetails?._id)
+        .then((res) => setRoomDetails(res.data.data))
+        .catch((err) => {
+          toastMessage("error", err?.response?.data?.message);
+        });
+    }
       // eslint-disable-next-line
   }, []);
 

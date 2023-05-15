@@ -46,7 +46,7 @@ function AdminRouter() {
   }, [adminToken]);
   const adminRoutes: routers[] = [
     {
-      path: "/adminDashboard",
+      path: "/dashboard",
       component: <AdminDashboard />,
     },
     {
@@ -98,7 +98,7 @@ function AdminRouter() {
       <Route
         path="/login"
         element={
-          !auth ? <AdminLoginPage /> : <Navigate to="/admin/adminDashboard" />
+          !auth ? <AdminLoginPage /> : <Navigate to="/admin/dashboard" />
         }
       />
       
@@ -120,9 +120,9 @@ function AdminRouter() {
             element={ProtectedAdminRoute(component)} 
           />
         ))}
+        <Route path={"/*"} element={ProtectedAdminRoute(<PageNotFoundAdmin />)} />
       </Route>
 
-      <Route path={"/*"} element={ProtectedAdminRoute(<PageNotFoundAdmin />)} />
     </Routes>
   );
 }
