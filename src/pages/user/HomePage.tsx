@@ -46,22 +46,22 @@ function HomePage() {
   useEffect(() => {
       /////////// fetching company details  //////////
     getCompanyDetailsApi()
-        .then((res) => setcompanyDetails(res.data.data))
+        .then((res) => {console.log(res); setcompanyDetails(res.data.data)})
         .catch((err) => toastMessage('error', err?.response?.data?.message))
         // /////// fetching resorts details/////////////////
     getAllResortDetailsApi()
-        .then((res) => setresortDetails(res.data.data))
+        .then((res) => {console.log(res); setresortDetails(res.data.data)})
         .catch((err) => toastMessage('error', err?.response?.data?.message))
         ///////////////////// fetching gallary details /////////
     getAllGallaryDetailsApi()
-        .then((res) => setgallaryDetails(res.data.data))
+        .then((res) => {console.log(res); setgallaryDetails(res.data.data)})
         .catch((err) => toastMessage('error', err?.response?.data?.message))
     // removing current resort from slice if any
     dispatch(removeCurrentResort())
     // eslint-disable-next-line
   }, []);
 
-  // style for background image
+  // style for background images
   const style = {
     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3),rgba(0, 0, 0, 0.3)), url(${companyDetails?.bannerDetails.image})`,
   };
