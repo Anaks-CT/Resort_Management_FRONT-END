@@ -5,6 +5,7 @@ import UserRouter from "./routes/User.Router";
 import ManagerRouter from "./routes/Manager.Router";
 import { ToastContainer } from "react-toastify";
 import AdminRouter from "./routes/Admin.Router";
+import ScrollToTop from "./components/UI/ScrollToTop";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       {/* Same as */}
       <ToastContainer />
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route path="/manager/*" element={<ManagerRouter />} />
           <Route path="/admin/*" element={<AdminRouter />} />
