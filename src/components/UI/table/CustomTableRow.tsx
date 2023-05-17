@@ -5,19 +5,11 @@ import Button from "../Button";
 
 function CustomTableRow({ row, editImage, deleteButtonValue }: any) {
   const inputRef: any = useRef();
-  const noData = () => {
-    if (!row)
-      return (
-        <TableRow>
-          <h1 className="text-black">No data to show</h1>
-        </TableRow>
-      );
-  };
+
 
   
   return (
     <>
-      {noData}
       <TableRow
       className="flex border"
         key={row}

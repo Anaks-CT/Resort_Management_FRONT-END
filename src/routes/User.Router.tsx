@@ -77,7 +77,7 @@ function UserRouter() {
       <Route path="/booking/confirm" element={auth ? (<BookingConfirmPage />) : <Navigate to={'/login'}/>} />
       
       <Route element={<UserProfile />}>    
-        <Route path="/profile" element={ProtectedUserRoute(<PersonalPage />)} />
+        <Route path="/profile"  element={ProtectedUserRoute(<PersonalPage />)} />
         <Route path="/profile/member" element={ProtectedUserRoute(<MemberPage />)} />
         <Route path="/profile/bookings" element={ProtectedUserRoute(<BookingDetailsPage />)} />
         <Route path="/profile/wishlist" element={ProtectedUserRoute(<WishlistPage />)} />

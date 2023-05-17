@@ -25,9 +25,11 @@ function AdminDashboard() {
   const [resortRevenue, setResortRevenue] = useState<
     { totalRevenue: number }[] | null
   >();
+  const [loading, setLoading] = useState(false);
 
   // fetching all the required details from the backend
   useEffect(() => {
+    setLoading(true);
     getAdminDashboardDetailsApi(adminToken)
       .then((res) => {
         setTotalBooking(res.data.bookingCount);
@@ -40,7 +42,8 @@ function AdminDashboard() {
       .catch((err) => {
         if (err.response.status === 401) logout();
         toastMessage("error", err.response?.data?.message);
-      });
+      })
+      .finally(() => setLoading(false));
     // eslint-disable-next-line
   }, []);
 
@@ -72,10 +75,18 @@ function AdminDashboard() {
   }, [adminToken]);
 
   const pieChartDatas = resortRevenue?.map((item) => item.totalRevenue);
-
   return (
     <>
       <h1 className="pt-8 font-normal tracking-wide text-5xl">DASHBOARD</h1>
+      {loading && (
+        <div className="flex justify-center">
+        <img
+          width={50}
+          src="https://res.cloudinary.com/dhcvbjebj/image/upload/v1680669482/Spinner-1s-200px_4_ontbds.gif"
+          alt=""
+        />
+      </div>  
+      )}
       <div className="mt-10 z-10 grid grid-col-1 md:grid-cols-2 lg:grid-cols-4 gap-20 justify-center mx-auto">
         <div className="bg-red-500 bg-opacity-70 gap-3 h-32 rounded flex flex-col justify-center items-center w-64">
           <div className="tracking-wide  font-black">TOTAL USERS</div>

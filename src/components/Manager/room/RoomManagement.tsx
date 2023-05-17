@@ -44,7 +44,7 @@ function RoomManagement({token, logout}: props) {
   // editing the resortDetails
   const handleEdit = (roomId: string) => {
     const currentRoom = roomDetails?.filter((item: any) => item._id === roomId);
-    if(location.pathname === `/admin/${currentResort.resortName}/room`){
+    if(location.pathname === `/admin/${currentResort.resortName}/Room` || location.pathname === `/admin/${currentResort.resortName}/room`){
       navigate(`/admin/${currentResort.resortName}/room/customizeRoom`, {
         state: {
           data: currentRoom,

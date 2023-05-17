@@ -7,7 +7,7 @@ type props = {
   required?: boolean;
   placeholder: string;
   class?: string;
-  type: "number" | "text" | "password" | "file" | "text";
+  type: "number" | "text" | "password" | "file" | "text" | "date";
   value?: string | number | undefined;
   name: string;
 };

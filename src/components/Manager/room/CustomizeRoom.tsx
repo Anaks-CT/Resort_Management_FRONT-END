@@ -85,8 +85,9 @@ function CustomizeRoom({logout, token}: props) {
 
 
   const navigateBack = (message?: string) => {
-    if(location.pathname === `/admin/${currentResort}/room/customizeRoom`||location.pathname === `/admin/${currentResort}/Room/customizeRoom`){
-      navigate(`/admin/${currentResort}/room`, {
+    console.log(location.pathname);
+    if(location.pathname === `/admin/${currentResort.resortName}/room/customizeRoom`||location.pathname === `/admin/${currentResort.resortName}/Room/customizeRoom`){
+      navigate(`/admin/${currentResort.resortName}/room`, {
         state: { message: message },
       });
     }else if(location.pathname === '/manager/room/customize'||location.pathname === '/manager/Room/customize'){

@@ -108,15 +108,16 @@ function ProfileDetails({ formik, user, saveButtonClicked, error }: props) {
           </div>
         </div>
         <div className="text-center mt-5 md:hidden">
-          <Button
-            type="submit"
-            outline
-            onClick={formik.handleSubmit}
-            class="px-3 py-1"
-            color="white"
-          >
-            Save Changes
-          </Button>
+        {(formik.values.name!== user?.name || formik.values.image) && <Button
+          type="submit"
+          outline
+          onClick={formik.handleSubmit}
+          class="px-3 py-1"
+          color="white"
+          disable={saveButtonClicked}
+        >
+          Save Changes
+        </Button>}
         </div>
       </div>
       <div className="text-center mt-5 hidden md:block">
