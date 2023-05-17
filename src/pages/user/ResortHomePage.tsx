@@ -115,8 +115,8 @@ function ResortHomePage() {
           <div className="relative">
             {width < 768 && (
               <>
-                <BsChevronLeft className="text-white text-2xl absolute -left-10 top-1/2 cursor-pointer" onClick={decrementNumber}/>
-                <BsChevronRight className="text-white text-2xl absolute -right-10 top-1/2 cursor-pointer" onClick={incrementNumber}/>
+                <BsChevronLeft className="text-white text-2xl absolute -left-4 top-1/2 cursor-pointer" onClick={decrementNumber}/>
+                <BsChevronRight className="text-white text-2xl absolute -right-5 top-1/2 cursor-pointer" onClick={incrementNumber}/>
               </>
             )}
             <RoomCards
