@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { IStore } from '../../../interface/slice.interface';
-import { useAdminLogout } from '../../../hooks/useLogout';
 import { IAddRoom } from '../../../interface/room.interface';
 import { createRoomApi, updateRoomApi } from '../../../api/room.api';
 import AddEditRoomForm from './AddEditRoomForm';
@@ -86,7 +85,6 @@ function CustomizeRoom({logout, token}: props) {
 
 
   const navigateBack = (message?: string) => {
-    console.log(location.pathname);
     if(location.pathname === `/admin/${currentResort}/room/customizeRoom`||location.pathname === `/admin/${currentResort}/Room/customizeRoom`){
       navigate(`/admin/${currentResort}/room`, {
         state: { message: message },

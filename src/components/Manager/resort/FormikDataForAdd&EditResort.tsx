@@ -31,18 +31,6 @@ type props = {
 
 function FormikDataForResortManagement({data, editInitialValues, initialValues, formikOnSubmit, loading, error}: props) {
     const navigate = useNavigate()
-  //   const [managerDetails, setManagerDetails] = useState<IManager[]>()
-  //   useEffect(() => {
-  //     if(data){
-  //       getMangersByResortApi(data[0]._id)
-  //       .then(res => setManagerDetails(res.data.data))
-  //       .catch(err => {console.log(err);toastMessage('error', err?.response?.data?.message)})
-  //     }
-  //   }, [])
-    
-  //   const renderData = managerDetails?.map((item, i) => (
-  //     <option value={item._id}>{item.name}</option>
-  // ))
   return (
     <Formik
         initialValues={

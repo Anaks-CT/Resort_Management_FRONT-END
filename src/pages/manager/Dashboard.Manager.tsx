@@ -23,7 +23,6 @@ useEffect(() => {
   if(managerToken){
     getManagerdashboardDetailsAPi(managerToken)
     .then(res => {
-      console.log(res);
       setTotalBooking(res.data.totalBooking)
       setTotalUsers(res.data.totalUser)
       setResortRevenue(res.data.resortRevenue)

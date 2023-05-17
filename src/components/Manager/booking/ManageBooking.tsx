@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import { useAdminLogout } from '../../../hooks/useLogout'
 import { useSelector } from 'react-redux'
 import { IBookingDetail } from '../../../interface/booking.interface'
 import { TbArrowsDownUp } from 'react-icons/tb'

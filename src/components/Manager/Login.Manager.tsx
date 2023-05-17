@@ -16,7 +16,6 @@ function ManagerLogin() {
       setloading(true)
       managerLoginApi(values)
           .then((res) => {
-            console.log(res);
             dispatch(addManagerToken(res.data.token))
             dispatch(updateResort(res.data.resortDetails))
             setError("");

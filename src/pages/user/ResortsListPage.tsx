@@ -5,6 +5,7 @@ import { getAllResortDetailsApi } from "../../api/resort.api";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { updateCurrentResort } from "../../store/slices/currentResortUserSlice";
+import { toastMessage } from "../../helpers/toast";
 
 function ResortsListPage() {
   // style for background image
@@ -15,12 +16,11 @@ function ResortsListPage() {
     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.9),rgba(0, 0, 0, 0.3)), url(${image})`,
   };
   const [allResorts, setAllResorts] = useState<IResort[] | null>(null);
-  const [error, setError] = useState("");
   // fetching all the resorts from backend and storing the value in to state
   useEffect(() => {
     getAllResortDetailsApi()
       .then((res) => setAllResorts(res.data.data))
-      .catch((err) => setError(err.message));
+      .catch((err) => toastMessage('error', err.response.data.message));
   }, []);
 
   const navigate = useNavigate();

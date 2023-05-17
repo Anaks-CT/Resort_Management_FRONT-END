@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react'
-import { useAdminLogout } from '../../hooks/useLogout'
 import { Iuser } from '../../interface/user.interface'
 import { TbArrowsDownUp } from 'react-icons/tb'
 import { CgArrowLongDown, CgArrowLongUp } from 'react-icons/cg'
@@ -43,7 +42,6 @@ function ManageUsers({token, logout, role}: props) {
           updateUserStatusApi(userId, token)
               .then(res => setAllUserDetails(res.data.data))
               .catch(err => {
-                  console.log(err);
                   if(err.response.status === 401) logout()
                   toastMessage('error', err.response?.data?.message)})
               .finally(() => setLoading(false))

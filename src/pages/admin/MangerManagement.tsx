@@ -130,6 +130,7 @@ function ManagerManagement() {
     getAllManagerDetailsApi(searchInput, sortOrder, sortBy, adminToken)
     .then((res: any) => setmanagerDetails(res.data.data))
     .catch((err: any) =>toastMessage('error', err?.response?.data?.message));
+    // eslint-disable-next-line
   }, [searchInput, sortBy, sortOrder]);
 
 

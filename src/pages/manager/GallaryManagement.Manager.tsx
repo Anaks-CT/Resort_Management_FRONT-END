@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import CommunityBannerManagement from "../../components/Manager/banner/communityBanner/communityBannerManagement";
 import LargeBanneManagement from "../../components/Manager/banner/largeBanner/LargeBannerManagement";
 import SmallBannerManagement from "../../components/Manager/banner/smallBanner/SmallBannerManagement";
-import { getGallaryByManagerIdApi, getGallaryDetailsbyResortIdApi } from "../../api/gallary.api";
+import { getGallaryByManagerIdApi } from "../../api/gallary.api";
 import { useDispatch } from "react-redux";
 import { updateGallary } from "../../store/slices/gallarySlice";
 import { toastMessage } from "../../helpers/toast";

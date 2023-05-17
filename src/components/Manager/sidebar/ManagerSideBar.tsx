@@ -1,7 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import Sidebar from '../../UI/Sidebar'
-import { useManagerLogout } from '../../../hooks/useLogout';
 import { useDispatch } from 'react-redux';
 import { removeManagerToken } from '../../../store/slices/managerTokenSlice';
 

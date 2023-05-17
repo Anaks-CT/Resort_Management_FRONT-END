@@ -46,15 +46,15 @@ function HomePage() {
   useEffect(() => {
       /////////// fetching company details  //////////
     getCompanyDetailsApi()
-        .then((res) => {console.log(res); setcompanyDetails(res.data.data)})
+        .then((res) => setcompanyDetails(res.data.data))
         .catch((err) => toastMessage('error', err?.response?.data?.message))
         // /////// fetching resorts details/////////////////
     getAllResortDetailsApi()
-        .then((res) => {console.log(res); setresortDetails(res.data.data)})
+        .then((res) => setresortDetails(res.data.data))
         .catch((err) => toastMessage('error', err?.response?.data?.message))
         ///////////////////// fetching gallary details /////////
     getAllGallaryDetailsApi()
-        .then((res) => {console.log(res); setgallaryDetails(res.data.data)})
+        .then((res) => setgallaryDetails(res.data.data))
         .catch((err) => toastMessage('error', err?.response?.data?.message))
     // removing current resort from slice if any
     dispatch(removeCurrentResort())

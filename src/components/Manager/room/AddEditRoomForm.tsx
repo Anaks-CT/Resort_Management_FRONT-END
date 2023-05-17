@@ -36,7 +36,6 @@ function AddEditRoomForm({
   const currentResort = useSelector((state: IStore) => state.resort.resortName);
 
   const navigateBack = (message?: string) => {
-    console.log(location.pathname, currentResort);
     if(location.pathname === `/admin/${currentResort}/room/customizeRoom`||location.pathname === `/admin/${currentResort}/Room/customizeRoom`){
       navigate(`/admin/${currentResort}/room`);
     }else if(location.pathname === '/manager/room/customize'||location.pathname === '/manager/Room/customize'){

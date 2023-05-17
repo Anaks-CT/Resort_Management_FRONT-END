@@ -239,7 +239,6 @@ function RoomManagement({token, logout}: props) {
 
   //////////////////////////////////////// add resort ///////////////////////////////
   const handleAddRoomClick = () => {
-    console.log(location.pathname);
     if(location.pathname === `/admin/${currentResort.resortName}/Room` ||location.pathname === `/admin/${currentResort.resortName}/room`){
       navigate(`/admin/${currentResort.resortName}/room/customizeRoom`)
     }else if(location.pathname === "/manager/Room" || location.pathname === "/manager/room"){

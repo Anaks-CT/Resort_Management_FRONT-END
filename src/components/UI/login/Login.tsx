@@ -5,8 +5,6 @@ import { useFormik } from "formik";
 import { loginSchema } from "../../../schema/user/auth";
 import { ILoginInterface } from "../../../interface/user.interface";
 import { useLocation, useNavigate } from "react-router-dom";
-import { RiEyeCloseFill } from "react-icons/ri";
-import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 
 type props = {
   message?: string;

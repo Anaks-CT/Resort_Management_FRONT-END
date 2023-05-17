@@ -140,7 +140,6 @@ function BookingForm1Page() {
     }, 3000);
   };
   // checking if any states are there
-  console.log(location.state?.form1Values);
   useEffect(() => {
     if (location?.state?.value === "destination") {
       destinationClick();

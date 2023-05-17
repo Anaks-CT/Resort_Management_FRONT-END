@@ -114,7 +114,7 @@ function BookingSummary({ form1Values, bookingOverViewRoomDetails }: props) {
                   state: { prevPath: "booking" },
                 })
               )
-              .catch((err) => console.log(err))
+              .catch((err) => setError(err))
               .finally(() => setLoading(false));
           },
           prefill: {

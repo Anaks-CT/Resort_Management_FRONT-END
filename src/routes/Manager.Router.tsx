@@ -12,7 +12,7 @@ import {
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { checkAdminCredentialApi, checkManagerCredentialApi } from "../api/checkAuth";
+import { checkManagerCredentialApi } from "../api/checkAuth";
 import { removeManagerToken } from "../store/slices/managerTokenSlice";
 import { IStore } from "../interface/slice.interface";
 import ProtectedManagerRoute from "../helpers/ProtectedManagerRoute";
