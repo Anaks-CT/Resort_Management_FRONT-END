@@ -29,6 +29,7 @@ import { checkUserCredentialApi } from "../api/checkAuth";
 import { removeUserToken } from "../store/slices/userTokenSlice";
 import UserProfile from "../layouts/User.Profile";
 import UserAuth from "../layouts/User.Auth";
+import ProtectedUserRoute from "../helpers/ProtectedUserRoute";
 
 
 
@@ -50,6 +51,7 @@ function UserRouter() {
     // eslint-disable-next-line
   },[userToken])
 
+  
 
   return (
     <Routes>
@@ -75,10 +77,10 @@ function UserRouter() {
       <Route path="/booking/confirm" element={auth ? (<BookingConfirmPage />) : <Navigate to={'/login'}/>} />
       
       <Route element={<UserProfile />}>    
-        <Route path="/profile" element={auth ? (<PersonalPage />) : <Navigate to={'/login'}/>} />
-        <Route path="/profile/member" element={auth ? (<MemberPage />) : <Navigate to={'/login'}/>} />
-        <Route path="/profile/bookings" element={auth ? (<BookingDetailsPage />) : <Navigate to={'/login'}/>} />
-        <Route path="/profile/wishlist" element={auth ? (<WishlistPage />) : <Navigate to={'/login'}/>} />
+        <Route path="/profile" element={ProtectedUserRoute(<PersonalPage />)} />
+        <Route path="/profile/member" element={ProtectedUserRoute(<MemberPage />)} />
+        <Route path="/profile/bookings" element={ProtectedUserRoute(<BookingDetailsPage />)} />
+        <Route path="/profile/wishlist" element={ProtectedUserRoute(<WishlistPage />)} />
       </Route>
 
       <Route path="/*" element={<NotFoundPage />} />
