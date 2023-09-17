@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { Header2 } from "../../components/User/Header/Header";
 import { IResort } from "../../interface/resort.interface";
 import { getAllResortDetailsApi } from "../../api/resort.api";
@@ -20,22 +20,43 @@ function ResortsListPage() {
   useEffect(() => {
     getAllResortDetailsApi()
       .then((res) => setAllResorts(res.data.data))
-      .catch((err) => toastMessage('error', err.response.data.message));
+      .catch((err) => toastMessage("error", err.response.data.message));
   }, []);
 
   const navigate = useNavigate();
-  const dispatch = useDispatch()
-  const resortList = allResorts?.map((item, i) => (
+  const dispatch = useDispatch();
+
+  const [searchInput, setSearchInput] = useState("");
+
+  const filteredNotes = useMemo(
+    () =>
+      allResorts?.filter(
+        (resort) =>
+          searchInput === "" ||
+          resort.resortDetails.name
+            .toLowerCase()
+            .includes(searchInput.toLowerCase()) ||
+          resort.location.toLowerCase().includes(searchInput.toLowerCase())
+      ),
+    [allResorts, searchInput]
+  );
+
+  const resortList = filteredNotes?.map((item, i) => (
     <div
       key={i}
       className="flex py-5 justify-between items-center md:px-9 cursor-pointer"
       onMouseEnter={() => setImage(item.resortDetails.image)}
-      onClick={() =>
-        {dispatch(updateCurrentResort({resortId: item._id, resortName: item.resortDetails.name}))
+      onClick={() => {
+        dispatch(
+          updateCurrentResort({
+            resortId: item._id,
+            resortName: item.resortDetails.name,
+          })
+        );
         navigate(`/${item.resortDetails.name}`, {
           state: { resortDetails: item },
-        })}
-      }
+        });
+      }}
     >
       <div className="uppercase font-sans tracking-wide px-2">
         {item.resortDetails.name}
@@ -57,6 +78,7 @@ function ResortsListPage() {
           <div className="text-center tracking-wide text-lg md:text-2xl my-4">
             Discover the Ultimate Vacation Experience.
           </div>
+          <div><input type="search" className="text-black rounded min-w-[300px]" placeholder="Search Resort / Location" value={searchInput} onChange={(e) => setSearchInput(e.target.value)}/></div>
           <div className="divide-y bg-[#1E1E1E] opacity-70 px-3 mt-10 w-full md:w-1/2 mx-auto max-h-96 overflow-y-auto">
             {resortList}
           </div>
