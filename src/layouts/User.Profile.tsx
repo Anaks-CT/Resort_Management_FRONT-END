@@ -15,14 +15,14 @@ function UserProfile() {
   };
   const [loading, setLoading] = useState(false);
 
-  const [user, setUser] = useState<Iuser>();
+  const [user, setMainUser] = useState<Iuser>();
   // getting user token from redux
   const userToken = useSelector((state: IStore) => state.userAuth.token);
   // fetching user Detials
   useEffect(() => {
     setLoading(true);
     getUserDetailsApi(userToken)
-      .then((res) => setUser(res.data.data))
+      .then((res) => setMainUser(res.data.data))
       .finally(() => setLoading(false));
     // eslint-disable-next-line
   }, []);
@@ -62,7 +62,7 @@ function UserProfile() {
 
           <div className="border border-premium md:border-2 my-5 max-w-[900px] lg:w-[900px] md:min-w-[600px] ">
             <div className="p-3 bg-white bg-opacity-25 relative  ">
-              <Outlet />
+              <Outlet context={[setMainUser]}/>
             </div>
           </div>
         </div>

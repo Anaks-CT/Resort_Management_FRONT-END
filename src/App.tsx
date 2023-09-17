@@ -27,7 +27,7 @@ function App() {
       <BrowserRouter>
         <ScrollToTop />
         <Routes>
-          <Route path="/manager/*" element={<ManagerRouter />} />
+          <Route path="/manager/*"  element={<ManagerRouter />} />
           <Route path="/admin/*" element={<AdminRouter />} />
           <Route path="/*" element={<UserRouter />} />
         </Routes>

@@ -6,6 +6,7 @@ import ProfileDetails from "../../../components/User/profile/ProfileDetails";
 import { getUserDetailsApi, updateUserDetailsApi } from "../../../api/user.api";
 import { useSelector } from "react-redux";
 import { IStore } from "../../../interface/slice.interface";
+import { useOutletContext } from "react-router-dom";
 
 function PersonalPage() {
   const [success, setSuccess] = useState("");
@@ -25,6 +26,10 @@ function PersonalPage() {
     // eslint-disable-next-line
   }, []);
 
+  const [setMainUser]: React.Dispatch<
+    React.SetStateAction<Iuser | undefined>
+  >[] = useOutletContext();
+
   // formik
   const initialValues = {
     image: "",
@@ -36,6 +41,7 @@ function PersonalPage() {
     initialValues: initialValues,
     validationSchema: profileSchema,
     onSubmit: (values) => {
+      console.log('third')
       setSaveButtonClicked(true);
       if (values.image) {
         const data = new FormData();
@@ -52,18 +58,21 @@ function PersonalPage() {
             // sending the data to the bacckend to save by calling the api
             updateUserDetailsApi(userToken, values.name, data.url)
               .then((res) => {
+                formik.resetForm()
                 setUser(res.data.data);
+                setMainUser(res.data.data);
                 setError("");
                 setSuccess("Changes saved successfully");
               })
-              .catch((err) => setError(err?.response?.data?.message));
+              .catch((err) => setError(err?.response?.data?.message))
           })
           .catch((err) => setError("Image not uploaded to cloudinary"))
-          .finally(() => setSaveButtonClicked(false));
+          .finally(() => {console.log('second'); setSaveButtonClicked(false)});
       } else {
         updateUserDetailsApi(userToken, values.name)
           .then((res) => {
             setUser(res.data.data);
+            setMainUser(res.data.data);
             setError("");
             setSuccess("Changes saved successfully");
           })
@@ -72,6 +81,7 @@ function PersonalPage() {
       }
     },
   });
+  console.log(saveButtonClicked)
   return (
     <>
       <div className="text-green-500 text-center">{success}</div>
